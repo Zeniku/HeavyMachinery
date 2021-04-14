@@ -4,6 +4,7 @@ author: "[red]Z[orange]e[yellow]n"
 description:'''
 Adds additional contents
 Such as units factories and more
+For further Description Please Read README.md
 '''
 version: "1.0"
 minGameVersion: "123"
