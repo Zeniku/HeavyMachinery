@@ -1,0 +1,245 @@
+//Libs And functions
+const libs = require("heavymachinery/libs/libs");
+
+function newWeapon(object){
+	return extend(Weapon, object);
+	//let weap = new Weapon(name)
+	//libs.flib.merge(weap, object)
+};
+
+function meleeBullet(object){
+	let h = extend(ShrapnelBulletType, {
+  	fromColor: Color.valueOf("404040"),
+  	toColor: Color.valueOf("2a2a2a"),
+  	hitColor: Color.valueOf("2a2a2a"),
+  	shootEffect: Fx.none,
+  	smokeEffect: Fx.none,
+  	serrations: 3,
+  	hitEffect: Fx.mine,
+  	knockback: 0,
+  	reflectable: false,
+	});
+  libs.flib.merge(h, object)
+  return h
+};
+
+//Effect
+const earthDust = new Effect(20, e => {
+	libs.dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
+});
+earthDust.layer = Layer.debris
+
+//Bullets
+const princepsBullet = libs.blib.newOverSeerBullet({
+  damage: 15,
+  speed: 3,
+  lifetime: 80,
+  trailWidth: 5,
+  trailLength: 10
+});
+
+const pugioneBullet = meleeBullet({
+	width: 0,
+	length: 16,
+	lifetime: 12,
+	serrations: 3,
+	serrationWidth: 11,
+	serrationSpacing: 4,
+	serrationSpaceOffset: 9,
+	serrationLenScl: 6,
+	serrationFadeOffset: 0,
+	damage: 35,
+	recoil: -3, //dash
+});
+
+const mucroBullet = meleeBullet({
+	lifetime: 20,
+	width: 0,
+	length: 24,
+	serrations: 3,
+	serrationWidth: 11,
+	serrationSpacing: 4,
+	serrationSpaceOffset: 9,
+	serrationLenScl: 6,
+	serrationFadeOffset: 0,
+	damage: 30,
+	recoil: -2, //dass
+});
+
+const tragulaBullet = meleeBullet({
+	lifetime: 30,
+	width: 8,
+	length: 32,
+	serrations: 3,
+	damage: 60,
+	recoil: -2, //dash
+	knockback: 0,
+	fragBullet: pugioneBullet,
+	fragBullets: 3
+});
+
+const luciusBullet = meleeBullet({
+	lifetime: 40,
+	width: 10,
+	length: 40,
+	serrations: 3,
+	damage: 60,
+	recoil: -2, //dash
+	knockback: -1,
+	fragBullet: mucroBullet,
+	fragBullets: 3
+})
+
+//UnitWeapons
+const princepsWeapon = newWeapon({
+  name: "heavymachinery-princepsWeapon",
+ 	x: 5,
+	y: 0,
+	top: false,
+	reload: 15,
+	ejectEffect: Fx.lightningShoot,
+	shootSound: Sounds.laser,
+	bullet: princepsBullet
+});
+
+const pugioneWeapon = newWeapon({
+	name: "heavymachinery-pugioneWeapon",
+	reload: 20,
+	x: 5,
+	y: 0,
+	top: false,
+	ejectEffect: Fx.none,
+	shootSound: Sounds.shotgun,
+	shootY: 4.75,
+	recoil: -4, //negative so it looks like it's punching
+	range: 80,
+	soundPitchMin: 0.42,
+	soundPitchMax: 1.74,
+	rotate: true,
+	rotateSpeed: 60,
+	bullet: pugioneBullet
+});
+
+const mucroWeapon = newWeapon({
+	name: "heavymachinery-mucroWeapon",
+	x: libs.flib.pixel(24),
+	y: 0,
+	reload: 30,
+	top: false,
+	ejectEffect: Fx.none,
+	shootSound: Sounds.shotgun,
+	shootY: libs.flib.pixel(30),
+	recoil: -4, //negative so it looks like it's punching
+	targetAir: false,
+	soundPitchMin: 0.42,
+	soundPitchMax: 1.74,
+	rotate: true,
+	rotateSpeed: 60,
+	bullet: mucroBullet,
+	shots: 4,
+	shotDelay: 5,
+	spacing: 22.5
+});
+
+const tragulaWeapon = newWeapon({
+	name: "heavymachinery-tragulaWeapon",
+	x: 8,
+	y: 1,
+	reload: 40,
+	top: false,
+	ejectEffect: Fx.none,
+	shootSound: Sounds.shotgun,
+	shootY: libs.flib.pixel(35),
+	recoil: -4, //negative so it looks like it's punching
+	targetAir: false,
+	soundPitchMin: 0.42,
+	soundPitchMax: 1.74,
+	rotate: true,
+	rotateSpeed: 60,
+	bullet: tragulaBullet
+});
+
+const luciusWeapon = newWeapon({
+  name: "heavymachinery-tragulaWeapon",
+  x: 8,
+  y: 1,
+  reload: 40,
+  top: false,
+  ejectEffect: Fx.none,
+  shootSound: Sounds.shotgun,
+  shootY: libs.flib.pixel(35),
+  recoil: -4, //negative so it looks like it's punching
+  targetAir: false,
+  soundPitchMin: 0.42,
+  soundPitchMax: 1.74,
+  rotate: true,
+  rotateSpeed: 60,
+  bullet: luciusBullet
+});
+
+const miscWeapon = newWeapon({
+	name: "heavymachinery-earthBend",
+	x: 0,
+	y: 0,
+	reload: 120,
+	mirror: false,
+	top: false,
+	ejectEffect: Fx.none,
+	shootEffect: Fx.none,
+	shootSound: Sounds.place,
+	shootY: libs.flib.pixel(35),
+	targetAir: false,
+	soundPitchMin: 0.42,
+	soundPitchMax: 1,
+	rotate: true,
+	rotateSpeed: 60,
+	bullet: libs.blib.newEarthBendBullet(60, pugioneBullet, 4, 22.5, earthDust, 15, 5)
+});
+
+//Units
+//[Air]
+//Purple
+const aranea = extend(UnitType, "aranea", {});
+aranea.constructor = () => extend(UnitEntity, {});
+aranea.defaultController = libs.AI.suicideAI(10);
+//[Ground]
+//Overseer
+const princeps = extend(UnitType, "princeps", {});
+princeps.constructor = () => extend(MechUnit, {});
+princeps.defaultController = libs.AI.overSeerAI("ground");
+princeps.weapons.add(princepsWeapon);
+
+//Melee
+const pugione = extend(UnitType, "pugione", {});
+pugione.constructor = () => extend(MechUnit, {});
+pugione.defaultController = libs.AI.meleeAI(2, 10);
+pugione.weapons.add(pugioneWeapon);
+
+const mucro = extend(UnitType, "mucro", {});
+mucro.constructor = () => extend(MechUnit, {});
+mucro.defaultController = libs.AI.meleeAI(3, 15);
+mucro.weapons.add(mucroWeapon);
+
+const tragula = extend(UnitType, "tragula", {});
+tragula.constructor = () => extend(MechUnit, {});
+tragula.defaultController = libs.AI.meleeAI(4, 20);
+tragula.weapons.add(tragulaWeapon);
+
+const lucius = extend(UnitType, "lucius", {});
+lucius.constructor = () => extend(MechUnit, {});
+lucius.defaultController = libs.AI.meleeAI(6, 25);
+lucius.weapons.add(luciusWeapon, miscWeapon);
+
+const machaera = extend(UnitType, "machaera", {});
+machaera.constructor = () => extend(MechUnit, {});
+machaera.defaultController = libs.AI.meleeAI(8, 30);
+machaera.weapons.add(miscWeapon);
+
+const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
+//libs.flib.debug("unit.js", [cunit, aranea, pugione, mucro, tragula]);
+module.exports = {
+	aranea: cunit("aranea"),
+	pugione: cunit("pugione"),
+	mucro: cunit("mucro"),
+	tragula: cunit("tragula")
+}

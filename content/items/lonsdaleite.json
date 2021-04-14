@@ -1,0 +1,11 @@
+type: material
+name: Lonsdaleite
+description: A Super durable Material that can withstand A lot of Pressure
+cost: 2.5
+color: 8b95e0
+research: {
+  parent: graphite
+  requirements:[
+  graphite/200
+  ]
+}

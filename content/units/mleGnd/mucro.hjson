@@ -1,0 +1,13 @@
+//you expected much but h
+type: "mech"
+name: "Mucro",
+description: "A Meele unit punches Multiple times",
+speed: 0.35,
+hitSize: 11.75,
+health: 675,
+targetAir: false,
+maxRange: 70,
+range: 70,
+rotateShooting: true,
+armor: 4,
+research: pugione

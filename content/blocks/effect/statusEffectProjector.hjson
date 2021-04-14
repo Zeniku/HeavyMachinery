@@ -1,0 +1,12 @@
+name: "Status Effect Projector"
+description: "Heals ally units and burns Enemies \nCant be boosted by overdrives"
+size: 3
+health: 900
+requirements: [
+	titanium/200
+	plastanium/100
+	silicon/200
+	graphite/300
+]
+category: effect
+research: overdrive-dome

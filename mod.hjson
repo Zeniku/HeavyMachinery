@@ -1,0 +1,9 @@
+name: "heavymachinery"
+displayName: "Heavy Machinery"
+author: "[red]Z[orange]e[yellow]n"
+description:'''
+Adds additional contents
+Such as units factories and more
+'''
+version: "1.0"
+minGameVersion: "123"

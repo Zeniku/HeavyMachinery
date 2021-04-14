@@ -1,0 +1,12 @@
+type: "mech",
+name: "Pugione",
+description: "A Basic Meele",
+speed: 0.4,
+hitSize: 11,
+health: 350,
+maxRange: 64,
+range: 64,
+rotateShooting: true,
+targetAir: false,
+research: dagger,
+armor: 2
