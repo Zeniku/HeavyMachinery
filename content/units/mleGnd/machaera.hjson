@@ -1,0 +1,18 @@
+//you expected much but h
+type: "mech",
+name: "Machaera",
+description: "A Melee unit that can summon spikes from the ground.Much bigger than its other iteration",
+speed: 0.3,
+hitSize: 31.75,
+health: 16000,
+targetAir: false,
+maxRange: 70,
+range: 70,
+rotateShooting: true,
+armor: 16,
+canDrown: false,
+mechFrontSway: 1.79,
+mechSideSway: 0.6,
+mechStepParticles: true,
+mechStepShake: 0.15,
+research: "lucius"
