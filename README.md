@@ -14,11 +14,17 @@ This mod aims to boost and extend your vannila experience
 This Mod is still incomplete
 There is a lot planned on this mod but not out yet so keep watch for new updates
 
-# Bugs And Contribution
-For Bugs and Contribution
-You may report them To:
+Go check ot wiki by [pressing this text](https://github.com/Zeniku/HeavyMachinery)
+
+# Contribute
+
+**For Bugs and issues you may report them To:**
 1. [My Discord Sever](https://discord.gg/bWBGyty)
 2. [Github's Issues](https://github.com/Zeniku/HeavyMachinery/issues)
+
+**For Contribution and ideas**
+1. [My Discord Sever](https://discord.gg/bWBGyty)
+2. [Github's PullRequest](https://github.com/Zeniku/HeavyMachinery/pulls)
 
 # Maintainers 
 ## Owner
