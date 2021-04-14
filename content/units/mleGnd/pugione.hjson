@@ -9,4 +9,4 @@ range: 64,
 rotateShooting: true,
 targetAir: false,
 research: "dagger",
-armor: 2
+armor: 3

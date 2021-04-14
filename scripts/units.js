@@ -88,7 +88,19 @@ const luciusBullet = meleeBullet({
 	knockback: -1,
 	fragBullet: mucroBullet,
 	fragBullets: 3
-})
+});
+
+const machaeraBullet = meleeBullet({
+	lifetime: 40,
+	width: 15,
+	length: 50,
+	serrations: 5,
+	damage: 60,
+	recoil: -2, //dash
+	knockback: -1,
+	fragBullet: mucroBullet,
+	fragBullets: 3
+});
 
 //UnitWeapons
 const princepsWeapon = newWeapon({
@@ -160,7 +172,7 @@ const tragulaWeapon = newWeapon({
 });
 
 const luciusWeapon = newWeapon({
-  name: "heavymachinery-tragulaWeapon",
+  name: "heavymachinery-luciusWeapon",
   x: libs.flib.pixel(44),
   y: libs.flib.pixel(1),
   reload: 40,
@@ -176,6 +188,24 @@ const luciusWeapon = newWeapon({
   rotateSpeed: 60,
   bullet: luciusBullet
 });
+
+const machaeraWeapon = newWeapon({
+  name: "heavymachinery-macheraWeapon",
+  x: 1,
+  y: 1,
+  reload: 45,
+  top: false,
+  ejectEffect: Fx.none,
+  shootSound: Sounds.shotgun,
+  shootY: 1,
+  recoil: -5,
+  targetAir: false,
+  soundPitchMin: 0.42,
+  soundPitchMax: 1.74,
+  rotate: true,
+  rotateSpeed: 60,
+  bullet: machaeraBullet
+})
 
 const miscWeapon = newWeapon({
 	name: "heavymachinery-earthBend",
