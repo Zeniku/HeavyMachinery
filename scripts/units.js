@@ -48,7 +48,7 @@ const pugioneBullet = meleeBullet({
 	serrationSpaceOffset: 9,
 	serrationLenScl: 6,
 	serrationFadeOffset: 0,
-	damage: 35,
+	damage: 20,
 	recoil: -3, //dash
 });
 
@@ -71,7 +71,7 @@ const tragulaBullet = meleeBullet({
 	width: 8,
 	length: 32,
 	serrations: 3,
-	damage: 60,
+	damage: 40,
 	recoil: -2, //dash
 	knockback: 0,
 	fragBullet: pugioneBullet,
@@ -83,7 +83,7 @@ const luciusBullet = meleeBullet({
 	width: 10,
 	length: 40,
 	serrations: 3,
-	damage: 60,
+	damage: 45,
 	recoil: -2, //dash
 	knockback: -1,
 	fragBullet: mucroBullet,
@@ -161,13 +161,13 @@ const tragulaWeapon = newWeapon({
 
 const luciusWeapon = newWeapon({
   name: "heavymachinery-tragulaWeapon",
-  x: 8,
-  y: 1,
+  x: libs.flib.pixel(44),
+  y: libs.flib.pixel(1),
   reload: 40,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
-  shootY: libs.flib.pixel(35),
+  shootY: libs.flib.pixel(43),
   recoil: -4, //negative so it looks like it's punching
   targetAir: false,
   soundPitchMin: 0.42,

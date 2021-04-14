@@ -1,0 +1,13 @@
+//you expected much but h
+type: "mech"
+name: "Lucius",
+description: "A Melee unit that can summon spikes from the ground",
+speed: 0.35,
+hitSize: 22.5,
+health: 675,
+targetAir: false,
+maxRange: 70,
+range: 70,
+rotateShooting: true,
+armor: 4,
+research: "tragula"

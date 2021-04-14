@@ -2,7 +2,7 @@
 type: "mech",
 name: "Tragula",
 description: "A Meele Unit punch long spikes",
-speed: 0.3,
+speed: 0.4,
 hitSize: 15,
 health: 1175,
 targetAir: false,
@@ -11,4 +11,4 @@ range: 80,
 rotateShooting: true,
 armor: 9,
 mechFrontSway: 0.55,
-research: mucro
+research: "mucro"
