@@ -7,11 +7,9 @@ This mod aims to boost and extend your vannila experience
 - New Items
 - New Units
 
----
-Note:
+**Note:**
 This Mod is still incomplete
 There is a lot planned on this mod but not out yet so keep watch for new updates
----
 
 # Bugs And Contribution
 For Bugs and Contribution
@@ -23,4 +21,4 @@ You may report them To:
 # Maintainers 
 **Owner**
 Github: [Zeniku](https://github.com/Zeniku)
-Discorr: `Zeniku/HeavyMachinery#1408`
+Discord: `Zeniku/HeavyMachinery#1408`
