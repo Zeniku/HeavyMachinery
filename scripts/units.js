@@ -271,5 +271,7 @@ module.exports = {
 	aranea: cunit("aranea"),
 	pugione: cunit("pugione"),
 	mucro: cunit("mucro"),
-	tragula: cunit("tragula")
+	tragula: cunit("tragula"),
+	lucius: cunit("lucius"),
+	machaera: cunit("machaera")
 }

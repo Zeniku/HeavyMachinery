@@ -43,3 +43,15 @@ reconAdd(Blocks.multiplicativeReconstructor, [
 		units.tragula
 	)
 ]);
+reconAdd(Blocks.exponentialReconstructor, [
+  Seq.with(
+    units.tragula,
+    units.lucius
+  )
+]);
+reconAdd(Blocks.tetrativeReconstructor, [
+  Seq.with(
+    units.lucius,
+    units.machaera
+  )
+]);
