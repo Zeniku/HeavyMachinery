@@ -1,6 +1,6 @@
 //type: GenericCrafter
 name: Lonsdaleite Compressor
-description: Heats up and coppresses graphite to a much more stronger material. 
+description: Heats up and coppresses graphite to a much more dense material. 
 size: 3
 hasPower: true
 hasItems: true
@@ -8,7 +8,7 @@ hasLiquids: false
 craftTime: 45
 craftEffect: producesmoke
 update: true
-itemCapacity: 25
+itemCapacity: 30
 consumes: {
 	power: 0.7
 	items: {
@@ -19,11 +19,11 @@ consumes: {
 }
 outputItem: lonsdaleite/1
 requirements: [
-	copper/75
-	lead/60
-	silicon/50
-	thorium/100
-	surge-alloy/45
+	copper/100
+	lead/150
+	silicon/250
+	titanium/120
+        graphite/80
 ]
 category: crafting
-research: alloy-smelter
+research: multi-press
