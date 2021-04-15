@@ -44,7 +44,7 @@ module.exports = {
 							};
 						}else if(this.target != null){
 							this.unit.lookAt(this.target);
-					    this.unit.moveTo(this.target)
+					    this.moveTo(this.target, meleeRange)
 							if(this.unit.inRange(this.target)){
 								this.unit.aim(this.target);
 								shoot = true;

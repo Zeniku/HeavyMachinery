@@ -12,9 +12,9 @@ This mod aims to boost and extend your vannila experience
 
 **Note:**
 This Mod is still incomplete
-There is a lot planned on this mod but not out yet so keep watch for new updates
+There is a lot planned on this mod but not out yet so keep watch for new updates<br />Thanks for [Shit Fabric](https://github.com/ChrisThePersonWithoutSanity) For the Awesome Logo!
 
-Go check ot wiki by [pressing this text](https://github.com/Zeniku/HeavyMachinery)
+Go check out wiki by [pressing this text](https://github.com/Zeniku/HeavyMachinery)
 
 # Contribute
 
@@ -24,10 +24,16 @@ Go check ot wiki by [pressing this text](https://github.com/Zeniku/HeavyMachiner
 
 **For Contribution and ideas**
 1. [My Discord Sever](https://discord.gg/bWBGyty)
-2. [Github's PullRequest](https://github.com/Zeniku/HeavyMachinery/pulls)
+2. [Github's PullRequest](://github.com/Zeniku/HeavyMachinery/pulls)
 
 # Maintainers 
-## Owner
+### Owner
 Github: [Zeniku](https://github.com/Zeniku)
 
 Discord: `Zeniku/HeavyMachinery#1408`
+
+### Contributors
+
+1. **Shit Fabric**
+    - Github: [Shit Fabric](https://github.com/ChrisThePersonWithoutSanity)
+    - Discord: `Shit Fabric#6688`
