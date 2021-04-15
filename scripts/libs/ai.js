@@ -44,9 +44,7 @@ module.exports = {
 							};
 						}else if(this.target != null){
 							this.unit.lookAt(this.target);
-					    if(!this.unit.within(this.target, meleeRange)){
-                this.pathfind(Pathfinder.PositionTarget(this.target))
-					    }
+					    this.moveTo(this.target)
 							if(this.unit.inRange(this.target)){
 								this.unit.aim(this.target);
 								shoot = true;
