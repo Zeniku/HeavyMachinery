@@ -266,7 +266,7 @@ machaera.defaultController = libs.AI.meleeAI(8, 30);
 machaera.weapons.add(miscWeapon);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
-//libs.flib.debug("unit.js", [cunit, aranea, pugione, mucro, tragula]);
+//libs.flib.debug("unit.js", [cunit, aranea, pugione, mucro, tragula, lucius, machaera]);
 module.exports = {
 	aranea: cunit("aranea"),
 	pugione: cunit("pugione"),
