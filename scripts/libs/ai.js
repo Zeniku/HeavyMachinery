@@ -93,6 +93,7 @@ module.exports = {
 					}
 				},
 				findTarget(x, y, range, air, ground){
+				  this.super$findTarget(x, y, range, air, ground)
 					var result = null
 					
 					result = result = Units.closestTarget(this.unit.team, x, y, range, u => u.checkTarget(air, ground), t => ground);
