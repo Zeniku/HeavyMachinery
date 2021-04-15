@@ -198,7 +198,7 @@ const machaeraWeapon = newWeapon({
   name: "heavymachinery-machaeraWeapon",
   x: libs.flib.pixel(61),
   y: 0,
-  reload: 15,
+  reload: 50,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
