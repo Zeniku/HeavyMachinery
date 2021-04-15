@@ -39,7 +39,7 @@ const princepsBullet = libs.blib.newOverSeerBullet({
   damage: 15,
   speed: 3,
   lifetime: 80,
-  trailWidth: 5,
+  trailWidth: 2,
   trailLength: 10
 });
 

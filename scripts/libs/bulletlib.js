@@ -71,7 +71,7 @@ function overSeer(overide){
 	    
 	    e.data.draw(this.trailColor, this.trailWidth);
 	    Draw.color(this.trailColor)
-	    Drawf.tri(e.x, e.y, this.trailWidth, this.trailWidth / 2, e.rotation());
+	    Drawf.tri(e.x, e.y, this.trailWidth, this.trailWidth * 2, e.rotation());
 	  },
 		update(b){
 			if(b.timer.get(0, this.targetTime)){
