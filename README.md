@@ -38,3 +38,6 @@ Discord: `Zeniku/HeavyMachinery#1408`
 1. **Shit Fabric**
     - Github: [Shit Fabric](https://github.com/ChrisThePersonWithoutSanity)
     - Discord: `Shit Fabric#6688`
+2. **Broad**
+    - Github: [Broad](https://github.com/Br0ad)
+    - Discord: `Ɓroad#0648`
