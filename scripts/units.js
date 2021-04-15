@@ -88,11 +88,11 @@ const luciusBullet = meleeBullet({
 	width: 10,
 	length: 40,
 	serrations: 3,
-	damage: 45,
+	damage: 65,
 	recoil: -2, //dash
 	knockback: -1,
 	fragBullet: mucroBullet,
-	fragBullets: 3
+	fragBullets: 4
 });
 
 const machaeraBullet = meleeBullet({
@@ -100,11 +100,11 @@ const machaeraBullet = meleeBullet({
 	width: 15,
 	length: 50,
 	serrations: 5,
-	damage: 60,
+	damage: 70,
 	recoil: -2, //dash
 	knockback: -1,
 	fragBullet: mucroBullet,
-	fragBullets: 3
+	fragBullets: 5
 });
 
 //UnitWeapons
@@ -180,7 +180,7 @@ const luciusWeapon = newWeapon({
   name: "heavymachinery-luciusWeapon",
   x: libs.flib.pixel(44),
   y: libs.flib.pixel(1),
-  reload: 40,
+  reload: 20,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
@@ -198,7 +198,7 @@ const machaeraWeapon = newWeapon({
   name: "heavymachinery-machaeraWeapon",
   x: libs.flib.pixel(61),
   y: 0,
-  reload: 45,
+  reload: 15,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
@@ -209,8 +209,12 @@ const machaeraWeapon = newWeapon({
   soundPitchMax: 1.74,
   rotate: true,
   rotateSpeed: 60,
-  bullet: machaeraBullet
-})
+  shots: 3,
+  bullet: machaeraBullet,
+  shotDelay: 5,
+	spacing: 0,
+	inaccuracy: 10
+});
 
 const miscWeapon = newWeapon({
 	name: "heavymachinery-earthBend",
@@ -228,7 +232,7 @@ const miscWeapon = newWeapon({
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: libs.blib.newEarthBendBullet(60, pugioneBullet, 4, 22.5, earthDust, 25, 5)
+	bullet: libs.blib.newEarthBendBullet(60, pugioneBullet, 6, 22.5, earthDust, 25, 5)
 });
 
 const miscWeaponII = newWeapon({
@@ -247,7 +251,7 @@ const miscWeaponII = newWeapon({
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: libs.blib.newEarthBendBullet(60, mucroBullet, 6, 22.5, earthDustII, 20, 5)
+	bullet: libs.blib.newEarthBendBullet(60, mucroBullet, 8, 22.5, earthDustII, 20, 5)
 });
 
 //Units
@@ -287,7 +291,7 @@ lucius.weapons.add(luciusWeapon, miscWeapon);
 const machaera = extend(UnitType, "machaera", {});
 machaera.constructor = () => extend(MechUnit, {});
 machaera.defaultController = libs.AI.meleeAI(8, 30);
-machaera.weapons.add(machaeraWeapon, miscWeapon);
+machaera.weapons.add(machaeraWeapon, miscWeaponII);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
 //libs.flib.debug("unit.js", [cunit, aranea, pugione, mucro, tragula, lucius, machaera]);
