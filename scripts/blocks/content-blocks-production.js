@@ -26,7 +26,7 @@ lcomp.buildType = () => {
 	let ent = extend(GenericCrafter.GenericCrafterBuild, lcomp, {
 		draw(){//draws
 			let sine = true;
-			Draw.rect(this.bottomRegion, this.x, this.y);
+			Draw.rect(this.block.bottomRegion, this.x, this.y);
 			
 			Draw.rect(
 			sine ?
@@ -34,7 +34,7 @@ lcomp.buildType = () => {
 				this.block.frameRegions[Math.floor(((this.totalProgress / frames.frameSpeed) % frames.frameCount))],
 			this.x, this.y);
 			
-			Draw.rect(this.topRegion, this.x, this.y);
+			Draw.rect(this.block.topRegion, this.x, this.y);
 		}
 	});
 	return ent

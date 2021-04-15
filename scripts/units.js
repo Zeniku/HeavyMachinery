@@ -263,7 +263,7 @@ lucius.weapons.add(luciusWeapon, miscWeapon);
 const machaera = extend(UnitType, "machaera", {});
 machaera.constructor = () => extend(MechUnit, {});
 machaera.defaultController = libs.AI.meleeAI(8, 30);
-machaera.weapons.add(miscWeapon);
+machaera.weapons.add(machaeraWeapon, miscWeapon);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
 //libs.flib.debug("unit.js", [cunit, aranea, pugione, mucro, tragula, lucius, machaera]);
