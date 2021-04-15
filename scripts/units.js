@@ -88,7 +88,7 @@ const luciusBullet = meleeBullet({
 	width: 10,
 	length: 40,
 	serrations: 3,
-	damage: 55,
+	damage: 65,
 	recoil: -2, //dash
 	knockback: -1,
 	fragBullet: mucroBullet,
@@ -100,7 +100,7 @@ const machaeraBullet = meleeBullet({
 	width: 15,
 	length: 50,
 	serrations: 5,
-	damage: 65,
+	damage: 75,
 	recoil: -2, //dash
 	knockback: -1,
 	fragBullet: mucroBullet,
@@ -198,7 +198,7 @@ const machaeraWeapon = newWeapon({
   name: "heavymachinery-machaeraWeapon",
   x: libs.flib.pixel(61),
   y: 0,
-  reload: 50,
+  reload: 40,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
