@@ -1,0 +1,11 @@
+type: "mech",
+name: "Princeps",
+description: "A Basic OverSeer Unit",
+speed: 0.8,
+hitSize: 9,
+health: 250,
+maxRange: 64,
+range: 64,
+targetAir: true,
+research: "dagger",
+armor: 3
