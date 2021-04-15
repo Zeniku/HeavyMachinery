@@ -30,7 +30,7 @@ const earthDust = new Effect(20, e => {
 earthDust.layer = Layer.debris
 
 const earthDustII = new Effect(30, e => {
-	libs.dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), Mathf.random(1.5, 5.5) * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
+	libs.dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), Mathf.random(1.5, 3.5) * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
 });
 earthDust.layer = Layer.debris
 
