@@ -190,14 +190,14 @@ const luciusWeapon = newWeapon({
 });
 
 const machaeraWeapon = newWeapon({
-  name: "heavymachinery-macheraWeapon",
-  x: 1,
-  y: 1,
+  name: "heavymachinery-machaeraWeapon",
+  x: libs.flib.pixel(61),
+  y: 0,
   reload: 45,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
-  shootY: 1,
+  shootY: libs.flib.pixel(62),
   recoil: -5,
   targetAir: false,
   soundPitchMin: 0.42,
