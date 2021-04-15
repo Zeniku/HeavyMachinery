@@ -29,6 +29,11 @@ const earthDust = new Effect(20, e => {
 });
 earthDust.layer = Layer.debris
 
+const earthDustII = new Effect(30, e => {
+	libs.dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), Mathf.random(1.5, 5.5) * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
+});
+earthDust.layer = Layer.debris
+
 //Bullets
 const princepsBullet = libs.blib.newOverSeerBullet({
   damage: 15,
@@ -223,7 +228,26 @@ const miscWeapon = newWeapon({
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: libs.blib.newEarthBendBullet(60, pugioneBullet, 4, 22.5, earthDust, 15, 5)
+	bullet: libs.blib.newEarthBendBullet(60, pugioneBullet, 4, 22.5, earthDust, 25, 5)
+});
+
+const miscWeaponII = newWeapon({
+	name: "heavymachinery-earthBendII",
+	x: 0,
+	y: 0,
+	reload: 120,
+	mirror: false,
+	top: false,
+	ejectEffect: Fx.none,
+	shootEffect: Fx.none,
+	shootSound: Sounds.place,
+	shootY: libs.flib.pixel(35),
+	targetAir: false,
+	soundPitchMin: 0.42,
+	soundPitchMax: 1,
+	rotate: true,
+	rotateSpeed: 60,
+	bullet: libs.blib.newEarthBendBullet(60, mucroBullet, 6, 22.5, earthDustII, 20, 5)
 });
 
 //Units
