@@ -88,7 +88,7 @@ const luciusBullet = meleeBullet({
 	width: 10,
 	length: 40,
 	serrations: 3,
-	damage: 65,
+	damage: 55,
 	recoil: -2, //dash
 	knockback: -1,
 	fragBullet: mucroBullet,
@@ -100,7 +100,7 @@ const machaeraBullet = meleeBullet({
 	width: 15,
 	length: 50,
 	serrations: 5,
-	damage: 70,
+	damage: 65,
 	recoil: -2, //dash
 	knockback: -1,
 	fragBullet: mucroBullet,
