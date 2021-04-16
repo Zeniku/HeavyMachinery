@@ -141,4 +141,56 @@ module.exports = {
 	    return overSeerAIGround
 	  };
 	},
+	newUnitAI(aitype){
+	  const newUnitAIL = prov(() => {
+	    let u = extend(aitype, {
+	      updateTargeting(){
+	        if(this.unit.hasWeapons()){
+	         let mounts = this.unit.mounts
+	         this.unit.IsShooting = false
+	         this.targets = []
+	         let rotation = this.unit.rotation - 90
+	         let ret = this.retarget();
+	         
+	         for(let i in mounts){
+	            let mount = mounts[i]
+	            let weapon = mount.weapon
+	            let mountX = this.unit.x + Angles.trnsx(rotation, weapon.x, weapon.y);
+	            let mountY = this.unit.y + Angles.trnsy(rotation, weapon.x, weapon.y);
+	            if(this.unit.type.singleTarget){
+	              this.targets[i] = this.target
+	            }else{
+	              if(ret){
+	                targets[i] = this.findTarget(mountX, mountY, weapon.bullet.range(), weapon.bullet.colidesAir, weapon.bullet.collidesGround)
+	              }
+	              
+	              if(this.checkTarget(this.targets[i], mountX, mountY, weapon.bullet.range())){
+	                this.target[i] = null
+	              }
+	            }
+	            let shoot = false
+	            if(targets[i] != null){
+	              shoot = targets[i].within(this.unit, targets[i], weapon.bullet.range()) && this.shoudShoot();
+	              let toAng = Predict.intercept(this.unit, this.targets[i], weapon.bullet.speed);
+                mount.aimX = toAng.x;
+                mount.aimY = toAng.y;
+                
+                //put your custom targeting below
+	            }
+	            mount.shoot = shoot;
+              mount.rotate = shoot;
+
+              unit.isShooting = shoot;
+              if(shoot){
+                unit.aimX = mount.aimX;
+                unit.aimY = mount.aimY;
+              }
+	          }
+	        }
+	      }
+	    });
+	    return u
+	  });
+	  return newUnitAI
+	},
 };
