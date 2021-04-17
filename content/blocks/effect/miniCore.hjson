@@ -2,14 +2,15 @@ name: Mini Core
 description: MiniCore can be built anywhere but it cant be destroyed.
 alwaysUnlocked: false
 unitType: alpha
-health: 300
-itemCapacity: 1000
-size: 2
+health: 1200
+itemCapacity: 1500
+size: 3
 unitCapModifier: 0
 requirements: [
-	lead/1000
-	silicon/1000
-	copper/1000
+	lead/1500
+	silicon/2000
+	copper/1500
+	titanium/1000
 ]
 category: effect
-research: core-shard
+research: core-foundation
