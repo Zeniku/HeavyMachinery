@@ -1,4 +1,6 @@
 ![Icon](https://github.com/Zeniku/HeavyMachinery/blob/master/icon.png)<br />
+
+[![GitHub](https://img.shields.io/github/license/Zeniku/HeavyMachinery?color=success&label=License&logo=github&style=flat-square)](https://github.com/Zeniku/HeavyMachinery/blob/master/LICENSE)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FZenike%2FHeavyMachinery&count_bg=%2379C83D&title_bg=%23555555&icon=codeforces.svg&icon_color=%23E7E7E7&title=visitors&edge_flat=true)](https://hits.seeyoufarm.com)
 [![Stars](https://img.shields.io/github/stars/Zeniku/HeavyMachinery?label=Star%20this%20Mod%21&style=social)](https://github.com/Zeniku/HeavyMachinery/blob/master)
 
