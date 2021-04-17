@@ -116,7 +116,7 @@ const machaeraBullet = meleeBullet({
 
 //UnitWeapons
 const trahoWeapon = newWeapon({
-  name: "heavymachinery-trahoWeapon"
+  name: "heavymachinery-trahoWeapon",
   x: 0,
   y: libs.flib.pixel(5),
   recoil: 0,
