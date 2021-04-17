@@ -35,11 +35,13 @@ const earthDustII = new Effect(30, e => {
 earthDustII.layer = Layer.debris
 
 //Bullets
-const trahoBullet = libs.blib.newTractorBeam(11, 720, {
+const trahoBullet = libs.blib.newTractorBeam({
   colors: [Pal.lancerLaser, Color.white],
   length: 142,
   maxRange: 142,
-  lifetime: 120
+  lifetime: 120,
+  force: 11,
+  scaledForce: 720
 });
 
 const princepsBullet = libs.blib.newOverSeerBullet({
@@ -118,7 +120,7 @@ const machaeraBullet = meleeBullet({
 const trahoWeapon = newWeapon({
   name: "heavymachinery-trahoWeapon",
   x: 0,
-  y: libs.flib.pixel(5),
+  y: libs.flib.pixel(-5),
   recoil: 0,
   reload: 30,
   rotate: true,
