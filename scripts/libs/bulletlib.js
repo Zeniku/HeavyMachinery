@@ -89,7 +89,7 @@ function overSeer(overide){
 	return overseerStat;
 };
 //TY Meep go check out missing category units
-function newTractorBeam(force, scaledForce, override){
+function tractorBeam(force, scaledForce, override){
     let tractorBeam = extend(BulletType, {
       collision(other, x, y){
         this.hit(this.base(), x, y);
@@ -189,5 +189,5 @@ function newTractorBeam(force, scaledForce, override){
 module.exports = {
 	newEarthBendBullet: earthBend,
 	newOverSeerBullet: overSeer,
-	newTractorBeam: newTractorBeam,
+	newTractorBeam: tractorBeam,
 };

@@ -1,0 +1,31 @@
+// boo unscripted
+type: "flying",
+name: "Traho",
+description: "A Flying unit that pulls ",
+speed: 1.5,
+hitSize: 10.5,
+health: 380,
+flying: true,
+circleTarget: false,
+research: "aranea",
+weapons: [
+  {
+    name: sapWeapon,
+    shootY: 5
+    x: 0.75,
+    reload: 30,
+    alternate: true,
+    shootSound: "sap",
+    bullet: {
+      type: "SapBulletType",
+      damage: 10,
+      shootEffect: "shootSmall",
+      despawnEffect: "none",
+      width: 0.4,
+      lifetime: 20,
+      knockback: 0.45
+      hitColor: "bf92f9",
+      color: "bf92f9"
+    }
+  },
+]

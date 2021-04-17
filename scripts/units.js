@@ -7,6 +7,18 @@ function newWeapon(object){
 	//libs.flib.merge(weap, object)
 };
 
+function newTractorWeapon(object){
+	let weap = extend(Weapon, {
+	  recoil: 0,
+    reload: 29,
+    rotate: true,
+    continuous: true,
+    shootSound: Sounds.tractorbeam,
+	});
+	libs.flib.merge(weap, object);
+	return weap
+};
+
 function meleeBullet(object){
 	let h = extend(ShrapnelBulletType, {
   	fromColor: Color.valueOf("404040"),
@@ -35,6 +47,13 @@ const earthDustII = new Effect(30, e => {
 earthDustII.layer = Layer.debris
 
 //Bullets
+const trahoBullet = libs.blib.newTractorBeam(7, 620, {
+  colors: [Pal.lancerLaser, Color.white],
+  length: 142,
+  maxRange: 142,
+  lifetime: 120
+});
+
 const princepsBullet = libs.blib.newOverSeerBullet({
   damage: 15,
   speed: 3,
@@ -108,6 +127,13 @@ const machaeraBullet = meleeBullet({
 });
 
 //UnitWeapons
+const trahoWeapon = newTractorWeapon({
+  name: "heavymachinery-trahoWeapon",
+  x: 0,
+  y: libs.flib.pixel(5),
+  bullet: trahoBullet
+});
+
 const princepsWeapon = newWeapon({
   name: "heavymachinery-princepsWeapon",
  	x: 5,
@@ -209,7 +235,7 @@ const machaeraWeapon = newWeapon({
   soundPitchMax: 1.74,
   rotate: true,
   rotateSpeed: 60,
-  shots: 3,
+  shots: 5,
   bullet: machaeraBullet,
   shotDelay: 5,
 	spacing: 0,
@@ -259,6 +285,10 @@ const miscWeaponII = newWeapon({
 //Purple
 const aranea = extend(UnitType, "aranea", {});
 aranea.constructor = () => extend(UnitEntity, {});
+
+const traho = extend(UnitType, "traho", {});
+traho.constructor = () => extend(UnitEntity, {});
+traho.weapons.add(trahoWeapon)
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
