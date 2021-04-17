@@ -259,7 +259,6 @@ const miscWeaponII = newWeapon({
 //Purple
 const aranea = extend(UnitType, "aranea", {});
 aranea.constructor = () => extend(UnitEntity, {});
-aranea.defaultController = libs.AI.suicideAI(10);
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});

@@ -30,7 +30,6 @@ module.exports = {
 						this.target = null;
 					}
 				},
-				
 				updateMovement(){
 					let core = this.targetFlag(this.unit.x, this.unit.y, BlockFlag.core, true);
 					let shoot = false;
@@ -66,7 +65,6 @@ module.exports = {
 					    }
 					}
 				},
-				
 				findTarget(x, y, range, air, ground){
 					var result = null
 					
@@ -79,32 +77,6 @@ module.exports = {
 			return u;
 		});
 		return meleeAIL;
-	},
-	suicideAI(seekRange){
-		const suicideAIL = prov(() => {
-			let u = extend(FlyingAI, {
-				updateTargeting(){
-					var ret = this.retarget();
-					if(ret){
-						this.target = this.findTarget(this.unit.x, this.unit.y, 8 * seekRange, this.unit.type.targetAir, this.unit.type.targetGround);
-					}
-					if(this.invalid(this.target)){
-						this.target = null;
-					}
-				},
-				findTarget(x, y, range, air, ground){
-				  this.super$findTarget(x, y, range, air, ground)
-					var result = null
-					
-					result = result = Units.closestTarget(this.unit.team, x, y, range, u => u.checkTarget(air, ground), t => ground);
-					if(result != null) return result;
-					
-					return null;
-				}
-			});
-			return u;
-		});
-		return suicideAIL;
 	},
 	overSeerAI(aiType){
 	  const overSeerAIGround = prov(() => {
@@ -126,7 +98,7 @@ module.exports = {
 	      updateMovement() {
 	        this.super$updateMovement()
 	        let shoot = false
-	        if (this.target !== null && this.unit.inRange(this.target)) {
+	        if(this.target !== null && this.unit.inRange(this.target)) {
 	          this.unit.aimLook(this.target);
 	          shoot = true;
 	        }
@@ -176,6 +148,9 @@ module.exports = {
                 mount.aimY = toAng.y;
                 
                 //put your custom targeting below
+                
+                //code
+                
 	            }
 	            mount.shoot = shoot;
               mount.rotate = shoot;
