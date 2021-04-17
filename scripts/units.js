@@ -7,18 +7,6 @@ function newWeapon(object){
 	//libs.flib.merge(weap, object)
 };
 
-function newTractorWeapon(name, object){
-	let weap = extend(Weapon, name, {
-	  recoil: 0,
-    reload: 30,
-    rotate: true,
-    continuous: true,
-    shootSound: Sounds.tractorbeam,
-	});
-	libs.flib.merge(weap, object);
-	return weap
-};
-
 function meleeBullet(object){
 	let h = extend(ShrapnelBulletType, {
   	fromColor: Color.valueOf("404040"),
@@ -127,9 +115,15 @@ const machaeraBullet = meleeBullet({
 });
 
 //UnitWeapons
-const trahoWeapon = newTractorWeapon("traho", {
+const trahoWeapon = newWeapon({
+  name: "heavymachinery-trahoWeapon"
   x: 0,
   y: libs.flib.pixel(5),
+  recoil: 0,
+  reload: 30,
+  rotate: true,
+  continuous: true,
+  shootSound: Sounds.tractorbeam,
   bullet: trahoBullet
 });
 
@@ -322,7 +316,7 @@ machaera.defaultController = libs.AI.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
-libs.flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
+libs.flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon, traho.weapons.get(1), traho.weapons.get(0)]);
 module.exports = {
 	aranea: cunit("aranea"),
 	pugione: cunit("pugione"),
