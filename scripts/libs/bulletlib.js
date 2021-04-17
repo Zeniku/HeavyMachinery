@@ -90,7 +90,7 @@ function overSeer(overide){
 };
 //TY Meep go check out missing category units
 function tractorBeam(force, scaledForce, override){
-    let tractorBeam = extend(BulletType, {
+    let tractor = extend(BulletType, {
       collision(other, x, y){
         this.hit(this.base(), x, y);
         if(other instanceof Healthc){
@@ -182,8 +182,8 @@ function tractorBeam(force, scaledForce, override){
     hitEffect: Fx.none,
     despawnEffect: Fx.none
   });
-  libs.flib.merge(tractorBeam, override)
-  return tractorBeam;
+  libs.flib.merge(tractor, override)
+  return tractor;
 }
 //honestly i could I have translated sc to the above but im lazy so TY Meep Very cool
 module.exports = {

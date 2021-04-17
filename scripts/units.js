@@ -47,7 +47,7 @@ const earthDustII = new Effect(30, e => {
 earthDustII.layer = Layer.debris
 
 //Bullets
-const trahoBullet = libs.blib.newTractorBeam(7, 620, {
+const trahoBullet = libs.blib.newTractorBeam(11, 720, {
   colors: [Pal.lancerLaser, Color.white],
   length: 142,
   maxRange: 142,
@@ -322,7 +322,7 @@ machaera.defaultController = libs.AI.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
-//libs.flib.debug("unit.js", [cunit, aranea, pugione, mucro, tragula, lucius, machaera]);
+libs.flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
 module.exports = {
 	aranea: cunit("aranea"),
 	pugione: cunit("pugione"),
