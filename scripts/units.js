@@ -7,10 +7,10 @@ function newWeapon(object){
 	//libs.flib.merge(weap, object)
 };
 
-function newTractorWeapon(object){
-	let weap = extend(Weapon, {
+function newTractorWeapon(name, object){
+	let weap = extend(Weapon, name, {
 	  recoil: 0,
-    reload: 29,
+    reload: 30,
     rotate: true,
     continuous: true,
     shootSound: Sounds.tractorbeam,
@@ -127,8 +127,7 @@ const machaeraBullet = meleeBullet({
 });
 
 //UnitWeapons
-const trahoWeapon = newTractorWeapon({
-  name: "heavymachinery-trahoWeapon",
+const trahoWeapon = newTractorWeapon("traho", {
   x: 0,
   y: libs.flib.pixel(5),
   bullet: trahoBullet
