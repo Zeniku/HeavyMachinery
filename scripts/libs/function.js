@@ -25,8 +25,8 @@ function debug(scriptName, array){
     }else{
         print("Number" + i + "in Array is Null")
     };
-    print("-------------------");
   });
+  print("-------------------");
 };
 
 //don't change the order 

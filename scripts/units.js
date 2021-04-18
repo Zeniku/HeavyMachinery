@@ -40,8 +40,20 @@ const trahoBullet = libs.blib.newTractorBeam({
   length: 142,
   maxRange: 142,
   lifetime: 120,
-  force: 11,
-  scaledForce: 720
+  force: 8,
+  scaledForce: 70
+});
+
+const trahoBulletII = extend(SapBulletType, {
+    length: 8 * 5,
+    damage: 37,
+    shootEffect: Fx.shootSmall,
+    hitColor: Color.valueOf("bf92f9"),
+    color: Color.valueOf("bf92f9"),
+    despawnEffect: Fx.none,
+    width: 0.5,
+    knockback: 30,
+    knockback: 2.5,
 });
 
 const princepsBullet = libs.blib.newOverSeerBullet({
@@ -127,6 +139,16 @@ const trahoWeapon = newWeapon({
   continuous: true,
   shootSound: Sounds.tractorbeam,
   bullet: trahoBullet
+});
+
+const trahoWeaponII = newWeapon({
+  name: "heavymachinery-trahoWeaponII",
+  x: libs.flib.pixel(3),
+  y: 0,
+  shootY: libs.flib.pixel(25),
+  reload: 15,
+  rotate: false,
+  bullet: trahoBulletII
 });
 
 const princepsWeapon = newWeapon({

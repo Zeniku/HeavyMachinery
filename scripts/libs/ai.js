@@ -33,23 +33,20 @@ module.exports = {
 				updateMovement(){
 					let core = this.targetFlag(this.unit.x, this.unit.y, BlockFlag.core, true);
 					let shoot = false;
-					if(this.target != null || core != null){
-						if(core != null && this.unit.within(core, seekRange)){
-							this.unit.lookAt(core);
-							this.pathfind(Pathfinder.fieldCore);
-							if(this.unit.inRange(core)){
-								this.unit.aim(core);
-								shoot = true;
-							};
-						}else if(this.target != null){
-							this.unit.lookAt(this.target);
-					    this.moveTo(this.target, meleeRange)
+				  if(core != null && this.unit.within(core, seekRange)){
+					  this.unit.lookAt(core);
+		  			this.pathfind(Pathfinder.fieldCore);
+            if(this.unit.inRange(core)){
+               this.unit.aim(core);
+							shoot = true;
+						};
+          }else if(this.target != null){
+            this.unit.lookAt(this.target);
+            this.moveTo(this.target, meleeRange)
 							if(this.unit.inRange(this.target)){
 								this.unit.aim(this.target);
 								shoot = true;
-							
 							};	
-						};
 					}else{
 						this.super$updateMovement();
 					}
