@@ -1,16 +1,16 @@
-name: Mini Core
-description: MiniCore can be built anywhere but it cant be destroyed.
-alwaysUnlocked: false
-unitType: alpha
-health: 1200
-itemCapacity: 1500
-size: 3
-unitCapModifier: 0
+name: "Mini Core",
+description: "MiniCore can be built anywhere but it cant be destroyed.",
+alwaysUnlocked: false,
+unitType: alpha,
+health: 1200,
+itemCapacity: 1500,
+size: 2,
+unitCapModifier: 0,
 requirements: [
-	lead/1500
-	silicon/2000
-	copper/1500
-	titanium/1000
+	"lead/1500",
+	"silicon/2000",
+	"copper/1500",
+	"titanium/2000",
 ]
-category: effect
-research: core-foundation
+category: "effect",
+research: "core-foundation",
