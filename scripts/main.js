@@ -36,3 +36,6 @@ function req(array){
 }
 
 req(heavyMachineryContent);
+// go check PixelCraft for more yes
+const autoUpdate = require("heavymachinery-autoUpdate");
+autoUpdate.autoUpdate("heavymachinery", "Zeniku/HeavyMachinery", "main");
