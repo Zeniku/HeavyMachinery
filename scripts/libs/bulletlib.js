@@ -97,7 +97,6 @@ function tractorBeam(object){
         
         let target = Damage.linecast(b, b.x, b.y, b.rotation(), this.length);
         b.data = target;
-        print(target)
         if(target instanceof Hitboxc){
           if(b.timer.get(1, 5)){
             let hit = target;
