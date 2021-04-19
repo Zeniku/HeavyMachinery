@@ -304,7 +304,7 @@ aranea.constructor = () => extend(UnitEntity, {});
 
 const traho = extend(UnitType, "traho", {});
 traho.constructor = () => extend(UnitEntity, {});
-traho.weapons.add(trahoWeapon)
+traho.weapons.add(trahoWeapon, trahoWeaponII)
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
