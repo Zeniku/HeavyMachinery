@@ -7,5 +7,6 @@ module.exports = {
 	dlib: reqLib("drawlib"),
 	AI: reqLib("ai"),
 	flib: reqLib("function"),
-	blib: reqLib("bulletlib")
+	blib: reqLib("bulletlib"),
+	alib: reqLib("abilities")
 }
