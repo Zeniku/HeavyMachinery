@@ -52,7 +52,6 @@ const trahoBulletII = extend(SapBulletType, {
     color: Color.valueOf("bf92f9"),
     despawnEffect: Fx.none,
     width: 0.5,
-    knockback: 30,
     knockback: 2.5,
 });
 
