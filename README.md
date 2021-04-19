@@ -31,8 +31,7 @@ Go check out wiki by [pressing this text](https://github.com/Zeniku/HeavyMachine
 
 # Maintainers 
 ### Owner
-Github: [Zeniku](https://github.com/Zeniku)
-
+Github: [Zeniku](https://github.com/Zeniku)<br />
 Discord: `Zeniku/HeavyMachinery#1408`
 
 ### Contributors
