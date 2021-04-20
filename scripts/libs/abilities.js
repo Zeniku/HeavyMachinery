@@ -6,9 +6,9 @@ const libs = {
 function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
   return extend(Ability, {
     update(unit){
-      let scl = Mathf.clamp((unit.vel().len() - minSpeed) / (maxSpeed - minSpeed));
+      let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
       let bullet = extend(ContinuousLaserBulletType, {
-        length: (Mathf.clamp(unit.vel().len()) * 100) * 160
+        length: (Mathf.clamp(unit.vel.len()) * 100) * 160
       });
       libs.flib.merge(bullet, stat)
       let bx = unit.x + Angles.trnsx(unit.rotation, x, y)
