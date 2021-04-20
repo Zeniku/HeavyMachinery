@@ -11,16 +11,12 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
         length: (Mathf.clamp(unit.vel.len()) * 100) * 160
       });
       libs.flib.merge(bullet, stat)
-      let bx = unit.x + Angles.trnsx(unit.rotation, x, y)
-      let by = unit.y + Angles.trnsy(unit.rotation, x, y)
-      bullet.rotation(unit.rotation)
-      bullet.set(bx, by)
       if(shootSound != Sounds.none && !Vars.headless){
         if(shootSound == null) shootSound = new SoundLoop(shootSound, 1);
         shootSound.update(bx, by, true);
       }
       if(scl > minSpeed){
-      bullet.create(unit, unit.team, bx, by, unit.rotation)
+        bullet.create(unit, unit.team, bx, by, unit.rotation)
       }
     }
   });
