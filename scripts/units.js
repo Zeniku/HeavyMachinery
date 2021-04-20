@@ -46,6 +46,17 @@ const trahoBullet = libs.blib.newTractorBeam({
 
 const trahoBulletII = extend(SapBulletType, {
     length: 8 * 5,
+    damage: 20,
+    shootEffect: Fx.shootSmall,
+    hitColor: Color.valueOf("bf92f9"),
+    color: Color.valueOf("bf92f9"),
+    despawnEffect: Fx.none,
+    width: 0.5,
+    knockback: 2.5,
+});
+
+const spiculumBullet = extend(SapBulletType, {
+    length: 8 * 10,
     damage: 37,
     shootEffect: Fx.shootSmall,
     hitColor: Color.valueOf("bf92f9"),
@@ -54,6 +65,7 @@ const trahoBulletII = extend(SapBulletType, {
     width: 0.5,
     knockback: 2.5,
 });
+
 
 const princepsBullet = libs.blib.newOverSeerBullet({
   damage: 15,
@@ -145,9 +157,18 @@ const trahoWeaponII = newWeapon({
   x: libs.flib.pixel(3),
   y: 0,
   shootY: libs.flib.pixel(25),
-  reload: 15,
+  reload: 30,
   rotate: false,
   bullet: trahoBulletII
+});
+
+const spiculum = newWeapon({
+  name: "heavymachinery-spiculumWeapon",
+  x: libs.flib.pixel(34),
+  y: 0,
+  reload: 15,
+  rotate: false,
+  bullet: spiculumBullet
 });
 
 const princepsWeapon = newWeapon({
@@ -305,6 +326,11 @@ aranea.constructor = () => extend(UnitEntity, {});
 const traho = extend(UnitType, "traho", {});
 traho.constructor = () => extend(UnitEntity, {});
 traho.weapons.add(trahoWeapon, trahoWeaponII);
+
+const spiculum = extend(UnitType, "spiculum", {});
+spiculum.constructor = () => extend(UnitEntity, {});
+spiculum.weapons.add(spiculumWeapon)
+spiculum.abilities.add(libs.alib.laserMoveAbility(libs.flib.pixel(22), 0, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white], length: (Mathf.clamp(this.unit.vel.len()) * 100) * 160}, 2, 5, Sounds.minebeam))
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
