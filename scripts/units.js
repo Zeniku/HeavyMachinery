@@ -162,7 +162,7 @@ const trahoWeaponII = newWeapon({
   bullet: trahoBulletII
 });
 
-const spiculum = newWeapon({
+const spiculumWeapon = newWeapon({
   name: "heavymachinery-spiculumWeapon",
   x: libs.flib.pixel(34),
   y: 0,
