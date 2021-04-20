@@ -17,3 +17,6 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
     }
   });
 }
+module.exports = {
+  laserMoveAbility: laserMoveAbility
+}

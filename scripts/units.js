@@ -45,7 +45,7 @@ const trahoBullet = libs.blib.newTractorBeam({
 });
 
 const trahoBulletII = extend(SapBulletType, {
-    length: 8 * 5,
+    length: 8 * 15,
     damage: 20,
     shootEffect: Fx.shootSmall,
     hitColor: Color.valueOf("bf92f9"),
