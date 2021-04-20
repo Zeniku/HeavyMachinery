@@ -12,8 +12,8 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
       });
       libs.flib.merge(bullet, stat)
       if(shootSound != Sounds.none && !Vars.headless){
-        if(shootSound == null) shootSound = new SoundLoop(shootSound, 1);
-        shootSound.update(bx, by, true);
+        if(shootSound == null) shootSoundH = new SoundLoop(shootSound, 1);
+        shootSoundH.update(bx, by, true);
       }
       if(scl > minSpeed){
         bullet.create(unit, unit.team, bx, by, unit.rotation)
