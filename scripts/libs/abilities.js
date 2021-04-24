@@ -4,13 +4,13 @@ const libs = {
 	elib: require("heavymachinery/libs/effectlib")
 };
 function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
+  let bullet = extend(ContinuousLaserBulletType, {
+        length: 5 * 8
+  });
+  libs.flib.merge(bullet, stat)
   return extend(Ability, {
     update(unit){
       let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
-      let bullet = extend(ContinuousLaserBulletType, {
-        length: 5 * 8
-      });
-      libs.flib.merge(bullet, stat)
       if(shootSound != Sounds.none && !Vars.headless){
         let shootSoundH = null
         if(shootSound == null){
@@ -26,7 +26,7 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
       }
     },
     localized(){
-      return Core.bundle.get("LaserMoveAbility")
+      return "LaserMoveAbility"
     }
   });
 }
