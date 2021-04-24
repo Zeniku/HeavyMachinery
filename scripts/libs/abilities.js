@@ -6,12 +6,6 @@ const libs = {
 function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound){
   let bullet = extend(LaserBulletType, {
     length: 5 * 8,
-    update(b){
-      this.super$update(b)
-      b.set(b.owner.x + Angles.trnsx(b.owner.rotation, x, y), b.owner.y + Angles.trnsy(unit.rotation, x, y));
-      b.rotation(b.owner.rotation)
-      libs.flib.debug("Abilities", [b, b.owner])
-    }
   });
   libs.flib.merge(bullet, stat)
   return extend(Ability, {
