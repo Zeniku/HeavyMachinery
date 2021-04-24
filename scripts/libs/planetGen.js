@@ -81,7 +81,7 @@ const planetGen = extend(PlanetGenerator, {
 
                 this.connected.add(to);
                 
-                const gend = detritusGenerator;
+                const gend = planetGen;
                 let nscl = rand.random(20, 60);
                 let stroke = rand.random(4, 12);
                 
@@ -287,7 +287,7 @@ const planetGen = extend(PlanetGenerator, {
         };
     } 
 });
-detritusGenerator.arr = [   
+PGenr.arr = [   
     [Blocks.deepwater, Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.craters, Blocks.sand, Blocks.sand, Blocks.basalt, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.mud],
     [Blocks.deepwater, Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.metalFloorDamaged, Blocks.dacite, Blocks.dirt, Blocks.dirt, Blocks.mud, Blocks.dirt, Blocks.mud],
     [Blocks.deepwater, Blocks.sandWater, Blocks.sand, Blocks.sand, Blocks.metalFloorDamaged, Blocks.metalFloorDamaged, Blocks.dirt, Blocks.basalt, Blocks.basalt, Blocks.basalt, Blocks.mud, Blocks.dirt, Blocks.mud],
@@ -304,12 +304,12 @@ detritusGenerator.arr = [
     [Blocks.darksandWater, Blocks.darksandWater, Blocks.darksand, Blocks.sand, Blocks.craters, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.darksandTaintedWater, Blocks.stone, Blocks.stone, Blocks.stone],
     [Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.craters, Blocks.craters, Blocks.craters, Blocks.sand, Blocks.stone, Blocks.stone, Blocks.stone, Blocks.dirt, Blocks.dacite, Blocks.mud]
 ];
-detritusGenerator.rid = new Packages.arc.util.noise.RidgedPerlin(1, 2);
-detritusGenerator.basegen = new BaseGenerator();
-detritusGenerator.scl = 5;
-detritusGenerator.waterOffset = 0.07;
-detritusGenerator.water = 2 / detritusGenerator.arr[0].length;
+planetGen.rid = new Packages.arc.util.noise.RidgedPerlin(1, 2);
+planetGen.basegen = new BaseGenerator();
+planetGen.scl = 5;
+planetGen.waterOffset = 0.07;
+planetGen.water = 2 / planetGen.arr[0].length;
 
 module.exports = {
-    detritus: detritusGenerator
+    planetGen: planetGen
 };
