@@ -4,7 +4,7 @@ const libs = {
 	elib: require("heavymachinery/libs/effectlib")
 };
 function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound){
-  let bullet = extend(LaserBulletType, {
+  let bullet = extend(ContinuousLaserBulletType, {
     length: 5 * 8,
   });
   libs.flib.merge(bullet, stat)
