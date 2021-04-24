@@ -8,7 +8,7 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
     update(unit){
       let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
       let bullet = extend(ContinuousLaserBulletType, {
-        length: (Mathf.clamp(unit.vel.len()) * 100) * 160
+        length: 5 * 8
       });
       libs.flib.merge(bullet, stat)
       if(shootSound != Sounds.none && !Vars.headless){
@@ -20,7 +20,7 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
           shootSoundH.update(bx, by, true);
         }
       }
-      if(scl > minSpeed){
+      if(scl > 0.2){
         bullet.create(unit, unit.team, bx, by, unit.rotation)
       }
     }
