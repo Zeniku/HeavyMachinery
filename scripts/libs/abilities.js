@@ -10,6 +10,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       this.super$update(b)
       b.set(b.owner.x + Angles.trnsx(b.owner.rotation, x, y), b.owner.y + Angles.trnsy(unit.rotation, x, y));
       b.rotation(b.owner.rotation)
+      libs.flib.debug("Abilities", [b, b.owner])
     }
   });
   libs.flib.merge(bullet, stat)
@@ -18,18 +19,18 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
       let bx = unit.x + Angles.trnsx(unit.rotation, x, y)
       let by = unit.y + Angles.trnsy(unit.rotation, x, y)
-      if(shootSound != Sounds.none && !Vars.headless){
-        let shootSoundH = null
-        if(shootSound == null){
-          shootSoundH = new SoundLoop(shootSound, 1);
-        }
-        if(shootSoundH != null){
-          shootSoundH.update(bx, by, true);
-        }
-      }
       libs.flib.debug("Abilities", [scl, bullet, shootSound, Vars.headless])
       if(scl > speedStart){
         bullet.create(unit, unit.team, bx, by, unit.rotation)
+        if(shootSound != Sounds.none && !Vars.headless){
+          let shootSoundH = null
+          if(shootSound == null){
+            shootSoundH = new SoundLoop(shootSound, 1);
+          }
+          if(shootSoundH != null){
+            shootSoundH.update(bx, by, true);
+          }
+        }
       }
     },
     localized(){
