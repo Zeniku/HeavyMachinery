@@ -24,6 +24,9 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
       if(scl > 0.2){
         bullet.create(unit, unit.team, bx, by, unit.rotation)
       }
+    },
+    localized(){
+      return Core.bundle.get("LaserMoveAbility")
     }
   });
 }
