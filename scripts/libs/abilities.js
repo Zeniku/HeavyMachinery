@@ -12,8 +12,11 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
       });
       libs.flib.merge(bullet, stat)
       if(shootSound != Sounds.none && !Vars.headless){
-        if(shootSound == null) let shootSoundH = new SoundLoop(shootSound, 1);
-        if(shootSoundH == null){
+        let shootSoundH = null
+        if(shootSound == null){
+          shootSoundH = new SoundLoop(shootSound, 1);
+        }
+        if(shootSoundH != null){
           shootSoundH.update(bx, by, true);
         }
       }
