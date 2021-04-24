@@ -311,5 +311,5 @@ planetGen.waterOffset = 0.07;
 planetGen.water = 2 / planetGen.arr[0].length;
 
 module.exports = {
-    detritus: planetGen
+    planetGen: planetGen
 };
