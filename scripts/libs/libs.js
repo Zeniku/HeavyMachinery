@@ -8,5 +8,6 @@ module.exports = {
 	AI: reqLib("ai"),
 	flib: reqLib("function"),
 	blib: reqLib("bulletlib"),
-	alib: reqLib("abilities")
+	alib: reqLib("abilities"),
+	planetGen: reqLib("planetGen")
 }

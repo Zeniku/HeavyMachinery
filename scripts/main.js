@@ -19,9 +19,11 @@ function c(directory, file){
 	}
 }
 
-const libs = c("libs", ["drawlib", "effectlib", "ai", "function", "bulletlib", "abilities", "libs"]);
+const libs = c("libs", ["drawlib", "effectlib", "ai", "function", "bulletlib", "abilities", "planetGen", "libs"]);
 const noCat = c("", ["items", "units"]);
 const blocks = c("blocks", ["content-blocks-production", "miniCore", "reconstructors", "statusEffectProjector"]);
+
+
 
 const heavyMachineryContent = [libs, noCat, blocks];
 
