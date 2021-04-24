@@ -20,6 +20,7 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
           shootSoundH.update(bx, by, true);
         }
       }
+      libs.flib.debug("Abilities", [scl, bullet, shootSound, Vars.headless])
       if(scl > 0.2){
         bullet.create(unit, unit.team, bx, by, unit.rotation)
       }
