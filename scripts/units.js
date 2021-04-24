@@ -330,7 +330,7 @@ traho.weapons.add(trahoWeapon, trahoWeaponII);
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.weapons.add(spiculumWeapon)
-spiculum.abilities.add(libs.alib.laserMoveAbility(libs.flib.pixel(22), 0, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white]}, 2, 5, Sounds.minebeam))
+spiculum.abilities.add(libs.alib.laserMoveAbility(libs.flib.pixel(22), 0, 0.01, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white]}, 2, 5, Sounds.minebeam))
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});

@@ -3,9 +3,14 @@ const libs = {
 	dlib: require("heavymachinery/libs/drawlib"),
 	elib: require("heavymachinery/libs/effectlib")
 };
-function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
+function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound){
   let bullet = extend(ContinuousLaserBulletType, {
-        length: 5 * 8
+    length: 5 * 8,
+    update(b){
+      this.super$update(b)
+      b.set(b.owner.x + Angles.trnsx(b.owner.rotation, x, y), b.owner.y + Angles.trnsy(unit.rotation, x, y));
+      b.rotation(b.owner.rotation)
+    }
   });
   libs.flib.merge(bullet, stat)
   return extend(Ability, {
@@ -23,7 +28,7 @@ function laserMoveAbility(x, y, stat, minSpeed, maxSpeed, shootSound){
         }
       }
       libs.flib.debug("Abilities", [scl, bullet, shootSound, Vars.headless])
-      if(scl > 0.01){
+      if(scl > speedStart){
         bullet.create(unit, unit.team, bx, by, unit.rotation)
       }
     },
