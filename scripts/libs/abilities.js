@@ -1,4 +1,5 @@
-const flib = require("heavymachinery/libs/function"),
+const flib = require("heavymachinery/libs/function")
+
 function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound){
   let laserbullet = extend(ContinuousLaserBulletType, {
     length: 5 * 8
