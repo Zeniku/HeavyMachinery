@@ -1,8 +1,13 @@
 const flib = require("heavymachinery/libs/function")
 
 function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound){
-  let laserbullet = extend(ContinuousLaserBulletType, {
-    length: 5 * 8
+  let laserbullet = extend(LaserBulletType, {
+    length: 5 * 8,
+    update(b){
+      this.super$update(b);
+      b.set(b.owner.x + Angles.trnsx(b.owner.rotation, x, y), b.owner.y + Angles.trnsy(b.owner.rotation, x, y));
+      b.rotation(b.ownet.rotation)
+    }
   });
   flib.merge(laserbullet, stat)
   return extend(Ability, {
@@ -22,7 +27,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
           shootSoundH.update(bx, by, true);
         }
       }
-      flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
+      //flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
     },
     localized(){
       return "LaserMoveAbility"// haha Fuck you bundles
