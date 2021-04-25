@@ -10,12 +10,12 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       let bx = unit.x + Angles.trnsx(unit.rotation, x, y)
       let by = unit.y + Angles.trnsy(unit.rotation, x, y)
       if(scl >= speedStart){
-        laserbullet.create(unit, unit.team, bx, by, unit.rotation)
+        laserbullet.create(unit, unit.team, bx, by, unit.rotation) //create the Bullet by SPEEEEEEEEED
       }
       if(shootSound != Sounds.none && !Vars.headless){
         let shootSoundH = null
         if(shootSound != null){
-          shootSoundH = new SoundLoop(shootSound, 1);
+          shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
         }
         if(shootSoundH != null){
           shootSoundH.update(bx, by, true);
@@ -24,7 +24,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
     },
     localized(){
-      return "LaserMoveAbility"
+      return "LaserMoveAbility"// haha Fuck you bundles
     }
   });
 }
