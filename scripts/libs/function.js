@@ -1,9 +1,9 @@
 // Lib Made by Zeniku
 //detects enemies in a radius use cons(method) on cons
-function radiusEnemies(team, x, y, radius, cons){
+function radiusEnemies(team, x, y, radius, method){
 	Units.nearbyEnemies(team, x - radius, y - radius, radius * 2, radius * 2, u => {
 		if(u.within(x, y, radius)){
-			cons.get(u);
+			cons(method).get(u);
 		};
 	});
 }; 
