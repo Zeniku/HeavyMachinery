@@ -7,7 +7,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
   let laserbullet = extend(ContinuousLaserBulletType, {
     length: 5 * 8,
   });
-  libs.flib.merge(bullet, stat)
+  libs.flib.merge(laserbullet, stat)
   return extend(Ability, {
     update(unit){
       let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
