@@ -19,9 +19,10 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
         laserbullet.create(unit, unit.team, bx, by, unit.rotation) //create the Bullet by SPEEEEEEEEED
       }
       if(shootSound != Sounds.none && !Vars.headless){
-        let shootSoundH = null
         if(shootSound != null){
-          shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
+          let shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
+        }else{
+          let shootSoundH = null
         }
         if(shootSoundH != null){
           shootSoundH.update(bx, by, true);
