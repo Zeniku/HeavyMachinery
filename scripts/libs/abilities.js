@@ -6,7 +6,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
     update(b){
       this.super$update(b);
       b.set(b.owner.x + Angles.trnsx(b.owner.rotation, x, y), b.owner.y + Angles.trnsy(b.owner.rotation, x, y));
-      b.rotation(b.ownet.rotation)
+      b.rotation(b.owner.rotation)
     }
   });
   flib.merge(laserbullet, stat)
