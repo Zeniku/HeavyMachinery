@@ -10,6 +10,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
     }
   });
   flib.merge(laserbullet, stat)
+  
   let shootSoundH = null
   if(shootSound != null){
     shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
