@@ -1,13 +1,9 @@
-const libs = {
-	flib: require("heavymachinery/libs/function"),
-	dlib: require("heavymachinery/libs/drawlib"),
-	elib: require("heavymachinery/libs/effectlib")
-};
+const flib = require("heavymachinery/libs/function"),
 function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound){
   let laserbullet = extend(ContinuousLaserBulletType, {
     length: 5 * 8
   });
-  libs.flib.merge(laserbullet, stat)
+  flib.merge(laserbullet, stat)
   return extend(Ability, {
     update(unit){
       let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
@@ -25,7 +21,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
           shootSoundH.update(bx, by, true);
         }
       }
-      libs.flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
+      flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
     },
     localized(){
       return "LaserMoveAbility"
