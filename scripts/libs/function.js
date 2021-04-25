@@ -7,6 +7,14 @@ function radiusEnemies(team, x, y, radius, method){
 		};
 	});
 }; 
+//its basically uh access the bullet entity that has the same type
+function eachBullet(bullet, func){
+  Groups.bullet.each(e => {
+      if(e.type !== bullet) return;
+      func(e);
+  });
+}
+
 //lets you not spam print and make it readable when null
 function debug(scriptName, array){
   print("-------------------");
