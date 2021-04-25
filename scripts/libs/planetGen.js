@@ -287,7 +287,7 @@ const planetGen = extend(PlanetGenerator, {
         };
     } 
 });
-PGenr.arr = [   
+planetGen.arr = [   
     [Blocks.deepwater, Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.craters, Blocks.sand, Blocks.sand, Blocks.basalt, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.mud],
     [Blocks.deepwater, Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.metalFloorDamaged, Blocks.dacite, Blocks.dirt, Blocks.dirt, Blocks.mud, Blocks.dirt, Blocks.mud],
     [Blocks.deepwater, Blocks.sandWater, Blocks.sand, Blocks.sand, Blocks.metalFloorDamaged, Blocks.metalFloorDamaged, Blocks.dirt, Blocks.basalt, Blocks.basalt, Blocks.basalt, Blocks.mud, Blocks.dirt, Blocks.mud],
