@@ -15,7 +15,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       let by = unit.y + Angles.trnsy(unit.rotation, x, y)
       if(shootSound != Sounds.none && !Vars.headless){
         let shootSoundH = null
-        if(shootSound == null){
+        if(shootSound != null){
           shootSoundH = new SoundLoop(shootSound, 1);
         }
         if(shootSoundH != null){
