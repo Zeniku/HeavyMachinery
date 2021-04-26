@@ -1,9 +1,9 @@
 // Lib Made by Zeniku
 //detects enemies in a radius use cons(method) on cons
-function radiusEnemies(team, x, y, radius, method){
+function radiusEnemies(team, x, y, radius, func){
 	Units.nearbyEnemies(team, x - radius, y - radius, radius * 2, radius * 2, u => {
 		if(u.within(x, y, radius)){
-			cons(method).get(u);
+			func(u)
 		};
 	});
 }; 
@@ -14,7 +14,14 @@ function eachBullet(bullet, func){
       func(e);
   });
 }
-
+//nearby bullets?
+function nearbyBullets(x, y, range, func){
+  Groups.bullet.each(e => {
+    if(e.within(x, y, range)){
+      func(e)
+    }
+  })
+}
 //lets you not spam print and make it readable when null
 function debug(scriptName, array){
   print("-------------------");
@@ -73,6 +80,8 @@ function mergeII(object, objectII){
 
 module.exports = {
 	radiusEnemies: radiusEnemies,
+	eachBullet: eachBullet,
+	nearbyBullets: nearbyBullets,
 	debug: debug,
 	pixel: pixel,
 	merge: merge,
