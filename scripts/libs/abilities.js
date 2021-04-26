@@ -10,6 +10,11 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
     }
   });
   flib.merge(laserbullet, stat)
+  
+  let shootSoundH = null
+  if(shootSound != null){
+    shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
+  }
   return extend(Ability, {
     update(unit){
       let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
@@ -18,15 +23,10 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       
       if(scl >= speedStart){
         laserbullet.create(unit, unit.team, bx, by, unit.rotation) //create the Bullet by SPEEEEEEEEED
-      }
-      if(shootSound != Sounds.none && !Vars.headless){
-        if(shootSound != null){
-          let shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
-        }else{
-          let shootSoundH = null
-        }
-        if(shootSoundH != null){
-          shootSoundH.update(bx, by, true);
+        if(shootSound != Sounds.none && !Vars.headless){
+          if(shootSoundH !== null){
+            shootSoundH.update(bx, by, true);
+          }
         }
       }
       //flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])

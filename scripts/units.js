@@ -259,8 +259,8 @@ const luciusWeapon = newWeapon({
 
 const machaeraWeapon = newWeapon({
   name: "heavymachinery-machaeraWeapon",
-  x: libs.flib.pixel(61),
-  y: 0,
+  x: libs.flib.pixel(75),
+  y: libs.flib.pixel(-6),
   reload: 35,
   top: false,
   ejectEffect: Fx.none,

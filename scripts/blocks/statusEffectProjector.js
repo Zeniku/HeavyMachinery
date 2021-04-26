@@ -46,10 +46,10 @@ effect.buildType = () => {
 			if(this.consValid()){
 				let enemiesBurn = false;
 				//remember using cons() on this function
-				libs.flib.radiusEnemies(this.team, this.x, this.y, effect.range, cons(unitii => {
+				libs.flib.radiusEnemies(this.team, this.x, this.y, effect.range, unitii => {
 					unitii.apply(StatusEffects.melting, 60);
 					enemiesBurn = true;
-				}));
+				});
 				
 				if(enemiesBurn){
 					for(var i = 0; i < 3; i++){
