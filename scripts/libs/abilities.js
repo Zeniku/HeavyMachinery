@@ -23,10 +23,10 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       
       if(scl >= speedStart){
         laserbullet.create(unit, unit.team, bx, by, unit.rotation) //create the Bullet by SPEEEEEEEEED
-      }
-      if(shootSound != Sounds.none && !Vars.headless){
-        if(shootSoundH !== null){
-          shootSoundH.update(bx, by, true);
+        if(shootSound != Sounds.none && !Vars.headless){
+          if(shootSoundH !== null){
+            shootSoundH.update(bx, by, true);
+          }
         }
       }
       //flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
