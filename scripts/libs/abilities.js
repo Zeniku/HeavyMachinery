@@ -30,6 +30,8 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
             shootSoundH.update(bx, by, true);
           }
         }
+      }else{
+        shootSoundH.stop()
       }
       //flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
     },
