@@ -19,7 +19,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
   }
   return extend(Ability, {
     update(unit){
-      let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
+      let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));//fuck
       let bx = unit.x + Angles.trnsx(unit.rotation, x, y)
       let by = unit.y + Angles.trnsy(unit.rotation, x, y)
       
