@@ -52,7 +52,7 @@ const trahoBulletII = extend(SapBulletType, {
     color: Color.valueOf("bf92f9"),
     despawnEffect: Fx.none,
     width: 0.5,
-    knockback: 2.5,
+    knockback: 0,
 });
 
 const spiculumBullet = extend(SapBulletType, {
