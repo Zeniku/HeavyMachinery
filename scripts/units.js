@@ -337,6 +337,9 @@ const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.weapons.add(spiculumWeapon)
 spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white]}, 0.01, 2, 5, Sounds.minebeam))
+
+
+
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
@@ -371,9 +374,12 @@ machaera.defaultController = AI.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
-flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
+//flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
 module.exports = {
 	aranea: cunit("aranea"),
+	traho: cunit("traho"),
+	spiculum: cunit("spiculum"),
+	princeps: cunit("princeps"),
 	pugione: cunit("pugione"),
 	mucro: cunit("mucro"),
 	tragula: cunit("tragula"),
