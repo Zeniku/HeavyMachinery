@@ -1,10 +1,16 @@
 //Libs And functions
-const libs = require("heavymachinery/libs/libs");
+let text = "heavymachinery/libs/";
+
+let AI = require(text + "ai");
+let alib = require(text + "abilities");
+let blib = require(text + "bulletlib");
+let flib = require(text + "function");
+let dlib = require(text + "drawlib");
 
 function newWeapon(object){
 	return extend(Weapon, object);
 	//let weap = new Weapon(name)
-	//libs.flib.merge(weap, object)
+	//flib.merge(weap, object)
 };
 
 function meleeBullet(object){
@@ -19,23 +25,23 @@ function meleeBullet(object){
   	knockback: 0,
   	reflectable: false,
 	});
-  libs.flib.merge(h, object)
+  flib.merge(h, object)
   return h
 };
 
 //Effect
 const earthDust = new Effect(20, e => {
-	libs.dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
+	dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
 });
 earthDust.layer = Layer.debris
 
 const earthDustII = new Effect(30, e => {
-	libs.dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), Mathf.random(1.5, 5.5) * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
+	dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
 });
 earthDustII.layer = Layer.debris
 
 //Bullets
-const trahoBullet = libs.blib.newTractorBeam({
+const trahoBullet = blib.newTractorBeam({
   colors: [Pal.lancerLaser, Color.white],
   length: 142,
   maxRange: 142,
@@ -67,7 +73,7 @@ const spiculumBullet = extend(SapBulletType, {
 });
 
 
-const princepsBullet = libs.blib.newOverSeerBullet({
+const princepsBullet = blib.newOverSeerBullet({
   damage: 15,
   speed: 3,
   lifetime: 80,
@@ -143,7 +149,7 @@ const machaeraBullet = meleeBullet({
 const trahoWeapon = newWeapon({
   name: "heavymachinery-trahoWeapon",
   x: 0,
-  y: libs.flib.pixel(-5),
+  y: flib.pixel(-5),
   recoil: 0,
   reload: 30,
   rotate: true,
@@ -154,9 +160,9 @@ const trahoWeapon = newWeapon({
 
 const trahoWeaponII = newWeapon({
   name: "heavymachinery-trahoWeaponII",
-  x: libs.flib.pixel(3),
+  x: flib.pixel(3),
   y: 0,
-  shootY: libs.flib.pixel(25),
+  shootY: flib.pixel(25),
   reload: 30,
   rotate: false,
   bullet: trahoBulletII
@@ -164,7 +170,7 @@ const trahoWeaponII = newWeapon({
 
 const spiculumWeapon = newWeapon({
   name: "heavymachinery-spiculumWeapon",
-  x: libs.flib.pixel(34),
+  x: flib.pixel(34),
   y: 0,
   reload: 15,
   rotate: false,
@@ -202,13 +208,13 @@ const pugioneWeapon = newWeapon({
 
 const mucroWeapon = newWeapon({
 	name: "heavymachinery-mucroWeapon",
-	x: libs.flib.pixel(24),
+	x: flib.pixel(24),
 	y: 0,
 	reload: 30,
 	top: false,
 	ejectEffect: Fx.none,
 	shootSound: Sounds.shotgun,
-	shootY: libs.flib.pixel(30),
+	shootY: flib.pixel(30),
 	recoil: -4, //negative so it looks like it's punching
 	targetAir: false,
 	soundPitchMin: 0.42,
@@ -229,7 +235,7 @@ const tragulaWeapon = newWeapon({
 	top: false,
 	ejectEffect: Fx.none,
 	shootSound: Sounds.shotgun,
-	shootY: libs.flib.pixel(35),
+	shootY: flib.pixel(35),
 	recoil: -4, //negative so it looks like it's punching
 	targetAir: false,
 	soundPitchMin: 0.42,
@@ -241,13 +247,13 @@ const tragulaWeapon = newWeapon({
 
 const luciusWeapon = newWeapon({
   name: "heavymachinery-luciusWeapon",
-  x: libs.flib.pixel(44),
-  y: libs.flib.pixel(1),
+  x: flib.pixel(44),
+  y: flib.pixel(1),
   reload: 20,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
-  shootY: libs.flib.pixel(43),
+  shootY: flib.pixel(43),
   recoil: -4, //negative so it looks like it's punching
   targetAir: false,
   soundPitchMin: 0.42,
@@ -259,13 +265,13 @@ const luciusWeapon = newWeapon({
 
 const machaeraWeapon = newWeapon({
   name: "heavymachinery-machaeraWeapon",
-  x: libs.flib.pixel(75),
-  y: libs.flib.pixel(-6),
+  x: flib.pixel(75),
+  y: flib.pixel(-6),
   reload: 35,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
-  shootY: libs.flib.pixel(62),
+  shootY: flib.pixel(62),
   recoil: -5,
   targetAir: false,
   soundPitchMin: 0.42,
@@ -289,13 +295,13 @@ const miscWeapon = newWeapon({
 	ejectEffect: Fx.none,
 	shootEffect: Fx.none,
 	shootSound: Sounds.place,
-	shootY: libs.flib.pixel(35),
+	shootY: flib.pixel(35),
 	targetAir: false,
 	soundPitchMin: 0.42,
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: libs.blib.newEarthBendBullet(60, pugioneBullet, 6, 22.5, earthDust, 25, 5)
+	bullet: blib.newEarthBendBullet(60, pugioneBullet, 6, 22.5, earthDust, 25, 5)
 });
 
 const miscWeaponII = newWeapon({
@@ -308,13 +314,13 @@ const miscWeaponII = newWeapon({
 	ejectEffect: Fx.none,
 	shootEffect: Fx.none,
 	shootSound: Sounds.place,
-	shootY: libs.flib.pixel(35),
+	shootY: flib.pixel(35),
 	targetAir: false,
 	soundPitchMin: 0.42,
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: libs.blib.newEarthBendBullet(60, mucroBullet, 8, 22.5, earthDustII, 20, 5)
+	bullet: blib.newEarthBendBullet(60, mucroBullet, 8, 22.5, earthDustII, 20, 5)
 });
 
 //Units
@@ -330,42 +336,42 @@ traho.weapons.add(trahoWeapon, trahoWeaponII);
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.weapons.add(spiculumWeapon)
-spiculum.abilities.add(libs.alib.laserMoveAbility(libs.flib.pixel(22), 0, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white]}, 0.01, 2, 5, Sounds.minebeam))
+spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white]}, 0.01, 2, 5, Sounds.minebeam))
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
 princeps.constructor = () => extend(MechUnit, {});
-princeps.defaultController = libs.AI.overSeerAI("ground");
+princeps.defaultController = AI.overSeerAI("ground");
 princeps.weapons.add(princepsWeapon);
 
 //Melee
 const pugione = extend(UnitType, "pugione", {});
 pugione.constructor = () => extend(MechUnit, {});
-pugione.defaultController = libs.AI.meleeAI(2, 10);
+pugione.defaultController = AI.meleeAI(2, 10);
 pugione.weapons.add(pugioneWeapon);
 
 const mucro = extend(UnitType, "mucro", {});
 mucro.constructor = () => extend(MechUnit, {});
-mucro.defaultController = libs.AI.meleeAI(3, 15);
+mucro.defaultController = AI.meleeAI(3, 15);
 mucro.weapons.add(mucroWeapon);
 
 const tragula = extend(UnitType, "tragula", {});
 tragula.constructor = () => extend(MechUnit, {});
-tragula.defaultController = libs.AI.meleeAI(4, 20);
+tragula.defaultController = AI.meleeAI(4, 20);
 tragula.weapons.add(tragulaWeapon);
 
 const lucius = extend(UnitType, "lucius", {});
 lucius.constructor = () => extend(MechUnit, {});
-lucius.defaultController = libs.AI.meleeAI(6, 25);
+lucius.defaultController = AI.meleeAI(6, 25);
 lucius.weapons.add(luciusWeapon, miscWeapon);
 
 const machaera = extend(UnitType, "machaera", {});
 machaera.constructor = () => extend(MechUnit, {});
-machaera.defaultController = libs.AI.meleeAI(8, 30);
+machaera.defaultController = AI.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
-libs.flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
+flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
 module.exports = {
 	aranea: cunit("aranea"),
 	pugione: cunit("pugione"),
