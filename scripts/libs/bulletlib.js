@@ -191,9 +191,9 @@ function pointDef(object){
           target.damage(target.damage() - this.absorbableDamage);
         }else{
           target.remove();
+          beamEffect.at(b.x, b.y, b.rotation, Color.white, new Vec2().set(target));
         }
       }
-      beamEffect.at(b.x, b.y, b.rotation, Color.white, new Vec2().set(target));
     },
     speed: 0.0001,
     length: 5 * 8,
