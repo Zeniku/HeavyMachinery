@@ -30,6 +30,7 @@ function meleeBullet(object){
 };
 
 //Effect
+//can i even extend(Effect, lifetime, e => {}, {});
 const earthDust = new Effect(20, e => {
 	dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
 });
@@ -40,7 +41,7 @@ const earthDustII = new Effect(30, e => {
 });
 earthDustII.layer = Layer.debris
 
-//Bullets
+//[Bullets]
 const trahoBullet = blib.newTractorBeam({
   colors: [Pal.lancerLaser, Color.white],
   length: 142,
@@ -145,7 +146,7 @@ const machaeraBullet = meleeBullet({
 	fragBullets: 5
 });
 
-//UnitWeapons
+//[UnitWeapons]
 const trahoWeapon = newWeapon({
   name: "heavymachinery-trahoWeapon",
   x: 0,
@@ -374,7 +375,11 @@ machaera.defaultController = AI.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 
 const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
+
+//Debugging
 //flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
+
+//export
 module.exports = {
 	aranea: cunit("aranea"),
 	traho: cunit("traho"),

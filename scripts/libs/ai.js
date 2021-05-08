@@ -110,55 +110,60 @@ module.exports = {
 	    return overSeerAIGround
 	  };
 	},
-	newUnitAI(aitype){
+	pointDefAI(aitype){
 	  const newUnitAIL = prov(() => {
 	    let u = extend(aitype, {
-	      updateTargeting(){
+	      targetFound: false,
+	      updateWeapons(){
 	        if(this.unit.hasWeapons()){
-	         let mounts = this.unit.mounts
-	         this.unit.IsShooting = false
-	         this.targets = []
-	         let rotation = this.unit.rotation - 90
-	         let ret = this.retarget();
+	          this.super$updateWeapons()
+	          
+	          let mounts = this.unit.mounts
+	          let targets = []
+	          let rotation = this.unit.rotation - 90
+	          let ret = this.retargetII()
 	         
-	         for(let i in mounts){
-	            let mount = mounts[i]
-	            let weapon = mount.weapon
-	            let mountX = this.unit.x + Angles.trnsx(rotation, weapon.x, weapon.y);
-	            let mountY = this.unit.y + Angles.trnsy(rotation, weapon.x, weapon.y);
-	            if(this.unit.type.singleTarget){
-	              this.targets[i] = this.target
-	            }else{
-	              if(ret){
-	                targets[i] = this.findTarget(mountX, mountY, weapon.bullet.range(), weapon.bullet.colidesAir, weapon.bullet.collidesGround)
-	              }
-	              
-	              if(this.checkTarget(this.targets[i], mountX, mountY, weapon.bullet.range())){
-	                this.target[i] = null
-	              }
-	            }
-	            let shoot = false
-	            if(targets[i] != null){
-	              shoot = targets[i].within(this.unit, targets[i], weapon.bullet.range()) && this.shoudShoot();
-	              let toAng = Predict.intercept(this.unit, this.targets[i], weapon.bullet.speed);
-                mount.aimX = toAng.x;
-                mount.aimY = toAng.y;
+	          for(let i in mounts){
+	             let mount = mounts[i]
+	             let weapon = mount.weapon
+	             if(weapon.bullet.absorbableDamage > 0){
+                let mountX = this.unit.x + Angles.trnsx(rotation, weapon.x, weapon.y);
+                let mountY = this.unit.y + Angles.trnsy(rotation, weapon.x, weapon.y);
                 
-                //put your custom targeting below
-                
-                //code
-                
-	            }
-	            mount.shoot = shoot;
-              mount.rotate = shoot;
+                if(this.retargetII()){
+                  let target = Groups.bullet.intersect(mountX - weapon.bullet.range(), mountY - weapon.bullet.range(), weapon.bullet.range() * 2, weapon.bullet.range() * 2).min(t => t.team != this.unit.team && t.type.hittable, t => t.dst2(this.unit));
+                  if(target != null){
+                    if(!this.unit.inRange(target)){
+                      this.targetFound = false;
 
-              unit.isShooting = shoot;
-              if(shoot){
-                unit.aimX = mount.aimX;
-                unit.aimY = mount.aimY;
-              }
+                      targets[i] = null;
+                    }else if(this.unit.inRange(target)){
+                      this.targetFound = true;
+
+                      targets[i] = target;
+                    }else{
+                      this.targetFound = false;
+
+                      this.targets[i] = null;
+                    }
+                  }else{
+                    this.targetFound = false;
+                  }
+                }
+                
+                if(targets[i] != null){
+                  mount.aimX = targets[i].x;
+                  mount.aimY = targets[i].y;
+                  let hShoot = targets[i].within(mountX, mountY, weapon.bullet.range()) && this.shouldShoot();
+                  mount.shoot = hShoot;
+                  mount.rotate = hShoot;
+                }
+	            }
 	          }
 	        }
+	      },
+	      retargetII(){
+	        return this.timer.get(this.timerTarget2, !this.targetFound ? 40 : 60);
 	      }
 	    });
 	    return u
