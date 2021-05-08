@@ -17,6 +17,67 @@ I Made this thing because i saw someone use mods for example who (s)he can't und
 
 Ty for Meep's Missing category units for reference
 */
+
+function pointDef(aitype){
+  const newAI = prov(() => {
+    let u = extend(aitype, {
+	    targetFound: false,
+	    updateWeapons(){
+	      if(this.unit.hasWeapons()){
+	        this.super$updateWeapons()
+	          
+	        let mounts = this.unit.mounts
+	        let targets = []
+	        let rotation = this.unit.rotation - 90
+	        let ret = this.retargetII()
+	         
+	        for(let i in mounts){
+             let mount = mounts[i]
+	           let weapon = mount.weapon
+           if(weapon.bullet.absorbableDamage > 0){
+              let mountX = this.unit.x + Angles.trnsx(rotation, weapon.x, weapon.y);
+              let mountY = this.unit.y + Angles.trnsy(rotation, weapon.x, weapon.y);
+                
+              if(this.retargetII()){
+                let target = Groups.bullet.intersect(mountX - weapon.bullet.range(), mountY - weapon.bullet.range(), weapon.bullet.range() * 2, weapon.bullet.range() * 2).min(t => t.team != this.unit.team && t.type.hittable, t => t.dst2(this.unit));
+                if(target != null){
+                  if(!this.unit.inRange(target)){
+                    this.targetFound = false;
+
+                    targets[i] = null;
+                  }else if(this.unit.inRange(target)){
+                    this.targetFound = true;
+
+                    targets[i] = target;
+                  }else{
+                    this.targetFound = false;
+
+                    this.targets[i] = null;
+                  }
+                }else{
+                  this.targetFound = false;
+                }
+              }
+              if(targets[i] != null){
+                mount.aimX = targets[i].x;
+                mount.aimY = targets[i].y;
+                let hShoot = targets[i].within(mountX, mountY, weapon.bullet.range()) && this.shouldShoot();
+                mount.shoot = hShoot;
+                mount.rotate = hShoot;
+              }
+	          }
+	        }
+	      }
+	    },
+	    retargetII(){
+	      return this.timer.get(this.timerTarget2, !this.targetFound ? 40 : 60);
+	    }
+	  });
+	  return u
+	});
+	return newAI
+}
+
 module.exports = {
 	meleeAI(meleeRange, seekRange){
 		const meleeAIL = prov(() => {
@@ -110,64 +171,5 @@ module.exports = {
 	    return overSeerAIGround
 	  };
 	},
-	pointDefAI(aitype){
-	  const newUnitAIL = prov(() => {
-	    let u = extend(aitype, {
-	      targetFound: false,
-	      updateWeapons(){
-	        if(this.unit.hasWeapons()){
-	          this.super$updateWeapons()
-	          
-	          let mounts = this.unit.mounts
-	          let targets = []
-	          let rotation = this.unit.rotation - 90
-	          let ret = this.retargetII()
-	         
-	          for(let i in mounts){
-	             let mount = mounts[i]
-	             let weapon = mount.weapon
-	             if(weapon.bullet.absorbableDamage > 0){
-                let mountX = this.unit.x + Angles.trnsx(rotation, weapon.x, weapon.y);
-                let mountY = this.unit.y + Angles.trnsy(rotation, weapon.x, weapon.y);
-                
-                if(this.retargetII()){
-                  let target = Groups.bullet.intersect(mountX - weapon.bullet.range(), mountY - weapon.bullet.range(), weapon.bullet.range() * 2, weapon.bullet.range() * 2).min(t => t.team != this.unit.team && t.type.hittable, t => t.dst2(this.unit));
-                  if(target != null){
-                    if(!this.unit.inRange(target)){
-                      this.targetFound = false;
-
-                      targets[i] = null;
-                    }else if(this.unit.inRange(target)){
-                      this.targetFound = true;
-
-                      targets[i] = target;
-                    }else{
-                      this.targetFound = false;
-
-                      this.targets[i] = null;
-                    }
-                  }else{
-                    this.targetFound = false;
-                  }
-                }
-                
-                if(targets[i] != null){
-                  mount.aimX = targets[i].x;
-                  mount.aimY = targets[i].y;
-                  let hShoot = targets[i].within(mountX, mountY, weapon.bullet.range()) && this.shouldShoot();
-                  mount.shoot = hShoot;
-                  mount.rotate = hShoot;
-                }
-	            }
-	          }
-	        }
-	      },
-	      retargetII(){
-	        return this.timer.get(this.timerTarget2, !this.targetFound ? 40 : 60);
-	      }
-	    });
-	    return u
-	  });
-	  return newUnitAI
-	},
+	pointDefAI: pointDef
 };
