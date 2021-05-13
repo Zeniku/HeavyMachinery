@@ -345,7 +345,7 @@ spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, col
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
 princeps.constructor = () => extend(MechUnit, {});
-princeps.defaultController = AI.overSeerAI("ground");
+princeps.defaultController = AI.overSeerAI(GroundAI);
 princeps.weapons.add(princepsWeapon);
 
 //Melee

@@ -137,8 +137,8 @@ module.exports = {
 		return meleeAIL;
 	},
 	overSeerAI(aiType){
-	  const overSeerAIGround = prov(() => {
-	    let u = extend(GroundAI, {
+	  const overSeerAIL = prov(() => {
+	    let u = extend(aitype, {
 	      updateMovement(){
 	        this.super$updateMovement()
 	        let shoot = false
@@ -151,25 +151,7 @@ module.exports = {
 	    });
 	    return u;
 	  });
-	  const overSeerAIFlying = prov(() => {
-	    let u = extend(FlyingAI, {
-	      updateMovement() {
-	        this.super$updateMovement()
-	        let shoot = false
-	        if(this.target !== null && this.unit.inRange(this.target)) {
-	          this.unit.aimLook(this.target);
-	          shoot = true;
-	        }
-	        this.unit.controlWeapons(shoot)
-	      },
-	    });
-	    return u;
-	  });
-	  if(aiType === "flying"){
-	    return overSeerAIFlying
-	  }else if(aiType === "ground"){
-	    return overSeerAIGround
-	  };
+	  return overSeerAIL
 	},
 	pointDefAI: pointDef
 };
