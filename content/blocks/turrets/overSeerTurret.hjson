@@ -1,0 +1,7 @@
+name: OverSeer Turret
+description: Bullets follow what you're targeting
+size: 4
+health: 1280
+reloadTime: 15
+alternate: true
+shots: 2
