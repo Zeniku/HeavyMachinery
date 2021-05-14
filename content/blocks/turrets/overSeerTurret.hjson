@@ -5,3 +5,9 @@ health: 1280
 reloadTime: 15
 alternate: true
 shots: 2
+requirements: [
+  "lonsdaleite/100",
+  "titanium/150",
+  "lead/180",
+]
+research: lancer
