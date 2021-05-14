@@ -18,6 +18,35 @@ I Made this thing because i saw someone use mods for example who (s)he can't und
 Ty for Meep's Missing category units for reference
 */
 
+function shooting(adapter, targets, mountX, mountY, mount, weapon){
+  for(let i = 0; i < targets.length; i++){
+    if(targets[i] != null){
+      mount.aimX = targets[i].x;
+      mount.aimY = targets[i].y;
+      let hShoot = targets[i].within(mountX, mountY, weapon.bullet.range()) && adapter.shouldShoot();
+      mount.shoot = hShoot;
+      mount.rotate = hShoot;
+    }
+  }
+}
+
+function targeting(adapter, target, targets){
+  if(target != null){
+    if(!this.unit.inRange(target)){
+      adapter.targetFound = false;
+      targets[i] = null;
+    }else if(this.unit.inRange(target)){
+      adapter.targetFound = true;
+      targets[i] = target;
+    }else{
+      adapter.targetFound = false;
+      targets[i] = null;
+    }
+  }else{
+    adapter.targetFound = false;
+  }
+}
+
 function pointDef(aitype){
   const newAI = prov(() => {
     let u = extend(aitype, {
@@ -29,7 +58,6 @@ function pointDef(aitype){
 	        let mounts = this.unit.mounts
 	        let targets = []
 	        let rotation = this.unit.rotation - 90
-	        let ret = this.retargetII()
 	         
 	        for(let i in mounts){
              let mount = mounts[i]
@@ -40,31 +68,9 @@ function pointDef(aitype){
                 
               if(this.retargetII()){
                 let target = Groups.bullet.intersect(mountX - weapon.bullet.range(), mountY - weapon.bullet.range(), weapon.bullet.range() * 2, weapon.bullet.range() * 2).min(t => t.team != this.unit.team && t.type.hittable, t => t.dst2(this.unit));
-                if(target != null){
-                  if(!this.unit.inRange(target)){
-                    this.targetFound = false;
-
-                    targets[i] = null;
-                  }else if(this.unit.inRange(target)){
-                    this.targetFound = true;
-
-                    targets[i] = target;
-                  }else{
-                    this.targetFound = false;
-
-                    this.targets[i] = null;
-                  }
-                }else{
-                  this.targetFound = false;
-                }
+                targeting(this, target, targets)
               }
-              if(targets[i] != null){
-                mount.aimX = targets[i].x;
-                mount.aimY = targets[i].y;
-                let hShoot = targets[i].within(mountX, mountY, weapon.bullet.range()) && this.shouldShoot();
-                mount.shoot = hShoot;
-                mount.rotate = hShoot;
-              }
+              shooting(this, targets, mountX, mountY, mount, weapon)
 	          }
 	        }
 	      }
