@@ -18,6 +18,7 @@ I Made this thing because i saw someone use mods for example who (s)he can't und
 Ty for Meep's Missing category units for reference
 */
 
+//has no Pos Predict
 function shooting(adapter, targets, mountX, mountY, mount, weapon){
   for(let i = 0; i < targets.length; i++){
     if(targets[i] != null){
@@ -32,10 +33,10 @@ function shooting(adapter, targets, mountX, mountY, mount, weapon){
 
 function targeting(adapter, target, targets){
   if(target != null){
-    if(!this.unit.inRange(target)){
+    if(!adapter.unit.inRange(target)){
       adapter.targetFound = false;
       targets[i] = null;
-    }else if(this.unit.inRange(target)){
+    }else if(adapter.unit.inRange(target)){
       adapter.targetFound = true;
       targets[i] = target;
     }else{
