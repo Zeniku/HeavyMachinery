@@ -3,10 +3,6 @@ let text = "heavymachinery/libs/"
 let blib = require(text + "bulletlib");
 let flib = require(text + "function");
 
-function range(bullet){
-  return bullet.speed * bullet.lifetime * 0.90
-}
-
 const overSeerBullet = blib.newOverSeerBullet({
   damage: 20,
   speed: 2.5,
@@ -18,7 +14,7 @@ const overSeerBullet = blib.newOverSeerBullet({
 const overSeerTurret = extend(PowerTurret, "overSeerTurret", {
   shootType: overSeerBullet,
   buildVisibility: BuildVisibility.shown,
-  range: range(this.shootType)
+  range: overSeerBullet.range()
 });
 overSeerTurret.buildType = () => {
   return extend(PowerTurret.PowerTurretBuild, overSeerTurret, {
