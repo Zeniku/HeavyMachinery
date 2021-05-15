@@ -24,7 +24,7 @@ const effect = extend(LiquidBlock, "statusEffectProjector", {
   outputsLiquid: false,
   hasItems: false,
   range: 8 * 15,
-  damage: 5,
+  damage: 2,
   reload: 60,
   hasPower: true,
   outputsPower: false,
@@ -123,7 +123,7 @@ tesla.buildType = () => extend(Building, {
         }
       }
       flib.radiusEnemies(this.team, this.x, this.y, tesla.range, unit => {
-        elib.fakeLightning(this.team, this.x, this.y, unit.x, unit.y, Pal.lancerLaser, 2)
+        elib.fakeLightning(this.team, this.x, this.y, unit.x, unit.y, Pal.lancerLaser, 4)
         unit.apply(StatusEffects.disarmed, 10);
         unit.apply(StatusEffects.shocked, 15);
         unit.damage(tesla.damage)
