@@ -6,6 +6,7 @@ let flib = require(text + "function");
 const overSeerBullet = blib.newOverSeerBullet({
   damage: 20,
   speed: 2.5,
+  lifetime: 60,
   pierceCap: 10
 });
 
