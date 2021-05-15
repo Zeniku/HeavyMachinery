@@ -123,6 +123,7 @@ tesla.buildType = () => extend(Building, {
         }
       }
       flib.radiusEnemies(this.team, this.x, this.y, tesla.range, unit => {
+        elib.fakeLightning(this.team, this.x, this.y, unit.x, unit.y, Pal.lancerLaser, 4)
         unit.apply(StatusEffects.disarmed, 10);
         unit.apply(StatusEffects.shocked, 15);
         unit.damage(tesla.damage)
