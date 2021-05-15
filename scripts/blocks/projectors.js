@@ -119,11 +119,10 @@ tesla.buildType = () => extend(Building, {
     if(this.consValid() && this.timer.get(0, tesla.reload)){
       if(Mathf.chance(5)){
         for(let i = 0; i < tesla.lightningCount; i++){
-        Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), (tesla.range * 0.125) + Mathf.random(10));
+        Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), (tesla.range * 0.125) + Mathf.random(5));
         }
       }
       flib.radiusEnemies(this.team, this.x, this.y, tesla.range, unit => {
-        elib.fakeLightning(this.team, this.x, this.y, unit.x, unit.y, Pal.lancerLaser, 4)
         unit.apply(StatusEffects.disarmed, 10);
         unit.apply(StatusEffects.shocked, 15);
         unit.damage(tesla.damage)
