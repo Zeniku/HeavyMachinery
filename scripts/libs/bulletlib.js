@@ -74,10 +74,14 @@ function overSeer(overide){
 		update(b){
 			if(b.timer.get(0, this.targetTime)){
 			  if(b.owner instanceof Unit){
-			    b.vel.setAngle(Angles.moveToward(b.rotation(), b.angleTo(b.owner.aimX, b.owner.aimY), this.turningPower * Time.delta * 50));
+			    let ang = Angles.moveToward(b.rotation(), b.angleTo(b.owner.aimX, b.owner.aimY), this.turningPower * Time.delta * 50)
+			    b.rotation(ang)
+			    b.vel.setAngle(ang);
 			  }
-			  if(b.owner instanceof Turret){
-			    b.vel.setAngle(Angles.moveToward(b.rotation(), b.angleTo(b.owner.targetPos.x, b.owner.targetPos.y), this.turningPower * Time.delta * 50));
+			  if(b.owner instanceof Turret.TurretBuild){
+			    let ang = Angles.moveToward(b.rotation(), b.angleTo(b.owner.targetPos.x, b.owner.targetPos.y), this.turningPower * Time.delta * 50)
+			    b.rotation(ang)
+			    b.vel.setAngle(ang);
 			  }
 			};
 			b.data.update(b.x, b.y);
