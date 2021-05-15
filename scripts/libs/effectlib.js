@@ -5,7 +5,7 @@
 const fake = new Effect(5, 500, e => {
   let data = e.data;//uselesss but whatever
   let length = data[0];
-  let tileLength = Mathf.round(length / tilesize);
+  let tileLength = Mathf.round(length / Vars.tilesize);
 
   Lines.stroke(data[1] * e.fout());
   Draw.color(e.color, Color.white, e.fin());
