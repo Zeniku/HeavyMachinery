@@ -4,6 +4,7 @@ let text = "heavymachinery/libs/";
 
 let flib = require(text + "function");
 let dlib = require(text + "drawlib");
+let elib = require(text + "effectlib")
 
 //Effects
 const flameAura = new Effect(40, e => {
@@ -23,6 +24,7 @@ const effect = extend(LiquidBlock, "statusEffectProjector", {
   outputsLiquid: false,
   hasItems: false,
   range: 8 * 15,
+  damage: 5,
   reload: 60,
   hasPower: true,
   outputsPower: false,
@@ -33,11 +35,10 @@ const effect = extend(LiquidBlock, "statusEffectProjector", {
 		];
 	},
 	drawPlace(x, y, rotation){
-		Drawf.dashCircle(x * Vars.tilesize + this.offset, y * Vars.tilesize + this.offset, this.range, Pal.accent);
+		Drawf.dashCircle(x * Vars.tilesize, y * Vars.tilesize, this.range, Pal.accent);
 	}
 });
-effect.buildType = () => {
-	let eff = extend(LiquidBlock.LiquidBuild, effect, {
+effect.buildType = () => extend(LiquidBlock.LiquidBuild, effect, {
 	
 		updateTile(){
 		//Basically checks if it's consuming something and check if timer
@@ -64,6 +65,7 @@ effect.buildType = () => {
 				//remember using cons() on this function
 				flib.radiusEnemies(this.team, this.x, this.y, effect.range, unitii => {
 					unitii.apply(StatusEffects.melting, 60);
+					unitii.damage(effect.damage)
 					enemiesBurn = true;
 				});
 				
@@ -77,20 +79,61 @@ effect.buildType = () => {
 		
 		drawSelect(){
 			Drawf.dashCircle(this.x, this.y, effect.range, Pal.accent);
-			
-			Draw.reset();
 		},
-		
 		draw(){
 			Draw.rect(Core.atlas.find("heavymachinery-statusEffectProjector"), this.x, this.y);
 			
 			if(this.consValid()){
+			  Draw.z(Layer.effect - 0.01)
 				dlib.spikeii(this.x, this.y, Pal.lightPyraFlame, 2 * 2.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time);
 				dlib.spikeii(this.x, this.y, Color.white, 2 * 1.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time);
 			};
 		},
 		
 	});
-	return eff;
-};
 effect.consumes.power(500/60.0);
+
+const tesla = extend(Block, "tesla", {
+  drawPlace(x, y, rotation){
+    Drawf.dashCircle(x * Vars.tilesize, y * Vars.tilesize, this.range, Pal.lancerLaser);
+  },
+  breakable: true,
+  update: true,
+  targetable: true,
+  hasLiquids: false,
+  outputsLiquid: false,
+  hasItems: false,
+  range: 8 * 15,
+  reload: 45,
+  damage: 10,
+  hasPower: true,
+  outputsPower: false,
+  buildVisibility: BuildVisibility.shown,
+});
+tesla.buildType = () => extend(Building, {
+  drawSelect() {
+    Drawf.dashCircle(this.x, this.y, tesla.range, Pal.lancerLaser);
+  },
+  updateTile(){
+    if(this.consValid() && this.timer.get(0, tesla.reload)){
+      if(Mathf.chance(5)){
+        Lightning.create(this.team, lightningColor, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), tesla.range * 0.3 + Mathf.random(10));
+      }
+      flib.radiusEnemies(this.team, this.x, this.y, tesla.range, unit => {
+        elib.fakeLightning(this.team, this.x, this.y, unit.x, unit.y, Pal.lancerLaser, 2)
+        unit.apply(StatusEffects.disarmed, 10);
+        unit.apply(StatusEffects.shocked, 15);
+        unit.damage(tesla.damage)
+      });
+    }
+  },
+  draw(){
+    Draw.rect(this.block.region, this.x, this.y);
+    if(this.consValid()){
+      Draw.z(Layer.bullet + 0.01)
+      Draw.color(Pal.lancerLaser)
+      Fill.circle(this.x, this.y, 4)
+    }
+  }
+});
+tesla.consumes.power(500/60.0);
