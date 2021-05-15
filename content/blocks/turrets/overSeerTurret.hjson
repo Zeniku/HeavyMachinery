@@ -10,4 +10,5 @@ requirements: [
   "titanium/150",
   "lead/180",
 ]
+category: turret
 research: lancer
