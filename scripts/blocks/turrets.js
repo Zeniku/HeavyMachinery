@@ -7,7 +7,8 @@ const overSeerBullet = blib.newOverSeerBullet({
   damage: 20,
   speed: 2.5,
   lifetime: 60,
-  pierceCap: 10
+  pierceCap: 10,
+  trailWidth: 5
 });
 
 const overSeerTurret = extend(PowerTurret, "overSeerTurret", {
