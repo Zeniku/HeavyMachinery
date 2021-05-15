@@ -18,15 +18,17 @@ const fake = new Effect(5, 500, e => {
     let offsetXB = f == tileLength ? 0 : Mathf.randomSeed(e.id + (f * 6413), -4.5, 4.5);
     let offsetYB = (length / tileLength) * f;
     
-    Tmp.v1.trns(e.rotation, offsetYA, offsetXA);
-    Tmp.v1.add(e.x, e.y);
+    let tmp1 = new Vec2();
+    tmp1.trns(e.rotation, offsetYA, offsetXA);
+    tmp1.add(e.x, e.y);
 
-    Tmp.v2.trns(e.rotation, offsetYB, offsetXB);
-    Tmp.v2.add(e.x, e.y);
+    let tmp2 = new Vec2();
+    tmp2.trns(e.rotation, offsetYB, offsetXB);
+    tmp2.add(e.x, e.y);
 
-    Lines.line(Tmp.v1.x, Tmp.v1.y, Tmp.v2.x, Tmp.v2.y, false);
-    Fill.circle(Tmp.v1.x, Tmp.v1.y, Lines.getStroke() / 2);
-    Drawf.light(data[2], Tmp.v1.x, Tmp.v1.y, Tmp.v2.x, Tmp.v2.y, data[1] * 3, e.color, 0.4);
+    Lines.line(tmp1.x, tmp1.y, tmp2.x, tmp2.y, false);
+    Fill.circle(tmp1.x, tmp1.y, Lines.getStroke() / 2);
+    Drawf.light(data[2], tmp1.x, tmp1.y, tmp2.x, tmp2.y, data[1] * 3, e.color, 0.4);
         }
 
     Fill.circle(Tmp.v2.x, Tmp.v2.y, Lines.getStroke() / 2);
