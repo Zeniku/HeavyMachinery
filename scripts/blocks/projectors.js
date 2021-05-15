@@ -117,7 +117,7 @@ tesla.buildType = () => extend(Building, {
   updateTile(){
     if(this.consValid() && this.timer.get(0, tesla.reload)){
       if(Mathf.chance(5)){
-        Lightning.create(this.team, Pal.lancer, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), tesla.range * 0.3 + Mathf.random(10));
+        Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), tesla.range * 0.3 + Mathf.random(10));
       }
       flib.radiusEnemies(this.team, this.x, this.y, tesla.range, unit => {
         elib.fakeLightning(this.team, this.x, this.y, unit.x, unit.y, Pal.lancerLaser, 2)
