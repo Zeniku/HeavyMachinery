@@ -104,7 +104,7 @@ const tesla = extend(Block, "tesla", {
   outputsLiquid: false,
   hasItems: false,
   range: 8 * 15,
-  reload: 45,
+  reload: 20,
   damage: 10,
   hasPower: true,
   outputsPower: false,
@@ -116,17 +116,21 @@ tesla.buildType = () => extend(Building, {
     Drawf.dashCircle(this.x, this.y, tesla.range, Pal.lancerLaser);
   },
   updateTile(){
-    if(this.consValid() && this.timer.get(0, tesla.reload)){
-      if(Mathf.chance(5)){
-        for(let i = 0; i < tesla.lightningCount; i++){
-        Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), (tesla.range * 0.125) + Mathf.random(5));
+    if(this.consValid()){
+      if(this.timer.get(0, tesla.reload)){
+        flib.radiusEnemies(this.team, this.x, this.y, tesla.range, unit => {
+          unit.apply(StatusEffects.disarmed, 10);
+          unit.apply(StatusEffects.shocked, 15);
+          unit.damage(tesla.damage)
+          let ang = Angles.angle(x1, y1, x2, y2)
+          fake.at(this.x, this.y, ang, Pal.lancerLaser, [Mathf.dst(this.x, this.y, unit.x, unit.y), 4, this.team])
+      });
+        if(Mathf.chance(25)){
+          for(let i = 0; i < tesla.lightningCount; i++){
+          Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), ((tesla.range * 0.125) * 0.5) + Mathf.random(5));
+          }
         }
       }
-      flib.radiusEnemies(this.team, this.x, this.y, tesla.range, unit => {
-        unit.apply(StatusEffects.disarmed, 10);
-        unit.apply(StatusEffects.shocked, 15);
-        unit.damage(tesla.damage)
-      });
     }
   },
   draw(){

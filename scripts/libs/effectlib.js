@@ -117,10 +117,7 @@ fake.layer = Layer.bullet + 0.01
 		});
 		return sc;
 	},
-  fakeLightning(team, x1, y1, x2, y2, lightningColor, lightningStroke){
-    let ang = Angles.angle(x1, y1, x2, y2)
-    return fake.at(x1, y1, ang, lightningColor, [Mathf.dst(x1, y1, x2, y2), lightningStroke, team])
-  }
+  fakeLightning: fake
 }
 //Credits
 //MeepOfFaith fake lightning
