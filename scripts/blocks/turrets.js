@@ -19,4 +19,5 @@ const overSeerTurret = extend(PowerTurret, "overSeerTurret",{
     }
   },//it should fix the overseer bullet going in front of enemy and not hitting it
   shootType: overSeerBullet,
+  buildVisibility: BuildVisibility.shown
 });

@@ -11,4 +11,3 @@ requirements: [
   "lead/180",
 ]
 research: lancer
-buildVisibility: shown
