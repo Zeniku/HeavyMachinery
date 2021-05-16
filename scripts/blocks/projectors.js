@@ -33,6 +33,7 @@ const effect = extend(LiquidBlock, "statusEffectProjector", {
   hasPower: true,
   outputsPower: false,
   buildVisibility: BuildVisibility.shown,
+  timers: 2,
 	icons(){
 		return [
 			Core.atlas.find("heavymachinery-statusEffectProjector")
@@ -69,7 +70,9 @@ effect.buildType = () => extend(LiquidBlock.LiquidBuild, effect, {
 				//remember using cons() on this function
 				flib.radiusEnemies(this.team, this.x, this.y, effect.range, unitii => {
 					unitii.apply(StatusEffects.melting, 60);
-					unitii.damage(effect.damage)
+					if(this.timer.get(1, effect.reload * 0.25)){
+			  		unitii.damage(effect.damage)
+					}
 					enemiesBurn = true;
 				});
 				
@@ -114,6 +117,7 @@ const tesla = extend(Block, "tesla", {
   outputsPower: false,
   buildVisibility: BuildVisibility.shown,
   lightningCount: 3,
+  timers: 2
 });
 tesla.buildType = () => extend(Building, {
   drawSelect() {
