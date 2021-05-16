@@ -123,7 +123,7 @@ tesla.buildType = () => extend(Building, {
           unit.apply(StatusEffects.shocked, 15);
           unit.damage(tesla.damage)
           let ang = Angles.angle(this.x, this.y, unit.x, unit.y)
-          fake.at(this.x, this.y, ang, Pal.lancerLaser, [Mathf.dst(this.x, this.y, unit.x, unit.y), 4, this.team])
+          elib.fakeLightning.at(this.x, this.y, ang, Pal.lancerLaser, [Mathf.dst(this.x, this.y, unit.x, unit.y), 4, this.team])
       });
         if(Mathf.chance(25)){
           for(let i = 0; i < tesla.lightningCount; i++){
