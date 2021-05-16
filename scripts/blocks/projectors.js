@@ -143,7 +143,7 @@ tesla.buildType = () => extend(Building, {
     if(this.consValid()){
       Draw.z(Layer.bullet + 0.01)
       Draw.color(Pal.lancerLaser)
-      Fill.circle(this.x, this.y, 2 * 1.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time)
+      Fill.circle(this.x, this.y, 2 * 1.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1));
     }
   }
 });
