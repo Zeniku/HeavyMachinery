@@ -2,7 +2,7 @@
 	* An extension for draw lib
 	* Lib by Zeniku
 	*/
-const fake = new Effect(5, 500, e => {
+const fake = new Effect(15, 500, e => {
   let data = e.data;//uselesss but whatever
   let length = data[0];
   let tileLength = Mathf.round(length / Vars.tilesize);
