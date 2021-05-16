@@ -109,7 +109,7 @@ const tesla = extend(Block, "tesla", {
   hasItems: false,
   range: 8 * 15,
   reload: 20,
-  damage: 10,
+  damage: 20,
   hasPower: true,
   outputsPower: false,
   buildVisibility: BuildVisibility.shown,
