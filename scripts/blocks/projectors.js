@@ -122,7 +122,7 @@ tesla.buildType = () => extend(Building, {
           unit.apply(StatusEffects.disarmed, 10);
           unit.apply(StatusEffects.shocked, 15);
           unit.damage(tesla.damage)
-          let ang = Angles.angle(x1, y1, x2, y2)
+          let ang = Angles.angle(this.x, this.y, unit.x, unit.y)
           fake.at(this.x, this.y, ang, Pal.lancerLaser, [Mathf.dst(this.x, this.y, unit.x, unit.y), 4, this.team])
       });
         if(Mathf.chance(25)){
