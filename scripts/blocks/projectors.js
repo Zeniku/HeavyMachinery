@@ -11,6 +11,10 @@ const flameAura = new Effect(40, e => {
 	dlib.splashCircleii(e.x, e.y, Pal.lightPyraFlame, Pal.darkFlame, e.fin(), e.fout() * 2.5, e.id, 3, 2 + e.fin() * 9, e.rotation, 360);
 });
 
+const spark = new Effect(40, e => {
+  dlib.splashline(e.x, e.y, Pal.lancerLaser, 2, 3, e.id, 4, 8, e.rotation, -45)
+});
+
 const healWave = new Effect(22, e => {
 	dlib.lineCircle(e.x, e.y, Pal.heal, e.fout() * 3, 4 + e.finpow() * (8 * 15));
 });
@@ -122,6 +126,7 @@ tesla.buildType = () => extend(Building, {
           unit.apply(StatusEffects.disarmed, 10);
           unit.apply(StatusEffects.shocked, 15);
           unit.damage(tesla.damage)
+          spark.at(unit)
           let ang = Angles.angle(this.x, this.y, unit.x, unit.y)
           elib.fakeLightning.at(this.x, this.y, ang, Pal.lancerLaser, [Mathf.dst(this.x, this.y, unit.x, unit.y), 4, this.team])
       });
@@ -138,7 +143,7 @@ tesla.buildType = () => extend(Building, {
     if(this.consValid()){
       Draw.z(Layer.bullet + 0.01)
       Draw.color(Pal.lancerLaser)
-      Fill.circle(this.x, this.y, 4)
+      Fill.circle(this.x, this.y, 2 * 1.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time)
     }
   }
 });
