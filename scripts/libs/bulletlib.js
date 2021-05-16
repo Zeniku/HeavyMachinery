@@ -4,6 +4,7 @@ let text = "heavymachinery/libs/";
 
 let flib = require(text + "function");
 let dlib = require(text + "drawlib");
+let elib = require(text + "effectlib");
 
 //look at the libs first
 //this is not a great example if you are just beginning to mod
@@ -115,13 +116,12 @@ function tractorBeam(object){
 
             if(tile.collide(b)){
               tile.collision(b);
-              this.hit(b, tile.x, tile.y);
+              b.hit(b, tile.x, tile.y);
             }
           }
         }else{
           b.data = new Vec2().trns(b.rotation(), this.length).add(b.x, b.y);
         }
-        
       },
       range(){
         return this.length;
