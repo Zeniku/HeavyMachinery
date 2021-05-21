@@ -1,0 +1,13 @@
+name: "Tesla"
+description: "Electrocutes Units \nCant be boosted by overdrives"
+size: 3
+health: 1500
+requirements: [
+	titanium/150
+	plastanium/150
+	lonsdaleite/100
+	silicon/200
+	graphite/300
+]
+category: effect
+research: statusEffectProjector

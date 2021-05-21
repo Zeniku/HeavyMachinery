@@ -2,6 +2,38 @@
 	* An extension for draw lib
 	* Lib by Zeniku
 	*/
+const fake = new Effect(15, 500, e => {
+  let data = e.data;//uselesss but whatever
+  let length = data[0];
+  let tileLength = Mathf.round(length / Vars.tilesize);
+
+  Lines.stroke(data[1] * e.fout());
+  Draw.color(e.color, Color.white, e.fin());
+
+  for(let i = 0; i < tileLength; i++){
+    let offsetXA = i == 0 ? 0 : Mathf.randomSeed(e.id + (i * 6413), -4.5, 4.5);
+    let offsetYA = (length / tileLength) * i;
+    let f = i + 1;
+    
+    let offsetXB = f == tileLength ? 0 : Mathf.randomSeed(e.id + (f * 6413), -4.5, 4.5);
+    let offsetYB = (length / tileLength) * f;
+    
+    let tmp1 = new Vec2();
+    tmp1.trns(e.rotation, offsetYA, offsetXA);
+    tmp1.add(e.x, e.y);
+
+    let tmp2 = new Vec2();
+    tmp2.trns(e.rotation, offsetYB, offsetXB);
+    tmp2.add(e.x, e.y);
+
+    Lines.line(tmp1.x, tmp1.y, tmp2.x, tmp2.y, false);
+    Fill.circle(tmp1.x, tmp1.y, Lines.getStroke() / 2);
+    Drawf.light(data[2], tmp1.x, tmp1.y, tmp2.x, tmp2.y, data[1] * 3, e.color, 0.4);
+        }
+
+    Fill.circle(Tmp.v2.x, Tmp.v2.y, Lines.getStroke() / 2);
+});
+fake.layer = Layer.bullet + 0.01
 	const dlib = require("heavymachinery/libs/drawlib");
 	module.exports = {
 	//simple effect circle
@@ -85,4 +117,7 @@
 		});
 		return sc;
 	},
+  fakeLightning: fake
 }
+//Credits
+//MeepOfFaith fake lightning

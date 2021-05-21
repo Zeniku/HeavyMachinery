@@ -12,12 +12,14 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
   flib.merge(laserbullet, stat)
   
   let shootSoundH = null
-  if(shootSound != null){
-    shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
+  if(shootSound != Sounds.none && !Vars.headless){
+    if(shootSound != null){
+      shootSoundH = new SoundLoop(shootSound, 1);//ahyes sound
+    }
   }
   return extend(Ability, {
     update(unit){
-      let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));
+      let scl = Mathf.clamp((unit.vel.len() - minSpeed) / (maxSpeed - minSpeed));//fuck
       let bx = unit.x + Angles.trnsx(unit.rotation, x, y)
       let by = unit.y + Angles.trnsy(unit.rotation, x, y)
       
@@ -28,6 +30,8 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
             shootSoundH.update(bx, by, true);
           }
         }
+      }else{
+        shootSoundH.stop()
       }
       //flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
     },

@@ -22,8 +22,7 @@ const lcomp = extend(GenericCrafter, "lonsdaleite-compressor", {
 		]
 	}
 });
-lcomp.buildType = () => {
-	let ent = extend(GenericCrafter.GenericCrafterBuild, lcomp, {
+lcomp.buildType = () => extend(GenericCrafter.GenericCrafterBuild, lcomp, {
 		draw(){//draws
 			let sine = true;
 			Draw.rect(lcomp.bottomRegion, this.x, this.y);
@@ -37,5 +36,3 @@ lcomp.buildType = () => {
 			Draw.rect(lcomp.topRegion, this.x, this.y);
 		}
 	});
-	return ent
-};
