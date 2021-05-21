@@ -11,8 +11,8 @@ const flameAura = new Effect(40, e => {
 	dlib.splashCircleii(e.x, e.y, Pal.lightPyraFlame, Pal.darkFlame, e.fin(), e.fout() * 2.5, e.id, 3, 2 + e.fin() * 9, e.rotation, 360);
 });
 
-const spark = new Effect(20, e => {
-  dlib.splashline(e.x, e.y, Pal.lancerLaser, 2 * e.fout(), 3 * e.fin(), e.id, 4, e.finpow() * 10, e.rotation, -45)
+const spark = new Effect(10, e => {
+  dlib.splashline(e.x, e.y, Pal.lancerLaser, 4 * e.fout(), 3 * e.fin(), e.id, 4, e.finpow() * 16, e.rotation, 45)
 });
 
 const healWave = new Effect(22, e => {
@@ -20,6 +20,7 @@ const healWave = new Effect(22, e => {
 });
 
 //block
+/*Note: I couldake these things overdrivable but im lazy*/
 const effect = extend(LiquidBlock, "statusEffectProjector", {
   breakable: true,
   update: true,

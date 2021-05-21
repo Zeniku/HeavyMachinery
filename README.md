@@ -6,18 +6,29 @@
 
 # HeavyMachinery
 A v6 mod for Mindustry
-This mod aims to boost and extend your vannila experience
 
 **Adds:**
-1. New Blocks
-2. New Items
-3. New Units
 
-**Note:**
+*Units: 9*
+ - melee: 5
+ - purpleAir: 3
+ - overseer: 1
+
+*Blocks: 5*
+ - turrets: 1
+ - effects: 3
+ - production: 1
+
+### Wiki
+Go To Wiki by going here<br />
+[Wiki](https://github.com/Zeniku/HeavyMachinery-Wiki)
+
+### Notes
 This Mod is still incomplete
-There is a lot planned on this mod but not out yet so keep watch for new updates<br />Thanks for [Shit Fabric](https://github.com/Duvent-mindustry) For the Awesome Logo!
+There is a lot planned on this mod but not out yet so keep watch for new updates<br />
+All things on `Adds` is subject to change
 
-Go check out wiki by [pressing this text](https://github.com/Zeniku/HeavyMachinery-Wiki)
+Thanks for [Shit Fabric](https://github.com/Duvent-mindustry) For the Awesome Logo!
 
 # Contribute
 
