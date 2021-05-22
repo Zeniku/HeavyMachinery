@@ -118,6 +118,8 @@ const tesla = extend(Block, "tesla", {
   outputsPower: false,
   buildVisibility: BuildVisibility.shown,
   lightningCount: 3,
+  lightningLength: 10,
+  lightningLengthRand: 6,
   timers: 2
 });
 tesla.buildType = () => extend(Building, {
@@ -137,7 +139,7 @@ tesla.buildType = () => extend(Building, {
       });
         if(Mathf.chance(25)){
           for(let i = 0; i < tesla.lightningCount; i++){
-          Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), ((tesla.range * 0.125) * 0.5) + Mathf.random(5));
+          Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), Mathf.random(tesla.lightningLength, tesla.lightningLengthRand));
           }
         }
       }
