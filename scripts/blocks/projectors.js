@@ -29,7 +29,7 @@ const effect = extend(LiquidBlock, "statusEffectProjector", {
   outputsLiquid: false,
   hasItems: false,
   range: 8 * 15,
-  damage: 2,
+  damage: 10,
   reload: 60,
   hasPower: true,
   outputsPower: false,
@@ -78,7 +78,7 @@ effect.buildType = () => extend(LiquidBlock.LiquidBuild, effect, {
 				});
 				
 				if(enemiesBurn){
-					for(var i = 0; i < 3; i++){
+					for(let i = 0; i < 3; i++){
 						flameAura.at(this.x + Angles.trnsx(Mathf.random(360), Mathf.random(effect.range)), this.y + Angles.trnsy(Mathf.random(360), Mathf.random(effect.range)));
 					};
 				};
