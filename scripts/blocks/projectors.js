@@ -29,7 +29,7 @@ const effect = extend(LiquidBlock, "statusEffectProjector", {
   outputsLiquid: false,
   hasItems: false,
   range: 8 * 15,
-  damage: 2,
+  damage: 10,
   reload: 60,
   hasPower: true,
   outputsPower: false,
@@ -78,7 +78,7 @@ effect.buildType = () => extend(LiquidBlock.LiquidBuild, effect, {
 				});
 				
 				if(enemiesBurn){
-					for(var i = 0; i < 3; i++){
+					for(let i = 0; i < 3; i++){
 						flameAura.at(this.x + Angles.trnsx(Mathf.random(360), Mathf.random(effect.range)), this.y + Angles.trnsy(Mathf.random(360), Mathf.random(effect.range)));
 					};
 				};
@@ -118,6 +118,8 @@ const tesla = extend(Block, "tesla", {
   outputsPower: false,
   buildVisibility: BuildVisibility.shown,
   lightningCount: 3,
+  lightningLength: 10,
+  lightningLengthRand: 6,
   timers: 2
 });
 tesla.buildType = () => extend(Building, {
@@ -137,7 +139,7 @@ tesla.buildType = () => extend(Building, {
       });
         if(Mathf.chance(25)){
           for(let i = 0; i < tesla.lightningCount; i++){
-          Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), ((tesla.range * 0.125) * 0.5) + Mathf.random(5));
+          Lightning.create(this.team, Pal.lancerLaser, tesla.damage * 0.5, this.x, this.y, Mathf.random(0, 359), Mathf.random(tesla.lightningLength, tesla.lightningLengthRand));
           }
         }
       }

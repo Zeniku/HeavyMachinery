@@ -1,11 +1,12 @@
 //Libs And functions
-let text = "heavymachinery/libs/";
+let lib = "heavymachinery/libs/";
+let heav = "heavymachinery-"
 
-let AI = require(text + "ai");
-let alib = require(text + "abilities");
-let blib = require(text + "bulletlib");
-let flib = require(text + "function");
-let dlib = require(text + "drawlib");
+let AI = require(lib + "ai");
+let alib = require(lib + "abilities");
+let blib = require(lib + "bulletlib");
+let flib = require(lib + "function");
+let dlib = require(lib + "drawlib");
 
 function newWeapon(object){
 	return extend(Weapon, object);
@@ -148,7 +149,7 @@ const machaeraBullet = meleeBullet({
 
 //[UnitWeapons]
 const trahoWeapon = newWeapon({
-  name: "heavymachinery-trahoWeapon",
+  name: heav + "trahoWeapon",
   x: 0,
   y: flib.pixel(-5),
   recoil: 0,
@@ -160,7 +161,7 @@ const trahoWeapon = newWeapon({
 });
 
 const trahoWeaponII = newWeapon({
-  name: "heavymachinery-trahoWeaponII",
+  name: heav + "trahoWeaponII",
   x: flib.pixel(3),
   y: 0,
   shootY: flib.pixel(25),
@@ -170,7 +171,7 @@ const trahoWeaponII = newWeapon({
 });
 
 const spiculumWeapon = newWeapon({
-  name: "heavymachinery-spiculumWeapon",
+  name: heav + "spiculumWeapon",
   x: flib.pixel(34),
   y: 0,
   reload: 15,
@@ -179,7 +180,7 @@ const spiculumWeapon = newWeapon({
 });
 
 const princepsWeapon = newWeapon({
-  name: "heavymachinery-princepsWeapon",
+  name: heav + "princepsWeapon",
  	x: 5,
 	y: 0,
 	top: false,
@@ -190,7 +191,7 @@ const princepsWeapon = newWeapon({
 });
 
 const pugioneWeapon = newWeapon({
-	name: "heavymachinery-pugioneWeapon",
+	name: heav + "pugioneWeapon",
 	reload: 20,
 	x: 5,
 	y: 0,
@@ -208,7 +209,7 @@ const pugioneWeapon = newWeapon({
 });
 
 const mucroWeapon = newWeapon({
-	name: "heavymachinery-mucroWeapon",
+	name: heav + "mucroWeapon",
 	x: flib.pixel(24),
 	y: 0,
 	reload: 30,
@@ -229,7 +230,7 @@ const mucroWeapon = newWeapon({
 });
 
 const tragulaWeapon = newWeapon({
-	name: "heavymachinery-tragulaWeapon",
+	name: heav + "tragulaWeapon",
 	x: 8,
 	y: 1,
 	reload: 40,
@@ -247,7 +248,7 @@ const tragulaWeapon = newWeapon({
 });
 
 const luciusWeapon = newWeapon({
-  name: "heavymachinery-luciusWeapon",
+  name: heav + "luciusWeapon",
   x: flib.pixel(44),
   y: flib.pixel(1),
   reload: 20,
@@ -265,7 +266,7 @@ const luciusWeapon = newWeapon({
 });
 
 const machaeraWeapon = newWeapon({
-  name: "heavymachinery-machaeraWeapon",
+  name: heav + "machaeraWeapon",
   x: flib.pixel(75),
   y: flib.pixel(-6),
   reload: 35,
@@ -287,7 +288,7 @@ const machaeraWeapon = newWeapon({
 });
 
 const miscWeapon = newWeapon({
-	name: "heavymachinery-earthBend",
+	name: heav + "earthBend",
 	x: 0,
 	y: 0,
 	reload: 120,
@@ -306,7 +307,7 @@ const miscWeapon = newWeapon({
 });
 
 const miscWeaponII = newWeapon({
-	name: "heavymachinery-earthBendII",
+	name: heav + "earthBendII",
 	x: 0,
 	y: 0,
 	reload: 120,
@@ -374,7 +375,7 @@ machaera.constructor = () => extend(MechUnit, {});
 machaera.defaultController = AI.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 
-const cunit = name => Vars.content.getByName(ContentType.unit, "heavymachinery-" + name);
+const cunit = name => Vars.content.getByName(ContentType.unit, heav + name);
 
 //Debugging
 //flib.debug("unit.js", [cunit, aranea, traho, pugione, mucro, tragula, lucius, machaera, princeps, trahoBullet, trahoWeapon]);
