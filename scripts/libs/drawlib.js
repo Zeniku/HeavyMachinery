@@ -15,27 +15,27 @@ module.exports = {
 	lineCircle(x, y, color, thickness, radius){
 		Draw.color(color);
 		Lines.stroke(thickness);
-	    Lines.circle(x, y, radius);
-	    Draw.color();
-	    Lines.stroke(1);
+		Lines.circle(x, y, radius);
+		Draw.color();
+		Lines.stroke(1);
 	},
 	lineCircleii(x, y, colorFrom, colorTo, inOut, thickness, radius){
 		Draw.color(colorFrom, colorTo, inOut);
 		Lines.stroke(thickness);
-	    Lines.circle(x, y, radius);
-	    Draw.color();
-	    Lines.stroke(1);
+		Lines.circle(x, y, radius);
+		Draw.color();
+		Lines.stroke(1);
 	},
 	lineCircleWCol(x, y, thickness, radius){
-	    Lines.stroke(thickness);
-	    Lines.circle(x, y, radius);
-	    Lines.stroke(1);
+    Lines.stroke(thickness);
+    Lines.circle(x, y, radius);
+    Lines.stroke(1);
 	},
 	fillCircle(x, y, color, alpha, radius){
-	    Draw.color(color);
-	    Draw.alpha(alpha);
-	    Fill.circle(x, y, radius);
-	    Draw.color();
+    Draw.color(color);
+    Draw.alpha(alpha);
+    Fill.circle(x, y, radius);
+    Draw.color();
 	},
 	fillCircleii(x, y, colorFrom, colorTo, inOut, alpha, radius){
 	    Draw.color(colorFrom, colorTo, inOut);
@@ -99,65 +99,65 @@ module.exports = {
 	    Draw.color();
 	},
 	swirlWCol(x, y, thickness, radius, finion, angle){
-	    Lines.stroke(thickness);
-	    Lines.swirl(x, y, radius, finion, angle);
-	    Lines.stroke(1);
+      Lines.stroke(thickness);
+      Lines.swirl(x, y, radius, finion, angle);
+      Lines.stroke(1);
 	},
 	splashline(x, y, color, thickness, length, id, amount, distance, rotation, cone){
 	    Draw.color(color);
-		Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
+      Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
 			const ang = Mathf.angle(a, b);
-			Lines.stroke(thickness);
-			Lines.lineAngle(x + a, y + b, ang, length);
-			Lines.stroke(1);
+        Lines.stroke(thickness);
+        Lines.lineAngle(x + a, y + b, ang, length);
+        Lines.stroke(1);
 		});
-	    Draw.color();
+     Draw.color();
 	},
 	splashlineii(x, y, colorFrom, colorTo, inOut, thickness, length, id, amount, distance, rotation, cone){
-	    Draw.color(colorFrom, colorTo, inOut);
-	    Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
-		    const ang = Mathf.angle(a, b);
-		    Lines.stroke(thickness);
-		    Lines.lineAngle(x + a, y + b, ang, length);
-		    Lines.stroke(1);
+        Draw.color(colorFrom, colorTo, inOut);
+        Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
+        const ang = Mathf.angle(a, b);
+        Lines.stroke(thickness);
+        Lines.lineAngle(x + a, y + b, ang, length);
+        Lines.stroke(1);
 	    });
-	    Draw.color();
+      Draw.color();
 	},
 	splashCircle(x, y, color, radius, id, amount, distance, rotation, cone){
-	    Draw.color(color);
-	    Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
-		    Fill.circle(x + a, y + b, radius);
+      Draw.color(color);
+      Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
+        Fill.circle(x + a, y + b, radius);
 	    });
-	    Draw.color();
+      Draw.color();
 	},
 	splashCircleii(x, y, colorFrom, colorTo, inOut, radius, id, amount, distance, rotation, cone){
-	    Draw.color(colorFrom, colorTo, inOut);
-		Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
-		    Fill.circle(x + a, y + b, radius);
+      Draw.color(colorFrom, colorTo, inOut);
+      Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
+        Fill.circle(x + a, y + b, radius);
 		});
-	    Draw.color();
+      Draw.color();
 	},
 	spike(x, y, colorFrom, colorTo, inOut, size, rotation){
-	    Draw.color(colorFrom, colorTo, inOut);
-	    Drawf.tri(x, y, size, (size * 2), rotation);
-	    Drawf.tri(x, y, size, (size * 2), rotation + 90);
-	    Drawf.tri(x, y, size, (size * 2), rotation + 180);
-	    Drawf.tri(x, y, size, (size * 2), rotation + 270);
-	    Draw.color();
+      Draw.color(colorFrom, colorTo, inOut);
+      Drawf.tri(x, y, size, (size * 2), rotation);
+      Drawf.tri(x, y, size, (size * 2), rotation + 90);
+      Drawf.tri(x, y, size, (size * 2), rotation + 180);
+      Drawf.tri(x, y, size, (size * 2), rotation + 270);
+      Draw.color();
 	},
 	spikeii(x, y, color, size, rotation){
-	    Draw.color(color);
-	    Drawf.tri(x, y, size, (size * 2), rotation);
-	    Drawf.tri(x, y, size, (size * 2), rotation + 90);
-	    Drawf.tri(x, y, size, (size * 2), rotation + 180);
-	    Drawf.tri(x, y, size, (size * 2), rotation + 270);
-	    Draw.color();
+      Draw.color(color);
+      Drawf.tri(x, y, size, (size * 2), rotation);
+      Drawf.tri(x, y, size, (size * 2), rotation + 90);
+      Drawf.tri(x, y, size, (size * 2), rotation + 180);
+      Drawf.tri(x, y, size, (size * 2), rotation + 270);
+      Draw.color();
 	},
-	spikeiii(x, y, colorRrom, colorTo, inOut, spikes, size, lengthMultiplier, rotation){
-	    Draw.color(colorFrom, colorTo, inOut);
-		const step = 360 / spikes;
-		for(var i = 0; i < spikes; i++){
+  spikeiii(x, y, colorRrom, colorTo, inOut, spikes, size, lengthMultiplier, rotation){
+      Draw.color(colorFrom, colorTo, inOut);
+      const step = 360 / spikes;
+      for(var i = 0; i < spikes; i++){
 			Drawf.tri(x, y, size, (size * lengthMultiplier), i * step + rotation);
 		};
-	}
+	},
 }
