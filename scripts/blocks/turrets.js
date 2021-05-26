@@ -11,14 +11,14 @@ const overSeerBullet = blib.newOverSeerBullet({
   trailWidth: 2.5
 });
 
-const overSeerTurret = extend(PowerTurret, "overSeerTurret", {
+const praefector = extend(PowerTurret, "praefector", {
   shootType: overSeerBullet,
   buildVisibility: BuildVisibility.shown,
   range: overSeerBullet.range(),
   recoilAmount: 2,
 });
-overSeerTurret.buildType = () => {
-  return extend(PowerTurret.PowerTurretBuild, overSeerTurret, {
+praefector.buildType = () => {
+  return extend(PowerTurret.PowerTurretBuild, praefector, {
       targetPosition(pos) {
         if(!this.hasAmmo() || pos == null) return;
         

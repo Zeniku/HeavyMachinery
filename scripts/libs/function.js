@@ -16,11 +16,11 @@ function eachBullet(bullet, func){
 }
 //nearby bullets?
 function nearbyBullets(x, y, range, func){
-  Groups.bullet.each(e => {
+  Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, e => {
     if(e.within(x, y, range)){
       func(e)
     }
-  })
+  });
 }
 //lets you not spam print and make it readable when null
 function debug(scriptName, array){
@@ -48,10 +48,12 @@ function debug(scriptName, array){
 //put this on a "if statement"
 function timer(reload){
 	let clock =+ Time.delta;
-	return (clock >= reload);
 	if(clock >= reload){
+	  return true
 		clock = 0;
-	};
+	}else{
+	  return false
+	}
 };
 
 //Pixel to World Units

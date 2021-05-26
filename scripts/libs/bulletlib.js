@@ -116,7 +116,7 @@ function tractorBeam(object){
 
             if(tile.collide(b)){
               tile.collision(b);
-              b.hit(b, tile.x, tile.y);
+              this.hit(b, tile.x, tile.y);
             }
           }
         }else{
