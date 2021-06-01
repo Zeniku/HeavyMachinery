@@ -29,22 +29,26 @@ function meleeBullet(object){
   flib.merge(h, object)
   return h
 };
-
+let color = [Pal.sapBullet, Pal.sapBulletBack, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), Pal.lancerLaser]
 //Effect
 //can i even extend(Effect, lifetime, e => {}, {});
 const earthDust = new Effect(20, e => {
-	dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
+	dlib.splashCircleii(e.x, e.y, color[2], color[3], e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
 });
 earthDust.layer = Layer.debris
 
 const earthDustII = new Effect(30, e => {
-	dlib.splashCircleii(e.x, e.y, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
+	dlib.splashCircleii(e.x, e.y, color[2], color[3], e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
 });
 earthDustII.layer = Layer.debris
 
+const boom = new Effect(30, e => {
+  dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
+})
+
 //[Bullets]
 const trahoBullet = blib.newTractorBeam({
-  colors: [Pal.lancerLaser, Color.white],
+  colors: [color[4], Color.white],
   length: 142,
   maxRange: 142,
   lifetime: 120,
