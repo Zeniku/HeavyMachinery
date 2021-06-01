@@ -60,7 +60,7 @@ const trahoBulletII = extend(SapBulletType, {
     length: 8 * 15,
     damage: 20,
     shootEffect: Fx.shootSmall,
-    hitColor: Color.valueOf("bf92f9"),
+    hitColor: color[0],
     color: Color.valueOf("bf92f9"),
     despawnEffect: Fx.none,
     width: 0.5,
