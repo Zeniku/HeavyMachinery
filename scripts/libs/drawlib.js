@@ -153,7 +153,7 @@ module.exports = {
       Drawf.tri(x, y, size, (size * 2), rotation + 270);
       Draw.color();
 	},
-  spikeiii(x, y, colorRrom, colorTo, inOut, spikes, size, lengthMultiplier, rotation){
+  spikeiii(x, y, colorFrom, colorTo, inOut, spikes, size, lengthMultiplier, rotation){
       Draw.color(colorFrom, colorTo, inOut);
       const step = 360 / spikes;
       for(var i = 0; i < spikes; i++){
