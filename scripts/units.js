@@ -398,7 +398,7 @@ aranea.constructor = () => extend(UnitEntity, {});
 
 const traho = extend(UnitType, "traho", {});
 traho.constructor = () => extend(UnitEntity, {});
-traho.weapons.add(trahoWeapon, trahoWeaponII);
+traho.weapons.add(trahoTractorBeam, trahoSapWeapon);
 
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});

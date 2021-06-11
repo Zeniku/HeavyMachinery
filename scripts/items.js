@@ -6,7 +6,7 @@ function extendItem(name){
 
 const lonsdaleite = extendItem("lonsdaleite");
 
-const citem = stringName => Vars.content.getByName(ContentType.item, "heavymachinery" + "-" + stringName);
+const citem = stringName => Vars.content.getByName(ContentType.item, "heavymachinery-" + stringName);
 
 module.exports = {
 	lonsdaleite: citem("lonsdaleite")
