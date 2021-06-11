@@ -23,8 +23,6 @@ const libs = c("libs", ["drawlib", "effectlib", "ai", "function", "bulletlib", "
 const noCat = c("", ["items", "units"]);
 const blocks = c("blocks", ["content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets"]);
 
-
-
 const heavyMachineryContent = [libs, noCat, blocks];
 
 function req(array){

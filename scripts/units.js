@@ -82,6 +82,15 @@ const spiculumSapBullet = extend(SapBulletType, {
     knockback: 2.5,
 });
 
+const interitusSpikeBullet = extend(ShrapnelBulletType, {
+  hitColor: color[1],
+  color: color[0],
+  length: 4 * 8,
+  damage: 35,
+  width: 4,
+  serrations: 4,
+});
+
 const interitusFrag = extend(ArtilleryBulletType, {
   collidesAir: true,
   collides: true,
@@ -209,8 +218,17 @@ const spiculumWeapon = newWeapon({
   y: 0,
   reload: 15,
   rotate: false,
-  bullet: spiculumBullet
+  bullet: spiculumSapBullet
 });
+
+const interitusWeapStat = {
+  name: heav + "interitusSpikeWeapon",
+  reload: 30,
+  rotate: false,
+  bullet: interitusSpikeBullet
+}
+//i dont trust mergeii
+//const interitusSpikeWeaponA = newWeapon(Object.assign(interitusWeapStat, {}));
 
 const interitusArtillery = newWeapon({
   name: heav + "interitusArtillery",
@@ -387,6 +405,9 @@ spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.weapons.add(spiculumWeapon)
 spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white]}, 0.01, 2, 5, Sounds.minebeam))
 
+const interitus = extend(UnitType, "interitus", {});
+interitus.constructor = () => extend(UnitEntity, {});
+interitus.weapons.add(interitusArtillery);
 
 //[Ground]
 //Overseer
