@@ -8,10 +8,10 @@ let blib = require(lib + "bulletlib");
 let flib = require(lib + "function");
 let dlib = require(lib + "drawlib");
 
+//if you see flib.pixel thats just me being lazy about being lazy
+
 function newWeapon(object){
 	return extend(Weapon, object);
-	//let weap = new Weapon(name)
-	//flib.merge(weap, object)
 };
 
 function meleeBullet(object){
@@ -29,9 +29,11 @@ function meleeBullet(object){
   flib.merge(h, object)
   return h
 };
+
+//color
 let color = [Pal.sapBullet, Pal.sapBulletBack, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), Pal.lancerLaser]
+
 //Effect
-//can i even extend(Effect, lifetime, e => {}, {});
 const earthDust = new Effect(20, e => {
 	dlib.splashCircleii(e.x, e.y, color[2], color[3], e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
 });
@@ -44,10 +46,12 @@ earthDustII.layer = Layer.debris
 
 const boom = new Effect(30, e => {
   dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (4 * 8) * e.fin())
+  dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
 })
 
 //[Bullets]
-const trahoBullet = blib.newTractorBeam({
+const trahoTractorBeam = blib.newTractorBeam({
   colors: [color[4], Color.white],
   length: 142,
   maxRange: 142,
@@ -56,7 +60,7 @@ const trahoBullet = blib.newTractorBeam({
   scaledForce: 70
 });
 
-const trahoBulletII = extend(SapBulletType, {
+const trahoSapBullet = extend(SapBulletType, {
     length: 8 * 15,
     damage: 20,
     shootEffect: Fx.shootSmall,
@@ -67,7 +71,7 @@ const trahoBulletII = extend(SapBulletType, {
     knockback: 0,
 });
 
-const spiculumBullet = extend(SapBulletType, {
+const spiculumSapBullet = extend(SapBulletType, {
     length: 8 * 10,
     damage: 37,
     shootEffect: Fx.shootSmall,
@@ -78,6 +82,31 @@ const spiculumBullet = extend(SapBulletType, {
     knockback: 2.5,
 });
 
+const interitusFrag = extend(ArtilleryBulletType, {
+  collidesAir: true,
+  collides: true,
+  collidesTiles: true,
+  despawnEffect: boom,
+  damage: 30,
+  splashDamage: 15,
+  splashDamageRadius: 3 * 8,
+  color: color[0],
+  hitColor: color[1]
+});
+
+const interitusCannonBall = extend(ArtilleryBulletType, {
+  collidesAir: true,
+  collides: true,
+  collidesTiles: true,
+  hitEffect: boom,
+  despawnEffect: boom,
+  damage: 70,
+  splashDamage: 30,
+  splashDamageRadius: 5 * 8,
+  color: color[0],
+  fragBullets: 3,
+  fragBullet: interitusFrag
+});
 
 const princepsBullet = blib.newOverSeerBullet({
   damage: 15,
@@ -152,7 +181,7 @@ const machaeraBullet = meleeBullet({
 });
 
 //[UnitWeapons]
-const trahoWeapon = newWeapon({
+const trahoTractorWeapon = newWeapon({
   name: heav + "trahoWeapon",
   x: 0,
   y: flib.pixel(-5),
@@ -161,17 +190,17 @@ const trahoWeapon = newWeapon({
   rotate: true,
   continuous: true,
   shootSound: Sounds.tractorbeam,
-  bullet: trahoBullet
+  bullet: trahoTractorBeam
 });
 
-const trahoWeaponII = newWeapon({
+const trahoSapWeapon = newWeapon({
   name: heav + "trahoWeaponII",
   x: flib.pixel(3),
   y: 0,
   shootY: flib.pixel(25),
   reload: 30,
   rotate: false,
-  bullet: trahoBulletII
+  bullet: trahoSapBullet
 });
 
 const spiculumWeapon = newWeapon({
@@ -181,6 +210,20 @@ const spiculumWeapon = newWeapon({
   reload: 15,
   rotate: false,
   bullet: spiculumBullet
+});
+
+const interitusArtillery = newWeapon({
+  name: heav + "interitusArtillery",
+  reload: 50,
+  recoil: 1,
+  bullet: interitusCannonBall,
+  y: flib.pixel(15),
+  x: 0,
+  shootY: flib.pixel(58),
+  mirror: false,
+  shake: 7,
+  rotate: true,
+  rotateSpeed: 1.5,
 });
 
 const princepsWeapon = newWeapon({
@@ -343,7 +386,6 @@ const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.weapons.add(spiculumWeapon)
 spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, colors: [Color.valueOf("bf92f9"), Color.white]}, 0.01, 2, 5, Sounds.minebeam))
-
 
 
 //[Ground]
