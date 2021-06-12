@@ -31,6 +31,7 @@ function req(array){
   for(let i in array){
     for(let j in array[i].text){
       require(array[i].text[j])
+      print(array[i].text[j])
     }
   }
 }
