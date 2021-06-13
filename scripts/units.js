@@ -13,7 +13,7 @@ let dlib = require(lib + "drawlib");
 function newWeapon(object){
 	return extend(Weapon, object);
 };
-print(newWeapon)
+//print(newWeapon)
 
 function meleeBullet(object){
 	let h = extend(ShrapnelBulletType, {
@@ -30,24 +30,24 @@ function meleeBullet(object){
   flib.merge(h, object)
   return h
 };
-print(meleeBullet)
+//print(meleeBullet)
 
 //color
 let color = [Pal.sapBullet, Pal.sapBulletBack, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), Pal.lancerLaser]
-print(color)
+//print(color)
 
 //Effect
 const earthDust = new Effect(20, e => {
 	dlib.splashCircleii(e.x, e.y, color[2], color[3], e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
 });
 earthDust.layer = Layer.debris
-print(earthDust)
+//print(earthDust)
 
 const earthDustII = new Effect(30, e => {
 	dlib.splashCircleii(e.x, e.y, color[2], color[3], e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
 });
 earthDustII.layer = Layer.debris
-print(earthDustII)
+//print(earthDustII)
 
 const boom = new Effect(30, e => {
   dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
@@ -62,7 +62,7 @@ const bigBoom = new Effect(30, e => {
   dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
 });
 
-print(boom)
+//print(boom)
 //[Bullets]
 const trahoTractorBeam = blib.newTractorBeam({
   colors: [color[4], Color.white],
@@ -72,7 +72,7 @@ const trahoTractorBeam = blib.newTractorBeam({
   force: 8,
   scaledForce: 70
 });
-print(trahoTractorBeam)
+//print(trahoTractorBeam)
 
 const trahoSapBullet = extend(SapBulletType, {
     length: 8 * 15,
@@ -84,7 +84,7 @@ const trahoSapBullet = extend(SapBulletType, {
     width: 0.5,
     knockback: 0,
 });
-print(trahoSapBullet)
+//print(trahoSapBullet)
 
 const spiculumSapBullet = extend(SapBulletType, {
     length: 8 * 10,
@@ -96,7 +96,7 @@ const spiculumSapBullet = extend(SapBulletType, {
     width: 0.5,
     knockback: 2.5,
 });
-print(spiculumSapBullet)
+//print(spiculumSapBullet)
 
 const interitusSpikeBullet = extend(ShrapnelBulletType, {
   hitColor: color[1],
@@ -109,7 +109,7 @@ const interitusSpikeBullet = extend(ShrapnelBulletType, {
   statusDuration: 60 * 7,
   serrations: 4,
 });
-print(interitusSpikeBullet)
+//print(interitusSpikeBullet)
 
 const interitusFrag = extend(ArtilleryBulletType, {
   collidesAir: true,
@@ -127,7 +127,7 @@ const interitusFrag = extend(ArtilleryBulletType, {
   height: 10,
   width: 10,
 });
-print(interitusFrag)
+//print(interitusFrag)
 
 const interitusCannonBall = extend(ArtilleryBulletType, {
   collidesAir: true,
@@ -150,7 +150,7 @@ const interitusCannonBall = extend(ArtilleryBulletType, {
   statusDuration: 60 * 7,
   hitSound: Sounds.explosionbig
 });
-print(interitusCannonBall)
+//print(interitusCannonBall)
 
 const princepsBullet = blib.newOverSeerBullet({
   damage: 15,
@@ -159,7 +159,7 @@ const princepsBullet = blib.newOverSeerBullet({
   trailWidth: 2,
   trailLength: 10
 });
-print(princepsBullet)
+//print(princepsBullet)
 
 const pugioneBullet = meleeBullet({
 	width: 0,
@@ -174,7 +174,7 @@ const pugioneBullet = meleeBullet({
 	damage: 20,
 	recoil: -3, //dash
 });
-print(pugioneBullet)
+//print(pugioneBullet)
 
 const mucroBullet = meleeBullet({
 	lifetime: 20,
@@ -189,7 +189,7 @@ const mucroBullet = meleeBullet({
 	damage: 30,
 	recoil: -2, //dass
 });
-print(mucroBullet)
+//print(mucroBullet)
 
 const tragulaBullet = meleeBullet({
 	lifetime: 30,
@@ -202,7 +202,7 @@ const tragulaBullet = meleeBullet({
 	fragBullet: pugioneBullet,
 	fragBullets: 3
 });
-print(tragulaBullet)
+//print(tragulaBullet)
 
 const luciusBullet = meleeBullet({
 	lifetime: 40,
@@ -215,7 +215,7 @@ const luciusBullet = meleeBullet({
 	fragBullet: mucroBullet,
 	fragBullets: 4
 });
-print(luciusBullet)
+//print(luciusBullet)
 
 const machaeraBullet = meleeBullet({
 	lifetime: 40,
@@ -228,7 +228,7 @@ const machaeraBullet = meleeBullet({
 	fragBullet: mucroBullet,
 	fragBullets: 5
 });
-print(machaeraBullet)
+//print(machaeraBullet)
 
 //[UnitWeapons]
 const trahoTractorWeapon = newWeapon({
@@ -242,7 +242,7 @@ const trahoTractorWeapon = newWeapon({
   shootSound: Sounds.tractorbeam,
   bullet: trahoTractorBeam
 });
-print(trahoTractorWeapon)
+//print(trahoTractorWeapon)
 
 const trahoSapWeapon = newWeapon({
   name: heav + "trahoWeaponII",
@@ -253,7 +253,7 @@ const trahoSapWeapon = newWeapon({
   rotate: false,
   bullet: trahoSapBullet
 });
-print(trahoSapWeapon)
+//print(trahoSapWeapon)
 
 const spiculumWeapon = newWeapon({
   name: heav + "spiculumWeapon",
@@ -263,7 +263,8 @@ const spiculumWeapon = newWeapon({
   rotate: false,
   bullet: spiculumSapBullet
 });
-print(spiculumWeapon)
+//print(spiculumWeapon)
+
 const interitusWeapStat = {
   name: heav + "interitusSpikeWeapon",
   reload: 20,
@@ -298,7 +299,7 @@ const interitusArtillery = newWeapon({
   rotateSpeed: 1.5,
   shootSound: Sounds.shootBig
 });
-print(interitusArtillery)
+//print(interitusArtillery)
 
 const princepsWeapon = newWeapon({
   name: heav + "princepsWeapon",
@@ -310,7 +311,7 @@ const princepsWeapon = newWeapon({
 	shootSound: Sounds.laser,
 	bullet: princepsBullet
 });
-print(princepsWeapon)
+//print(princepsWeapon)
 
 const pugioneWeapon = newWeapon({
 	name: heav + "pugioneWeapon",
@@ -329,7 +330,7 @@ const pugioneWeapon = newWeapon({
 	rotateSpeed: 60,
 	bullet: pugioneBullet
 });
-print(pugioneWeapon)
+//print(pugioneWeapon)
 
 const mucroWeapon = newWeapon({
 	name: heav + "mucroWeapon",
@@ -351,7 +352,7 @@ const mucroWeapon = newWeapon({
 	shotDelay: 5,
 	spacing: 22.5
 });
-print(mucroWeapon)
+//print(mucroWeapon)
 
 const tragulaWeapon = newWeapon({
 	name: heav + "tragulaWeapon",
@@ -370,7 +371,7 @@ const tragulaWeapon = newWeapon({
 	rotateSpeed: 60,
 	bullet: tragulaBullet
 });
-print(tragulaWeapon)
+//print(tragulaWeapon)
 
 const luciusWeapon = newWeapon({
   name: heav + "luciusWeapon",
@@ -389,7 +390,7 @@ const luciusWeapon = newWeapon({
   rotateSpeed: 60,
   bullet: luciusBullet
 });
-print(luciusWeapon)
+//print(luciusWeapon)
 
 const machaeraWeapon = newWeapon({
   name: heav + "machaeraWeapon",
@@ -412,7 +413,7 @@ const machaeraWeapon = newWeapon({
 	spacing: 0,
 	inaccuracy: 10
 });
-print(machaeraWeapon)
+//print(machaeraWeapon)
 
 const miscWeapon = newWeapon({
 	name: heav + "earthBend",
@@ -432,7 +433,7 @@ const miscWeapon = newWeapon({
 	rotateSpeed: 60,
 	bullet: blib.newEarthBendBullet(60, pugioneBullet, 6, 22.5, earthDust, 25, 5)
 });
-print(miscWeapon)
+//print(miscWeapon)
 
 const miscWeaponII = newWeapon({
 	name: heav + "earthBendII",
@@ -452,31 +453,31 @@ const miscWeaponII = newWeapon({
 	rotateSpeed: 60,
 	bullet: blib.newEarthBendBullet(60, mucroBullet, 8, 22.5, earthDustII, 20, 5)
 });
-print(miscWeaponII)
+//print(miscWeaponII)
 
 //Units
 //[Air]
 //Purple
 const aranea = extend(UnitType, "aranea", {});
 aranea.constructor = () => extend(UnitEntity, {});
-print(aranea)
+//print(aranea)
 
 const traho = extend(UnitType, "traho", {});
 traho.constructor = () => extend(UnitEntity, {});
 traho.weapons.add(trahoTractorWeapon, trahoSapWeapon);
-print(traho)
-print(alib.laserMoveAbility)
+//print(traho)
+//print(alib.laserMoveAbility)
 
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, colors: [color[0], Color.white]}, 0.01, 2, 5, Sounds.minebeam, 8 * 5))
 spiculum.weapons.add(spiculumWeapon);
-print(spiculum)
+//print(spiculum)
 
 const interitus = extend(UnitType, "interitus", {});
 interitus.constructor = () => extend(UnitEntity, {});
 interitus.weapons.add(interitusArtillery, interitusSpikeWeaponA, interitusSpikeWeaponB);
-print(interitus)
+//print(interitus)
 
 //[Ground]
 //Overseer
@@ -484,43 +485,43 @@ const princeps = extend(UnitType, "princeps", {});
 princeps.constructor = () => extend(MechUnit, {});
 princeps.defaultController = AI.overSeerAI(GroundAI);
 princeps.weapons.add(princepsWeapon);
-print(princeps)
+//print(princeps)
 
 //Melee
 const pugione = extend(UnitType, "pugione", {});
 pugione.constructor = () => extend(MechUnit, {});
 pugione.defaultController = AI.meleeAI(2, 10);
 pugione.weapons.add(pugioneWeapon);
-print(pugione)
+//print(pugione)
 
 const mucro = extend(UnitType, "mucro", {});
 mucro.constructor = () => extend(MechUnit, {});
 mucro.defaultController = AI.meleeAI(3, 15);
 mucro.weapons.add(mucroWeapon);
-print(mucro)
+//print(mucro)
 
 const tragula = extend(UnitType, "tragula", {});
 tragula.constructor = () => extend(MechUnit, {});
 tragula.defaultController = AI.meleeAI(4, 20);
 tragula.weapons.add(tragulaWeapon);
-print(tragula)
+//print(tragula)
 
 const lucius = extend(UnitType, "lucius", {});
 lucius.constructor = () => extend(MechUnit, {});
 lucius.defaultController = AI.meleeAI(6, 25);
 lucius.weapons.add(luciusWeapon, miscWeapon);
-print(lucius)
+//print(lucius)
 
 const machaera = extend(UnitType, "machaera", {});
 machaera.constructor = () => extend(MechUnit, {});
 machaera.defaultController = AI.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
-print(machaera)
+//print(machaera)
 
 const cunit = name => Vars.content.getByName(ContentType.unit, heav + name);
 
 //Debugging
-flib.debug("unit.js", [cunit, aranea, traho, spiculum, interitus, pugione, mucro, tragula, lucius, machaera, princeps]);
+//flib.debug("unit.js", [cunit, aranea, traho, spiculum, interitus, pugione, mucro, tragula, lucius, machaera, princeps]);
 
 //export
 module.exports = {
