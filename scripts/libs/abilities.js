@@ -27,7 +27,7 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       if(scl >= speedStart){
         laserbullet.create(unit, unit.team, bx, by, unit.rotation) //create the Bullet by SPEEEEEEEEED
         if(s != Sounds.none && !Vars.headless){
-          if(shootSoundH != null) shootSoundH.update(bx, by, true);
+          shootSoundH.update(bx, by, true);
         }
       }else{
         shootSoundH.update(bx, by, false)

@@ -6,9 +6,9 @@ reloadTime: 15
 alternate: true
 shots: 2
 requirements: [
-  "lonsdaleite/100",
-  "titanium/150",
-  "lead/180",
+  "lonsdaleite/100"
+  "titanium/150"
+  "lead/180"
 ]
 category: turret
 research: lancer

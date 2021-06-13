@@ -42,7 +42,12 @@ const effect = extend(LiquidBlock, "statusEffectProjector", {
 	},
 	drawPlace(x, y, rotation){
 		Drawf.dashCircle(x * Vars.tilesize, y * Vars.tilesize, this.range, Pal.accent);
-	}
+	},
+	setStats(){
+    this.super$setStats()
+    this.stats.add(Stat.range, this.range);
+    this.stats.add(Stat.reload, this.reload);
+  },
 });
 effect.buildType = () => extend(LiquidBlock.LiquidBuild, effect, {
 	

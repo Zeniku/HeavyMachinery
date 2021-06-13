@@ -1,32 +1,33 @@
 // boo unscripted
-type: "flying",
-name: "Aranea",
-description: "A Flying unit that explodes when near units",
-speed: 1.5,
-hitSize: 8,
-health: 180,
-range: 180,
-maxRange: 180,
-flying: true,
-circleTarget: true,
+type: "flying"
+name: "Aranea"
+description: "A Flying unit that explodes when near units"
+speed: 1.5
+hitSize: 8
+health: 180
+range: 180
+maxRange: 180
+flying: true
+circleTarget: true
 weapons: [{
-	reload: 24,
-	shootCone: 180,
-	ejectEffect: "none",
-	shootSound: "explosion",
+	reload: 24
+	shootCone: 180
+	ejectEffect: "none"
+	shootSound: "explosion"
 	bullet: {
-		type: "BombBulletType",
-		damage: 0,
-		sprite: "clear",
-		hitEffect: "pulverize",
-		lifetime: 10,
-		speed: 1,
-		splashDamageRadius: 70,
-		instantDisappear: true,
-		splashDamage: 80,
-		killShooter: true,
-		hittable: false,
-		collidesAir: true,
+		type: "BombBulletType"
+		damage: 0
+		sprite: "clear"
+		hitEffect: "pulverize"
+		lifetime: 10
+		speed: 1
+		splashDamageRadius: 70
+		instantDisappear: true
+		splashDamage: 80
+		killShooter: true
+		hittable: false
+		collidesAir: true
 	}
 }]
-research: "flare",
+research: "flare"
+details: Boom boom boom boom

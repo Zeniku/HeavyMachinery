@@ -23,8 +23,6 @@ const libs = c("libs", ["drawlib", "effectlib", "ai", "function", "bulletlib", "
 const noCat = c("", ["items", "units"]);
 const blocks = c("blocks", ["content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets"]);
 
-
-
 const heavyMachineryContent = [libs, noCat, blocks];
 
 function req(array){
@@ -33,6 +31,7 @@ function req(array){
   for(let i in array){
     for(let j in array[i].text){
       require(array[i].text[j])
+      print(array[i].text[j])
     }
   }
 }

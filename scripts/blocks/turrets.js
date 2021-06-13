@@ -17,16 +17,14 @@ const praefector = extend(PowerTurret, "praefector", {
   range: overSeerBullet.range(),
   recoilAmount: 2,
 });
-praefector.buildType = () => {
-  return extend(PowerTurret.PowerTurretBuild, praefector, {
-      targetPosition(pos) {
-        if(!this.hasAmmo() || pos == null) return;
+praefector.buildType = () => extend(PowerTurret.PowerTurretBuild, praefector, {
+    targetPosition(pos){
+      if(!this.hasAmmo() || pos == null) return;
         
-        this.targetPos.set(pos)
+      this.targetPos.set(pos)
         
-        if(this.targetPos.isZero()) {
-          this.targetPos.set(pos);
-        }
-      },
-  });
-}
+      if(this.targetPos.isZero()){
+        this.targetPos.set(pos);
+      }
+    },
+});

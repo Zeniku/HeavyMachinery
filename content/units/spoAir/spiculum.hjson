@@ -1,13 +1,15 @@
-type: "flying",
-name: "Spiculum",
-description: "A Flying unit pierces",
-speed: 3.5,
-accel: 1.5,
-hitSize: 22,
-health: 550,
-flying: true,
-circleTarget: true,
-maxRange: 160,
-range: 160,
-lowAltitude: true,
-research: "traho",
+type: "flying"
+name: "Spiculum"
+description: "A Flying unit pierces"
+speed: 3.5
+accel: 1.5
+hitSize: 22
+health: 780
+flying: true
+circleTarget: true
+maxRange: 240
+range: 240
+lowAltitude: true
+research: "traho"
+details: Poke* Poke*
+armor: 3

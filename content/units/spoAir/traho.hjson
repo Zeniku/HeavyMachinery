@@ -1,10 +1,12 @@
-type: "flying",
-name: "Traho",
-description: "A Flying unit that pulls Other unit",
-speed: 1.5,
-hitSize: 10.5,
-health: 380,
-flying: true,
-circleTarget: false,
-lowAltitude: true,
-research: "aranea",
+type: flying
+name: Traho
+description: A Flying unit that pulls Other unit
+speed: 1.5
+hitSize: 10.5
+health: 380
+flying: true
+circleTarget: false
+lowAltitude: true
+research: aranea
+details: Get Over Here!
+armor: 2
