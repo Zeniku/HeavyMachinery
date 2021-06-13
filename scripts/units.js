@@ -53,7 +53,15 @@ const boom = new Effect(30, e => {
   dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
   dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (4 * 8) * e.fin())
   dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
-})
+});
+
+const bigBoom = new Effect(30, e => {
+  dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (6 * 7) * e.fin())
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 6 * e.fout(), (6 * 11) * e.fin())
+  dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
+});
+
 print(boom)
 //[Bullets]
 const trahoTractorBeam = blib.newTractorBeam({
@@ -92,10 +100,13 @@ print(spiculumSapBullet)
 
 const interitusSpikeBullet = extend(ShrapnelBulletType, {
   hitColor: color[1],
-  color: color[0],
-  length: 4 * 8,
-  damage: 35,
-  width: 4,
+  fromColor: color[0],
+  toColor: color[1],
+  length: 20 * 8,
+  damage: 25,
+  width: 16,
+  status: StatusEffects.sapped,
+  statusDuration: 60 * 7,
   serrations: 4,
 });
 print(interitusSpikeBullet)
@@ -108,8 +119,13 @@ const interitusFrag = extend(ArtilleryBulletType, {
   damage: 30,
   splashDamage: 15,
   splashDamageRadius: 3 * 8,
-  color: color[0],
-  hitColor: color[1]
+  hitColor: color[1],
+  backColor: color[1],
+  frontColor: color[0],
+  status: StatusEffects.sapped,
+  statusDuration: 60 * 7,
+  height: 10,
+  width: 10,
 });
 print(interitusFrag)
 
@@ -117,14 +133,22 @@ const interitusCannonBall = extend(ArtilleryBulletType, {
   collidesAir: true,
   collides: true,
   collidesTiles: true,
-  hitEffect: boom,
-  despawnEffect: boom,
-  damage: 70,
-  splashDamage: 30,
-  splashDamageRadius: 5 * 8,
-  color: color[0],
+  speed: 3.7,
+  lifetime: 55,
+  hitEffect: bigBoom,
+  despawnEffect: bigBoom,
+  height: 16,
+  width: 16,
+  damage: 230,
+  splashDamage: 40,
+  splashDamageRadius: 10 * 8,
+  frontColor: color[0],
+  backColor: color[1],
   fragBullets: 3,
-  fragBullet: interitusFrag
+  fragBullet: interitusFrag,
+  status: StatusEffects.sapped,
+  statusDuration: 60 * 7,
+  hitSound: Sounds.explosionbig
 });
 print(interitusCannonBall)
 
@@ -240,29 +264,39 @@ const spiculumWeapon = newWeapon({
   bullet: spiculumSapBullet
 });
 print(spiculumWeapon)
-/*
 const interitusWeapStat = {
   name: heav + "interitusSpikeWeapon",
-  reload: 30,
+  reload: 20,
   rotate: false,
-  bullet: interitusSpikeBullet
+  bullet: interitusSpikeBullet,
+  shootSound: Sounds.shotgun
 }
-*/
-//i dont trust mergeii
-//const interitusSpikeWeaponA = newWeapon(Object.assign(interitusWeapStat, {}));
+
+const interitusSpikeWeaponA = newWeapon(interitusWeapStat);
+flib.merge(interitusSpikeWeaponA, {
+  x: flib.pixel(49),
+  y: flib.pixel(27)
+});
+const interitusSpikeWeaponB = newWeapon(interitusWeapStat);
+flib.merge(interitusSpikeWeaponB, {
+  x: flib.pixel(74),
+  y: flib.pixel(-9),
+  reload: 35
+});
 
 const interitusArtillery = newWeapon({
   name: heav + "interitusArtillery",
-  reload: 50,
-  recoil: 1,
+  reload: 60 * 4,
+  recoil: 4,
   bullet: interitusCannonBall,
-  y: flib.pixel(15),
+  y: flib.pixel(-15),
   x: 0,
   shootY: flib.pixel(58),
   mirror: false,
   shake: 7,
   rotate: true,
   rotateSpeed: 1.5,
+  shootSound: Sounds.shootBig
 });
 print(interitusArtillery)
 
@@ -435,12 +469,13 @@ print(alib.laserMoveAbility)
 
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
+spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, colors: [color[0], Color.white]}, 0.01, 2, 5, Sounds.minebeam, 8 * 5))
 spiculum.weapons.add(spiculumWeapon);
 print(spiculum)
 
 const interitus = extend(UnitType, "interitus", {});
 interitus.constructor = () => extend(UnitEntity, {});
-interitus.weapons.add(interitusArtillery);
+interitus.weapons.add(interitusArtillery, interitusSpikeWeaponA, interitusSpikeWeaponB);
 print(interitus)
 
 //[Ground]
@@ -492,6 +527,7 @@ module.exports = {
 	aranea: cunit("aranea"),
 	traho: cunit("traho"),
 	spiculum: cunit("spiculum"),
+	interitus: cunit("interitus"),
 	princeps: cunit("princeps"),
 	pugione: cunit("pugione"),
 	mucro: cunit("mucro"),

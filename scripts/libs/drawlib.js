@@ -103,7 +103,7 @@ module.exports = {
       Lines.swirl(x, y, radius, finion, angle);
       Lines.stroke(1);
 	},
-	splashline(x, y, color, thickness, length, id, amount, distance, rotation, cone){
+	splashLine(x, y, color, thickness, length, id, amount, distance, rotation, cone){
 	    Draw.color(color);
       Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
 			const ang = Mathf.angle(a, b);
@@ -113,7 +113,7 @@ module.exports = {
 		});
      Draw.color();
 	},
-	splashlineii(x, y, colorFrom, colorTo, inOut, thickness, length, id, amount, distance, rotation, cone){
+	splashLineii(x, y, colorFrom, colorTo, inOut, thickness, length, id, amount, distance, rotation, cone){
         Draw.color(colorFrom, colorTo, inOut);
         Angles.randLenVectors(id, amount, distance, rotation, cone, (a, b) => {
         const ang = Mathf.angle(a, b);

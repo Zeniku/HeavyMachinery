@@ -65,6 +65,10 @@ reconAdd(Blocks.exponentialReconstructor, [
   Seq.with(
     units.tragula,
     units.lucius
+  ),
+  Seq.with(
+    units.spiculum,
+    units.interitus
   )
 ]);
 reconAdd(Blocks.tetrativeReconstructor, [

@@ -10,3 +10,5 @@ lowAltitude: true
 research: spiculum
 details: Oh yeah Big Gun
 armor: 5
+engineOffset: 24.25
+engineSize: 5

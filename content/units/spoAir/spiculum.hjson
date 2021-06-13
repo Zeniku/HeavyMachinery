@@ -7,8 +7,8 @@ hitSize: 22
 health: 780
 flying: true
 circleTarget: true
-maxRange: 160
-range: 160
+maxRange: 240
+range: 240
 lowAltitude: true
 research: "traho"
 details: Poke* Poke*
