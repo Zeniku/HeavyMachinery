@@ -163,7 +163,7 @@ const interitusCannonBall = extend(ArtilleryBulletType, {
 const eteriusLaser = extend(LaserBulletType, {
   damage: 400,
   length: 8 * 40,
-  width: 8 * 7,
+  width: 8 * 8,
   lifetime: 65,
   shootEffect: laserCharge,
   lightningSpacing: 35,
@@ -178,18 +178,19 @@ const eteriusLaser = extend(LaserBulletType, {
   sideAngle: 15,
   sideWidth: 0,
   sideLength: 0,
-  colors: [color[1], color[0], Color.white]
+  colors: [color[1], color[0], Color.white],
 });
 
 const eteriusFrag = extend(MissileBulletType, {
-   damage: 50,
-   speed: 3,
-   homingPower: 3,
-   frontColor: color[0],
-   backColor: color[1],
-   splashDamage: 20,
-   splashDamageRadius: 8 * 5,
-   lifetime: 60 * 2
+  damage: 50,
+  speed: 4,
+  homingPower: 4,
+  frontColor: color[0],
+  backColor: color[1],
+  splashDamage: 20,
+  splashDamageRadius: 8 * 5,
+  lifetime: 60 * 2,
+  trailColor: color[0]
 })
 
 const eteriusArtilleryBullet = extend(BasicBulletType, {
@@ -197,14 +198,17 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   splashDamage: 20,
   splashDamageRadius: 8 * 6,
   lifetime: 15,
-  drag: -4,
   speed: 3,
   frontColor: color[0],
   backColor: color[1],
-  fragBullets: 3,
+  fragBullets: 5,
   fragBullet: eteriusFrag,
   status: StatusEffects.sapped,
-  statusDuration: 60 * 7
+  statusDuration: 60 * 7,
+  fragCone: 180,
+  update(b){
+    b.vel.scl(1.2)
+  }
 });
 
 const princepsBullet = blib.newOverSeerBullet({
@@ -366,17 +370,21 @@ const eteriusLaserWeapon = newWeapon({
   bullet: eteriusLaser,
   reload: 60 * 5,
   cooldownTime: 60 * 5,
-  shootStatusDuration: 60 * 1.5,
+  shootStatusDuration: 60,
   shootStatus: StatusEffects.unmoving,
-  shake: 14
+  shake: 14,
+  shootSound: Sounds.laserblast,
+  chargeSound: Sounds.lasercharge
 })
 
 const eteriusArtillery = newWeapon({
   name: heav + "eteriusArtillery",
+  x: flib.pixel(74),
+  y: flib.pixel(76),
   reload: 30,
   shootSound: Sounds.shootSnap,
   recoil: 3,
-  bullet: eteriusArtilleryBullet
+  bullet: eteriusArtilleryBullet,
 })
 
 const princepsWeapon = newWeapon({
