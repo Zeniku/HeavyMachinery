@@ -57,9 +57,17 @@ const boom = new Effect(30, e => {
 
 const bigBoom = new Effect(30, e => {
   dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (6 * 7) * e.fin())
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 6 * e.fout(), (6 * 11) * e.fin())
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (6 * 7) * e.finpow())
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 6 * e.fout(), (6 * 11) * e.finpow())
   dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
+});
+
+const laserCharge = new Effect(80, e => {
+  dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, (1 - e.finpow()) * (8 * 6), e.rotation, 360)
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 7) * (1 - e.finpow()))
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 11) * (1 - e.finpow()))
+  dlib.fillCircle(e.x, e.y, color[0], 1, 10 * e.fin())
+  dlib.fillCircle(e.x, e.y, Color.white, 1, 8 * e.fin())
 });
 
 //print(boom)
@@ -151,6 +159,53 @@ const interitusCannonBall = extend(ArtilleryBulletType, {
   hitSound: Sounds.explosionbig
 });
 //print(interitusCannonBall)
+
+const eteriusLaser = extend(LaserBulletType, {
+  damage: 400,
+  length: 8 * 40,
+  width: 8 * 7,
+  lifetime: 65,
+  shootEffect: laserCharge,
+  lightningSpacing: 35,
+  lightningLength: 5,
+  lightningDelay: 1.1,
+  lightningLengthRand: 15,
+  lightningDamage: 50,
+  lightningAngleRand: 40,
+  lightingColor: color[0],
+  ligthColor: color[0],
+  largeHit: true,
+  sideAngle: 15,
+  sideWidth: 0,
+  sideLength: 0,
+  colors: [color[1], color[0], Color.white]
+});
+
+const eteriusFrag = extend(MissileBulletType, {
+   damage: 50,
+   speed: 3,
+   homingPower: 3,
+   frontColor: color[0],
+   backColor: color[1],
+   splashDamage: 20,
+   splashDamageRadius: 8 * 5,
+   lifetime: 60 * 2
+})
+
+const eteriusArtilleryBullet = extend(BasicBulletType, {
+  damage: 40,
+  splashDamage: 20,
+  splashDamageRadius: 8 * 6,
+  lifetime: 15,
+  drag: -4,
+  speed: 3,
+  frontColor: color[0],
+  backColor: color[1],
+  fragBullets: 3,
+  fragBullet: eteriusFrag,
+  status: StatusEffects.sapped,
+  statusDuration: 60 * 7
+});
 
 const princepsBullet = blib.newOverSeerBullet({
   damage: 15,
@@ -272,7 +327,7 @@ const interitusWeapStat = {
   bullet: interitusSpikeBullet,
   shootSound: Sounds.shotgun
 }
-
+//Bad idea dont copy me
 const interitusSpikeWeaponA = newWeapon(interitusWeapStat);
 flib.merge(interitusSpikeWeaponA, {
   x: flib.pixel(49),
@@ -300,6 +355,29 @@ const interitusArtillery = newWeapon({
   shootSound: Sounds.shootBig
 });
 //print(interitusArtillery)
+
+const eteriusLaserWeapon = newWeapon({
+  name: heav + "eteriusLaser",
+  x: 0,
+  y: flib.pixel(-5),
+  mirror: false,
+  firstShotDelay: laserCharge.lifetime,
+  recoil: 4,
+  bullet: eteriusLaser,
+  reload: 60 * 5,
+  cooldownTime: 60 * 5,
+  shootStatusDuration: 60 * 1.5,
+  shootStatus: StatusEffects.unmoving,
+  shake: 14
+})
+
+const eteriusArtillery = newWeapon({
+  name: heav + "eteriusArtillery",
+  reload: 30,
+  shootSound: Sounds.shootSnap,
+  recoil: 3,
+  bullet: eteriusArtilleryBullet
+})
 
 const princepsWeapon = newWeapon({
   name: heav + "princepsWeapon",
@@ -478,6 +556,10 @@ const interitus = extend(UnitType, "interitus", {});
 interitus.constructor = () => extend(UnitEntity, {});
 interitus.weapons.add(interitusArtillery, interitusSpikeWeaponA, interitusSpikeWeaponB);
 //print(interitus)
+
+const eterius = extend(UnitType, "eterius", {});
+eterius.constructor = () => extend(UnitEntity, {});
+eterius.weapons.add(eteriusLaserWeapon, eteriusArtillery)
 
 //[Ground]
 //Overseer

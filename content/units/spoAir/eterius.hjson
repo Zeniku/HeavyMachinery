@@ -1,0 +1,14 @@
+type: "flying"
+name: "Eterius"
+description: A Flying unit thta has a <redacted>
+speed: 0.51
+accel: 0.01
+hitSize: 73.25
+health: 21000
+flying: true
+lowAltitude: true
+research: interitus
+details: IMMA FIRIN MAH LAZAR
+armor: 9
+engineOffset: 24.25
+engineSize: 5
