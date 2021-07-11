@@ -12,3 +12,5 @@ details: IMMA FIRIN MAH LAZAR
 armor: 9
 engineOffset: 24.25
 engineSize: 5
+range: 280
+maxRange: 280

@@ -189,7 +189,7 @@ const eteriusFrag = extend(MissileBulletType, {
   backColor: color[1],
   splashDamage: 20,
   splashDamageRadius: 8 * 5,
-  lifetime: 60,
+  lifetime: 15,
   trailColor: color[0]
 })
 
@@ -198,7 +198,7 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   splashDamage: 20,
   splashDamageRadius: 8 * 6,
   lifetime: 15,
-  speed: 3,
+  speed: 2.3,
   frontColor: color[0],
   backColor: color[1],
   fragBullets: 5,
