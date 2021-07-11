@@ -1,6 +1,6 @@
 type: "flying"
 name: "Eterius"
-description: A Flying unit thta has a <redacted>
+description: A Flying unit that has a <redacted>
 speed: 1
 accel: 1
 hitSize: 73.25
