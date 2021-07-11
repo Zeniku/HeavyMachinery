@@ -2,7 +2,7 @@ type: "flying"
 name: "Eterius"
 description: A Flying unit thta has a <redacted>
 speed: 1
-accel: 0.01
+accel: 1
 hitSize: 73.25
 health: 21000
 flying: true

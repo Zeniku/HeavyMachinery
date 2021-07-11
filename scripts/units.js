@@ -189,7 +189,7 @@ const eteriusFrag = extend(MissileBulletType, {
   backColor: color[1],
   splashDamage: 20,
   splashDamageRadius: 8 * 5,
-  lifetime: 60 * 2,
+  lifetime: 60,
   trailColor: color[0]
 })
 
@@ -205,9 +205,9 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   fragBullet: eteriusFrag,
   status: StatusEffects.sapped,
   statusDuration: 60 * 7,
-  fragCone: 180,
+  fragCone: 15,
   update(b){
-    b.vel.scl(1.2)
+    b.vel.scl(1.1)
   }
 });
 
@@ -380,7 +380,7 @@ const eteriusLaserWeapon = newWeapon({
 const eteriusArtillery = newWeapon({
   name: heav + "eteriusArtillery",
   x: flib.pixel(74),
-  y: flib.pixel(76),
+  y: flib.pixel(-76),
   reload: 30,
   shootSound: Sounds.shootSnap,
   recoil: 3,
