@@ -246,7 +246,7 @@ const inductorBullet = blib.newOverSeerBullet({
   speed: 4,
   lifetime: 140,
   trailWidth: 2,
-  trailWidth: 15
+  trailLength: 15
 })
 
 const pugioneBullet = meleeBullet({
