@@ -220,10 +220,60 @@ function pointDef(object){
   return point
 }
 
-//honestly i could I have translated sc to the above but im lazy so TY Meep Very cool
+function orbitBullet(object){
+  let orbit = extend(BasicBulletType, {
+    init(b){
+      this.super$init(b)
+      if(!b) return
+      for(let i = 0; i < this.orbiterAmount; i++){
+        b.data[i + 1] = new Trail(this.orbiterTrailLength)
+      }
+    },
+    update(b){
+      let angle = Time.time + (360 / this.orbiterAmount)
+      b.data[0] = angle
+      for(let i = 0; i < this.orbiterAmount; i++){
+        let ox = b.x + Angles.trnsx(angle * i, this.orbitRadius)
+        let oy = b.y + Angles.trnsy(angle * i, this.orbitRadius)
+        if(b.timer.get(0, this.orbiterST)){
+          this.orbiter.create(b.owner, b.x + Angles.trnsx(angle * i, this.orbitRadius), b.y + Angles.trnsy(angle * i, this.orbitRadius), b.rotation())
+        }
+        b.data[i + 1].update(ox, oy)
+      }
+    },
+    draw(b){
+      let angle = b.data[0]
+      dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterAmount * this.orbiterRadius * b.fout())
+      for(let i = 0; i < this.orbiterAmount; i++){
+        let ox = b.y + Angles.trnsx(angle * i, this.orbitRadius)
+        let oy = b.y + Angles.trnsy(angle * i, this.orbitRadius)
+        dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterRadius)
+        b.data[i + 1].draw(this.orbiterColor, this.orbiterTrailWidth)
+      }
+    },
+    orbiter: Bullets.standardCopper,
+    orbiterST: 45,
+    orbiterAmount: 4,
+    orbiterColor: Pal.lancerLaser,
+    orbiterRadius: 4,
+    orbiterTrailWidth: 4,
+    orbiterTrailLength: 15,
+    orbitRadius: 8,
+    hitEffect: Fx.hitLancer,
+    despawnEffect: Fx.hitLancer,
+    collides: false,
+    collidesTiles: false,
+    collidesAir: false,
+    collidesGround: false,
+  });
+  flib.merge(orbit, object)
+}
+
+//Credits on Meep for letting me use tractor beam
 module.exports = {
 	newEarthBendBullet: earthBend,
 	newOverSeerBullet: overSeer,
 	newTractorBeam: tractorBeam,
 	newPointDefBullet: pointDef,
+	newOrbitBullet: orbitBullet,
 };
