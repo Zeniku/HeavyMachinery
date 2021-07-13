@@ -70,6 +70,11 @@ const laserCharge = new Effect(80, e => {
   dlib.fillCircle(e.x, e.y, Color.white, 1, 8 * e.fin())
 });
 
+const orbExplode = new Effect(45, e => {
+  dlib.splashLineii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, e.finpow() * (8 * 4), e.rotation, 360)
+  dlib.lineCircleii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), (8 * 5) * e.finpow())
+});
+
 //print(boom)
 //[Bullets]
 const trahoTractorBeam = blib.newTractorBeam({
@@ -223,10 +228,26 @@ const procuratorBullet = blib.newOverSeerBullet({
   damage: 35,
   speed: 4,
   lifetime: 120,
-  trailWidth: 4,
+  trailWidth: 2,
   trailLength: 15,
+});
+
+const inductorOrb = blib.newOrbitBullet({
+  damage: 30,
+  speed: 2,
+  lifetime: 60,
+  hitSound: Sounds.plasmaboom,
+  hitEffect: orbExplode,
+  orbiter: princepsBullet
 })
-//print(princepsBullet)
+
+const inductorBullet = blib.newOverSeerBullet({
+  damage: 10,
+  speed: 4,
+  lifetime: 140,
+  trailWidth: 2,
+  trailWidth: 15
+})
 
 const pugioneBullet = meleeBullet({
 	width: 0,
@@ -417,6 +438,28 @@ const procuratorWeapon = newWeapon({
   bullet: procuratorBullet,
 });
 
+const inductorShotgun = newWeapon({
+  name: heav + "inductorShotgun",
+  x: flib.pixel(36),
+  y: flib.pixel(1),
+  reload: 60,
+  top: false,
+  ejectEffect: Fx.lightningShoot,
+  shootSound: Sounds.laser,
+  bullet: inductorBullet
+});
+
+const inductorArtillery = newWeapon({
+  name: heav + "inductorArtillery",
+  x: 0,
+  y: flib.pixel(-21),
+  reload: 120,
+  ejectEffect: Fx.lightningShoot,
+  shootSound: Sounds.laser,
+  bullet: inductorOrb,
+  recoil: 4,
+})
+
 const pugioneWeapon = newWeapon({
 	name: heav + "pugioneWeapon",
 	reload: 20,
@@ -599,6 +642,10 @@ const procurator = extend(UnitType, "procurator", {});
 procurator.constructor = () => extend(MechUnit, {});
 procurator.defaultController = AI.overSeerAI(GroundAI);
 procurator.weapons.add(procuratorWeapon)
+
+const inductor = extend(UnitType, "inductor", {});
+inductor.constructor = () => extend(LegsUnit, {});
+inductor.weapons.add(inductorShotgun, inductorArtillery)
 
 //Melee
 const pugione = extend(UnitType, "pugione", {});

@@ -252,11 +252,11 @@ function orbitBullet(object){
       }
     },
     orbiter: Bullets.standardCopper,
-    orbiterST: 45,
+    orbiterST: 15,
     orbiterAmount: 4,
     orbiterColor: Pal.lancerLaser,
     orbiterRadius: 4,
-    orbiterTrailWidth: 4,
+    orbiterTrailWidth: 2,
     orbiterTrailLength: 15,
     orbitRadius: 8,
     hitEffect: Fx.hitLancer,

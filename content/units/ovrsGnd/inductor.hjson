@@ -1,0 +1,17 @@
+name: Inductor
+description: A Spider Unit that can control its bullets
+health: 600
+speed: 0.56
+hitSize: 17.625
+drag: 0.4
+legCount: 4
+legLength: 9
+legTrns: 0.6
+legMoveSpace: 1.4
+hovering: true
+armor: 6
+allowLegStep: true
+visualElevation: 0.2
+groundLayer: 74
+visualElevation: 0.02
+details: Weeeeeee
