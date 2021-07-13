@@ -218,6 +218,14 @@ const princepsBullet = blib.newOverSeerBullet({
   trailWidth: 2,
   trailLength: 10
 });
+
+const procuratorBullet = blib.newOverSeerBullet({
+  damage: 35,
+  speed: 4,
+  lifetime: 120,
+  trailWidth: 4,
+  trailLength: 15,
+})
 //print(princepsBullet)
 
 const pugioneBullet = meleeBullet({
@@ -397,7 +405,17 @@ const princepsWeapon = newWeapon({
 	shootSound: Sounds.laser,
 	bullet: princepsBullet
 });
-//print(princepsWeapon)
+
+const procuratorWeapon = newWeapon({
+  name: heav + "procuratorWeapon",
+  x: flib.pixel(25),
+  y: flib.pixel(3),
+  top: false,
+  reload: 25,
+  ejectEffect: Fx.lightningShoot,
+  shootSound: Sounds.laser,
+  bullet: procuratorBullet,
+});
 
 const pugioneWeapon = newWeapon({
 	name: heav + "pugioneWeapon",
@@ -576,6 +594,11 @@ princeps.constructor = () => extend(MechUnit, {});
 princeps.defaultController = AI.overSeerAI(GroundAI);
 princeps.weapons.add(princepsWeapon);
 //print(princeps)
+
+const procurator = extend(UnitType, "procurator", {});
+procurator.constructor = () => extend(MechUnit, {});
+procurator.defaultController = AI.overSeerAI(GroundAI);
+procurator.weapons.add(procuratorWeapon)
 
 //Melee
 const pugione = extend(UnitType, "pugione", {});

@@ -1,0 +1,12 @@
+type: "mech",
+name: "Procurator",
+description: "A OverSeer Unit",
+speed: 0.6,
+hitSize: 13.375,
+health: 500,
+maxRange: 300,
+range: 300,
+targetAir: true,
+research: "princeps",
+armor: 5
+details: Go over there, where, here, where is here, over there, ok
