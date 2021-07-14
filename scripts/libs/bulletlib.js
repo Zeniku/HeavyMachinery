@@ -241,8 +241,8 @@ function orbitBullet(object){
       }
       //Please suggest something better than this
       for(let j = 0; j < this.orbiterAmount; j++){
-        let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
-        let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
+        let ox = b.x + Angles.trnsx(angle * j + Time.time, this.orbitRadius)
+        let oy = b.y + Angles.trnsy(angle * j + Time.time, this.orbitRadius)
         b.data[j + 1].update(ox, oy)
       }
     },
