@@ -86,13 +86,11 @@ module.exports = {
 	        if(this.target !== null && this.unit.inRange(this.target)){
 	          this.unit.aimLook(this.target);
 	          shoot = true;
-	        }
-	        if(this.target == null && nearbyTarget != null){
+	        }else if(nearbyTarget != null){
 	          this.unit.aimLook(nearbyTarget)
 	          shoot = true
 	        }
 	        this.unit.controlWeapons(shoot)
-	        print(this.target)
 	      },
 	      findTarget(x, y, range, air, ground){
 					var result = null
