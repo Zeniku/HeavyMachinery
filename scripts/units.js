@@ -447,6 +447,7 @@ const inductorShotgun = newWeapon({
   ejectEffect: Fx.lightningShoot,
   shootSound: Sounds.laser,
   shots: 4,
+  inaccuracy: 15,
   bullet: inductorBullet
 });
 
