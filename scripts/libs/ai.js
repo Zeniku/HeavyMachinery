@@ -13,77 +13,10 @@ I looked for the codes on UnitComp, Units, UnitType, AIController, and all the a
 what this does is it calls for the default method code on SC
 basically you can add code not override
 
-I Made this thing because i saw someone use mods for example who (s)he can't understand BRUH DON'T USE A COMPLICATED MOD FOR EXAMPLE AND COMPLAIN LEARN JS FIRST YOU SHIT
+I Made this thing because i saw someone use mods for example who (s)he can't understand BRUH DON'T USE A COMPLICATED MOD FOR EXAMPLE AND COMPLAIN LEARN JS FIRST YOU H
 
 Ty for Meep's Missing category units for reference
 */
-
-//has no Pos Predict
-function shooting(adapter, targets, mountX, mountY, mount, weapon){
-  for(let i = 0; i < targets.length; i++){
-    if(targets[i] != null){
-      mount.aimX = targets[i].x;
-      mount.aimY = targets[i].y;
-      let hShoot = targets[i].within(mountX, mountY, weapon.bullet.range()) && adapter.shouldShoot();
-      mount.shoot = hShoot;
-      mount.rotate = hShoot;
-    }
-  }
-}
-
-function targeting(adapter, target, targets){
-  if(target != null){
-    if(!adapter.unit.inRange(target)){
-      adapter.targetFound = false;
-      targets[i] = null;
-    }else if(adapter.unit.inRange(target)){
-      adapter.targetFound = true;
-      targets[i] = target;
-    }else{
-      adapter.targetFound = false;
-      targets[i] = null;
-    }
-  }else{
-    adapter.targetFound = false;
-  }
-}
-
-function pointDef(aiType){
-  const newAI = prov(() => {
-    let u = extend(aiType, {
-	    targetFound: false,
-	    updateWeapons(){
-	      if(this.unit.hasWeapons()){
-	        this.super$updateWeapons()
-	          
-	        let mounts = this.unit.mounts
-	        let targets = []
-	        let rotation = this.unit.rotation - 90
-	         
-	        for(let i in mounts){
-             let mount = mounts[i]
-	           let weapon = mount.weapon
-           if(weapon.bullet.absorbableDamage > 0){
-              let mountX = this.unit.x + Angles.trnsx(rotation, weapon.x, weapon.y);
-              let mountY = this.unit.y + Angles.trnsy(rotation, weapon.x, weapon.y);
-                
-              if(this.retargetII()){
-                let target = Groups.bullet.intersect(mountX - weapon.bullet.range(), mountY - weapon.bullet.range(), weapon.bullet.range() * 2, weapon.bullet.range() * 2).min(t => t.team != this.unit.team && t.type.hittable, t => t.dst2(this.unit));
-                targeting(this, target, targets)
-              }
-              shooting(this, targets, mountX, mountY, mount, weapon)
-	          }
-	        }
-	      }
-	    },
-	    retargetII(){
-	      return this.timer.get(this.timerTarget2, !this.targetFound ? 40 : 60);
-	    }
-	  });
-	  return u
-	});
-	return newAI
-}
 
 module.exports = {
 	meleeAI(meleeRange, seekRange){
@@ -148,13 +81,27 @@ module.exports = {
 	    let u = extend(aiType, {
 	      updateMovement(){
 	        this.super$updateMovement()
+	        let nearbyTarget = this.findTarget(this.unit.x, this.unit.y, this.unit.range(), this.unit.type.targetAir, this.unit.type.targetGround)
 	        let shoot = false
 	        if(this.target !== null && this.unit.inRange(this.target)){
 	          this.unit.aimLook(this.target);
 	          shoot = true;
 	        }
+	        if(this.target == null && nearbyTarget != null){
+	          this.unit.aimLook(nearbyTarget)
+	          shoot = true
+	        }
 	        this.unit.controlWeapons(shoot)
+	        print(this.target)
 	      },
+	      findTarget(x, y, range, air, ground){
+					var result = null
+					
+					result = result = Units.closestTarget(this.unit.team, x, y, range, u => u.checkTarget(air, ground), t => ground);
+					if(result != null) return result;
+					
+					return null;
+				}
 	    });
 	    return u;
 	  });
