@@ -460,7 +460,7 @@ const inductorArtillery = newWeapon({
   reload: 190,
   mirror: false,
   rotate: true,
-  rotateSpeed: 1.5,
+  rotateSpeed: 3.5,
   ejectEffect: Fx.lightningShoot,
   shootSound: Sounds.laser,
   bullet: inductorOrb,
