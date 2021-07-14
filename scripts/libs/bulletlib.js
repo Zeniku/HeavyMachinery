@@ -243,7 +243,7 @@ function orbitBullet(object){
       for(let j = 0; j < this.orbiterAmount; j++){
         let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
         let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
-        b.data[i + 1].update(ox, oy)
+        b.data[j + 1].update(ox, oy)
       }
     },
     draw(b){
