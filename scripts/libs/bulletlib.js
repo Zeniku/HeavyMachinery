@@ -251,13 +251,13 @@ function orbitBullet(object){
       dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiterAmount * 1.5))
       for(let i = 0; i < this.orbiterAmount; i++){
         let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
-        let oy = b.y + Angles.trnsy(angle * i * Time.time, this.orbitRadius)
+        let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
         dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterRadius * b.fout())
         b.data[i + 1].draw(this.orbiterColor, this.orbiterTrailWidth)
       }
     },
     orbiter: Bullets.standardCopper,
-    orbiterST: 15,
+    orbiterST: 25,
     orbiterAmount: 4,
     orbiterColor: Pal.lancerLaser,
     orbiterRadius: 4,
