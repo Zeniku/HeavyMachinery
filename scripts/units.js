@@ -71,7 +71,7 @@ const laserCharge = new Effect(80, e => {
 });
 
 const orbExplode = new Effect(45, e => {
-  dlib.splashLineii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, e.finpow() * (8 * 4), e.rotation, 360)
+  dlib.splashLineii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 4), e.rotation, 360)
   dlib.lineCircleii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), (8 * 5) * e.finpow())
 });
 
