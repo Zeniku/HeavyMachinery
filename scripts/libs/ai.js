@@ -107,5 +107,4 @@ module.exports = {
 	  });
 	  return overSeerAIL
 	},
-	pointDefAI: pointDef
 };
