@@ -61,7 +61,7 @@ function overSeer(overide){
 	  speed: 2,
 	  pierce: true,
 	  pierceCap: 5,
-	  homingCap: 0,
+	  homingCap: -1,
 	  targetTime: 15,
 	  hitEffect: Fx.hitLancer,
 	  despawnEffect: Fx.hitLancer,
@@ -93,11 +93,11 @@ function overSeer(overide){
 			  if(tx != null && ty != null){
 			   let ang = Angles.moveToward(b.rotation(), b.angleTo(tx, ty), this.turningPower * Time.delta * 50);
 			    if(b.within(tx, ty, this.hitSize)){
-			      if(this.homingCap > 0){
+			      if(!(this.homingCap < 0)){
 	            b.data.homeCount++
 			      }
 			    }
-			    if(this.homingCap > b.data[1]){
+			    if(this.homingCap > b.data.homeCount){
 			      b.rotation(ang)
 			      b.vel.setAngle(ang);
 			    }
