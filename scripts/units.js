@@ -446,6 +446,7 @@ const inductorShotgun = newWeapon({
   top: false,
   ejectEffect: Fx.lightningShoot,
   shootSound: Sounds.laser,
+  shots: 4,
   bullet: inductorBullet
 });
 
@@ -453,7 +454,8 @@ const inductorArtillery = newWeapon({
   name: heav + "inductorArtillery",
   x: 0,
   y: flib.pixel(-21),
-  reload: 120,
+  reload: 190,
+  mirror: false,
   ejectEffect: Fx.lightningShoot,
   shootSound: Sounds.laser,
   bullet: inductorOrb,
