@@ -232,22 +232,27 @@ function orbitBullet(object){
     update(b){
       let angle = (360 / this.orbiterAmount)
       b.data[0] = angle
-      for(let i = 0; i < this.orbiterAmount; i++){
-        let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
-        let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
-        if(b.timer.get(0, this.orbiterST)){
+      if(b.timer.get(0, this.orbiterST)){
+        for(let i = 0; i < this.orbiterAmount; i++){
+          let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
+          let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
           this.orbiter.create(b.owner, ox, oy, b.rotation())
         }
+      }
+      //Please suggest something better than this
+      for(let j = 0; j < this.orbiterAmount; j++){
+        let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
+        let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
         b.data[i + 1].update(ox, oy)
       }
     },
     draw(b){
       let angle = b.data[0]
-      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiterAmount * 2))
+      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiterAmount * 1.5))
       for(let i = 0; i < this.orbiterAmount; i++){
         let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
         let oy = b.y + Angles.trnsy(angle * i * Time.time, this.orbitRadius)
-        dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterRadius * b.fout)
+        dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterRadius * b.fout())
         b.data[i + 1].draw(this.orbiterColor, this.orbiterTrailWidth)
       }
     },
