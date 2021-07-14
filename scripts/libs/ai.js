@@ -48,9 +48,9 @@ function targeting(adapter, target, targets){
   }
 }
 
-function pointDef(aitype){
+function pointDef(aiType){
   const newAI = prov(() => {
-    let u = extend(aitype, {
+    let u = extend(aiType, {
 	    targetFound: false,
 	    updateWeapons(){
 	      if(this.unit.hasWeapons()){
@@ -145,7 +145,7 @@ module.exports = {
 	},
 	overSeerAI(aiType){
 	  const overSeerAIL = prov(() => {
-	    let u = extend(aitype, {
+	    let u = extend(aiType, {
 	      updateMovement(){
 	        this.super$updateMovement()
 	        let shoot = false

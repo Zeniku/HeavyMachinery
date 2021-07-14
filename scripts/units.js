@@ -57,9 +57,22 @@ const boom = new Effect(30, e => {
 
 const bigBoom = new Effect(30, e => {
   dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (6 * 7) * e.fin())
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 6 * e.fout(), (6 * 11) * e.fin())
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (6 * 7) * e.finpow())
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 6 * e.fout(), (6 * 11) * e.finpow())
   dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
+});
+
+const laserCharge = new Effect(80, e => {
+  dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, (1 - e.finpow()) * (8 * 6), e.rotation, 360)
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 7) * (1 - e.finpow()))
+  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 11) * (1 - e.finpow()))
+  dlib.fillCircle(e.x, e.y, color[0], 1, 10 * e.fin())
+  dlib.fillCircle(e.x, e.y, Color.white, 1, 8 * e.fin())
+});
+
+const orbExplode = new Effect(45, e => {
+  dlib.splashLineii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, e.finpow() * (8 * 4), e.rotation, 360)
+  dlib.lineCircleii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), (8 * 5) * e.finpow())
 });
 
 //print(boom)
@@ -152,6 +165,57 @@ const interitusCannonBall = extend(ArtilleryBulletType, {
 });
 //print(interitusCannonBall)
 
+const eteriusLaser = extend(LaserBulletType, {
+  damage: 400,
+  length: 8 * 40,
+  width: 8 * 8,
+  lifetime: 65,
+  shootEffect: laserCharge,
+  lightningSpacing: 35,
+  lightningLength: 5,
+  lightningDelay: 1.1,
+  lightningLengthRand: 15,
+  lightningDamage: 50,
+  lightningAngleRand: 40,
+  lightingColor: color[0],
+  ligthColor: color[0],
+  largeHit: true,
+  sideAngle: 15,
+  sideWidth: 0,
+  sideLength: 0,
+  colors: [color[1], color[0], Color.white],
+});
+
+const eteriusFrag = extend(MissileBulletType, {
+  damage: 50,
+  speed: 4,
+  homingPower: 4,
+  frontColor: color[0],
+  backColor: color[1],
+  splashDamage: 20,
+  splashDamageRadius: 8 * 5,
+  lifetime: 15,
+  trailColor: color[0]
+})
+
+const eteriusArtilleryBullet = extend(BasicBulletType, {
+  damage: 40,
+  splashDamage: 20,
+  splashDamageRadius: 8 * 6,
+  lifetime: 15,
+  speed: 2.3,
+  frontColor: color[0],
+  backColor: color[1],
+  fragBullets: 5,
+  fragBullet: eteriusFrag,
+  status: StatusEffects.sapped,
+  statusDuration: 60 * 7,
+  fragCone: 15,
+  update(b){
+    b.vel.scl(1.1)
+  }
+});
+
 const princepsBullet = blib.newOverSeerBullet({
   damage: 15,
   speed: 3,
@@ -159,7 +223,31 @@ const princepsBullet = blib.newOverSeerBullet({
   trailWidth: 2,
   trailLength: 10
 });
-//print(princepsBullet)
+
+const procuratorBullet = blib.newOverSeerBullet({
+  damage: 35,
+  speed: 4,
+  lifetime: 120,
+  trailWidth: 2,
+  trailLength: 15,
+});
+
+const inductorOrb = blib.newOrbitBullet({
+  damage: 30,
+  speed: 2,
+  lifetime: 60,
+  hitSound: Sounds.plasmaboom,
+  hitEffect: orbExplode,
+  orbiter: princepsBullet
+})
+
+const inductorBullet = blib.newOverSeerBullet({
+  damage: 10,
+  speed: 4,
+  lifetime: 140,
+  trailWidth: 2,
+  trailLength: 15
+})
 
 const pugioneBullet = meleeBullet({
 	width: 0,
@@ -272,7 +360,7 @@ const interitusWeapStat = {
   bullet: interitusSpikeBullet,
   shootSound: Sounds.shotgun
 }
-
+//Bad idea dont copy me
 const interitusSpikeWeaponA = newWeapon(interitusWeapStat);
 flib.merge(interitusSpikeWeaponA, {
   x: flib.pixel(49),
@@ -301,6 +389,33 @@ const interitusArtillery = newWeapon({
 });
 //print(interitusArtillery)
 
+const eteriusLaserWeapon = newWeapon({
+  name: heav + "eteriusLaser",
+  x: 0,
+  y: flib.pixel(-5),
+  mirror: false,
+  firstShotDelay: laserCharge.lifetime,
+  recoil: 4,
+  bullet: eteriusLaser,
+  reload: 60 * 5,
+  cooldownTime: 60 * 5,
+  shootStatusDuration: 60,
+  shootStatus: StatusEffects.unmoving,
+  shake: 14,
+  shootSound: Sounds.laserblast,
+  chargeSound: Sounds.lasercharge
+})
+
+const eteriusArtillery = newWeapon({
+  name: heav + "eteriusArtillery",
+  x: flib.pixel(74),
+  y: flib.pixel(-76),
+  reload: 30,
+  shootSound: Sounds.shootSnap,
+  recoil: 3,
+  bullet: eteriusArtilleryBullet,
+})
+
 const princepsWeapon = newWeapon({
   name: heav + "princepsWeapon",
  	x: 5,
@@ -311,7 +426,42 @@ const princepsWeapon = newWeapon({
 	shootSound: Sounds.laser,
 	bullet: princepsBullet
 });
-//print(princepsWeapon)
+
+const procuratorWeapon = newWeapon({
+  name: heav + "procuratorWeapon",
+  x: flib.pixel(25),
+  y: flib.pixel(3),
+  top: false,
+  reload: 25,
+  ejectEffect: Fx.lightningShoot,
+  shootSound: Sounds.laser,
+  bullet: procuratorBullet,
+});
+
+const inductorShotgun = newWeapon({
+  name: heav + "inductorShotgun",
+  x: flib.pixel(36),
+  y: flib.pixel(1),
+  reload: 60,
+  top: false,
+  ejectEffect: Fx.lightningShoot,
+  shootSound: Sounds.laser,
+  shots: 4,
+  inaccuracy: 15,
+  bullet: inductorBullet
+});
+
+const inductorArtillery = newWeapon({
+  name: heav + "inductorArtillery",
+  x: 0,
+  y: flib.pixel(-21),
+  reload: 190,
+  mirror: false,
+  ejectEffect: Fx.lightningShoot,
+  shootSound: Sounds.laser,
+  bullet: inductorOrb,
+  recoil: 4,
+})
 
 const pugioneWeapon = newWeapon({
 	name: heav + "pugioneWeapon",
@@ -479,6 +629,10 @@ interitus.constructor = () => extend(UnitEntity, {});
 interitus.weapons.add(interitusArtillery, interitusSpikeWeaponA, interitusSpikeWeaponB);
 //print(interitus)
 
+const eterius = extend(UnitType, "eterius", {});
+eterius.constructor = () => extend(UnitEntity, {});
+eterius.weapons.add(eteriusLaserWeapon, eteriusArtillery)
+
 //[Ground]
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
@@ -486,6 +640,15 @@ princeps.constructor = () => extend(MechUnit, {});
 princeps.defaultController = AI.overSeerAI(GroundAI);
 princeps.weapons.add(princepsWeapon);
 //print(princeps)
+
+const procurator = extend(UnitType, "procurator", {});
+procurator.constructor = () => extend(MechUnit, {});
+procurator.defaultController = AI.overSeerAI(GroundAI);
+procurator.weapons.add(procuratorWeapon)
+
+const inductor = extend(UnitType, "inductor", {});
+inductor.constructor = () => extend(LegsUnit, {});
+inductor.weapons.add(inductorShotgun, inductorArtillery)
 
 //Melee
 const pugione = extend(UnitType, "pugione", {});

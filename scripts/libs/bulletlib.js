@@ -220,10 +220,66 @@ function pointDef(object){
   return point
 }
 
-//honestly i could I have translated sc to the above but im lazy so TY Meep Very cool
+function orbitBullet(object){
+  let orbit = extend(BasicBulletType, {
+    init(b){
+      if(!b) return
+      b.data = []
+      for(let i = 0; i < this.orbiterAmount; i++){
+        b.data[i + 1] = new Trail(this.orbiterTrailLength)
+      }
+    },
+    update(b){
+      let angle = (360 / this.orbiterAmount)
+      b.data[0] = angle
+      if(b.timer.get(0, this.orbiterST)){
+        for(let i = 0; i < this.orbiterAmount; i++){
+          let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
+          let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
+          this.orbiter.create(b.owner, ox, oy, b.rotation())
+        }
+      }
+      //Please suggest something better than this
+      for(let j = 0; j < this.orbiterAmount; j++){
+        let ox = b.x + Angles.trnsx(angle * j + Time.time, this.orbitRadius)
+        let oy = b.y + Angles.trnsy(angle * j + Time.time, this.orbitRadius)
+        b.data[j + 1].update(ox, oy)
+      }
+    },
+    draw(b){
+      let angle = b.data[0]
+      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiterAmount * 1.5))
+      for(let i = 0; i < this.orbiterAmount; i++){
+        let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
+        let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
+        dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterRadius * b.fout())
+        b.data[i + 1].draw(this.orbiterColor, this.orbiterTrailWidth)
+      }
+    },
+    orbiter: Bullets.standardCopper,
+    orbiterST: 25,
+    orbiterAmount: 4,
+    orbiterColor: Pal.lancerLaser,
+    orbiterRadius: 4,
+    orbiterTrailWidth: 2,
+    orbiterTrailLength: 15,
+    orbitRadius: 16,
+    hitEffect: Fx.hitLancer,
+    despawnEffect: Fx.hitLancer,
+    collides: false,
+    collidesTiles: false,
+    collidesAir: false,
+    collidesGround: false,
+  });
+  flib.merge(orbit, object)
+  return orbit
+}
+
+//Credits on Meep for letting me use tractor beam
 module.exports = {
 	newEarthBendBullet: earthBend,
 	newOverSeerBullet: overSeer,
 	newTractorBeam: tractorBeam,
 	newPointDefBullet: pointDef,
+	newOrbitBullet: orbitBullet,
 };

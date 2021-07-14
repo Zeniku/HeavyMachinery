@@ -1,0 +1,16 @@
+type: "flying"
+name: "Eterius"
+description: A Flying unit that has a <redacted>
+speed: 1
+accel: 1
+hitSize: 73.25
+health: 21000
+flying: true
+lowAltitude: true
+research: interitus
+details: IMMA FIRIN MAH LAZAR
+armor: 9
+engineOffset: 24.25
+engineSize: 5
+range: 280
+maxRange: 280

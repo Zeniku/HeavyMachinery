@@ -12,7 +12,7 @@ const flameAura = new Effect(40, e => {
 });
 
 const spark = new Effect(10, e => {
-  dlib.splashline(e.x, e.y, Pal.lancerLaser, 4 * e.fout(), 3 * e.fin(), e.id, 4, e.finpow() * 16, e.rotation, 45)
+  dlib.splashLine(e.x, e.y, Pal.lancerLaser, 4 * e.fout(), 3 * e.fin(), e.id, 4, e.finpow() * 16, e.rotation, 45)
 });
 
 const healWave = new Effect(22, e => {
