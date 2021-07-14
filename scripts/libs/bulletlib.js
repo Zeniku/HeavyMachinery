@@ -267,6 +267,7 @@ function orbitBullet(object){
     collidesGround: false,
   });
   flib.merge(orbit, object)
+  return orbit
 }
 
 //Credits on Meep for letting me use tractor beam
