@@ -243,9 +243,9 @@ function orbitBullet(object){
     },
     draw(b){
       let angle = b.data[0]
-      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, this.orbiterAmount * this.orbiterRadius * b.fout())
+      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiterAmount * 2) * b.fout())
       for(let i = 0; i < this.orbiterAmount; i++){
-        let ox = b.y + Angles.trnsx(angle * i, this.orbitRadius)
+        let ox = b.x + Angles.trnsx(angle * i, this.orbitRadius)
         let oy = b.y + Angles.trnsy(angle * i, this.orbitRadius)
         dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterRadius)
         b.data[i + 1].draw(this.orbiterColor, this.orbiterTrailWidth)
@@ -258,7 +258,7 @@ function orbitBullet(object){
     orbiterRadius: 4,
     orbiterTrailWidth: 2,
     orbiterTrailLength: 15,
-    orbitRadius: 8,
+    orbitRadius: 16,
     hitEffect: Fx.hitLancer,
     despawnEffect: Fx.hitLancer,
     collides: false,
