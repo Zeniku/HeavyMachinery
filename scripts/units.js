@@ -242,7 +242,7 @@ const inductorOrb = blib.newOrbitBullet({
 })
 
 const inductorBullet = blib.newOverSeerBullet({
-  damage: 10,
+  damage: 35,
   speed: 4,
   lifetime: 140,
   trailWidth: 2,
@@ -394,6 +394,8 @@ const eteriusLaserWeapon = newWeapon({
   x: 0,
   y: flib.pixel(-5),
   mirror: false,
+  rotate: true,
+  rotateSpeed: 1.5,
   firstShotDelay: laserCharge.lifetime,
   recoil: 4,
   bullet: eteriusLaser,
@@ -457,6 +459,8 @@ const inductorArtillery = newWeapon({
   y: flib.pixel(-21),
   reload: 190,
   mirror: false,
+  rotate: true,
+  rotateSpeed: 1.5,
   ejectEffect: Fx.lightningShoot,
   shootSound: Sounds.laser,
   bullet: inductorOrb,

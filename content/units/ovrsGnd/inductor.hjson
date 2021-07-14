@@ -4,7 +4,10 @@ health: 600
 speed: 0.56
 hitSize: 17.625
 drag: 0.4
-legCount: 4
+range: 350
+maxRange: 350
+singleTarget: true
+legCount: 6
 legLength: 9
 legTrns: 0.6
 legMoveSpace: 1.4
