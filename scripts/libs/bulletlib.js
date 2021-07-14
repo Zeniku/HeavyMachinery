@@ -78,31 +78,37 @@ function overSeer(overide){
 	    Drawf.tri(b.x, b.y, this.trailWidth * 2, this.trailWidth * 2, b.rotation());
 	  },
 		update(b){
-			if(b.timer.get(0, this.targetTime)){
-			  let tx = null
-			  let ty = null
-		    if(b.owner instanceof Unit){
-		  	  tx = b.owner.aimX
-		      ty = b.owner.aimY
-		  	  }
-	 	    if(b.owner instanceof Turret.TurretBuild){
-		  	  tx = b.owner.targetPos.x
-		  	  ty = b.owner.targetPos.y
-	      }
-		    //just to double check
-			  if(tx != null && ty != null){
-			   let ang = Angles.moveToward(b.rotation(), b.angleTo(tx, ty), this.turningPower * Time.delta * 50);
-			    if(b.within(tx, ty, this.hitSize)){
-			      if(!(this.homingCap < 0)){
-	            b.data.homeCount++
+			let tx = null
+			let ty = null
+		  if(b.owner instanceof Unit){
+		  	tx = b.owner.aimX
+		    ty = b.owner.aimY
+		  	}
+	 	  if(b.owner instanceof Turret.TurretBuild){
+		  	tx = b.owner.targetPos.x
+		    ty = b.owner.targetPos.y
+	    }
+		  //just to double check
+			if(tx != null && ty != null){
+			  let ang = Angles.moveToward(b.rotation(), b.angleTo(tx, ty), this.turningPower * Time.delta * 50);
+			  if(b.timer.get(0, this.targetTime)){
+			    if(this.homingCap > -1){
+			      if(this.homingCap > b.data.homeCount){
+	            b.rotation(ang)
+		          b.vel.setAngle(ang);
 			      }
-			    }
-			    if(this.homingCap > b.data.homeCount){
+			    }else if(this.homingCap <= -1){
 			      b.rotation(ang)
 			      b.vel.setAngle(ang);
 			    }
-		    }
-			};
+			  }
+			  if(b.within(tx, ty, this.hitSize / 2)){
+			    if(this.homingCap > -1){
+	          b.data.homeCount++
+			    }
+			  } 
+			  //flib.printer(tx, ty, ang, b.data.homeCount)
+		  }
 			b.data.trail.update(b.x, b.y);
 		}
 	});

@@ -44,6 +44,12 @@ function debug(scriptName, array){
   print("-------------------");
 };
 
+function printer(){
+  for(let i of arguments){
+    print(i)
+  }
+}
+
 //don't change the order 
 //put this on a "if statement"
 function timer(reload){
@@ -87,5 +93,6 @@ module.exports = {
 	debug: debug,
 	pixel: pixel,
 	merge: merge,
-	mergeII: mergeII
+	mergeII: mergeII,
+	printer: printer
 };
