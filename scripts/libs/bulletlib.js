@@ -224,6 +224,7 @@ function orbitBullet(object){
   let orbit = extend(BasicBulletType, {
     init(b){
       if(!b) return
+      b.data = []
       for(let i = 0; i < this.orbiterAmount; i++){
         b.data[i + 1] = new Trail(this.orbiterTrailLength)
       }
