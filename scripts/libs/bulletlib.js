@@ -243,7 +243,7 @@ function orbitBullet(object){
     },
     draw(b){
       let angle = b.data[0]
-      dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterAmount * this.orbiterRadius * b.fout())
+      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, this.orbiterAmount * this.orbiterRadius * b.fout())
       for(let i = 0; i < this.orbiterAmount; i++){
         let ox = b.y + Angles.trnsx(angle * i, this.orbitRadius)
         let oy = b.y + Angles.trnsy(angle * i, this.orbitRadius)
