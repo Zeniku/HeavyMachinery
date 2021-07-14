@@ -83,23 +83,20 @@ module.exports = {
 	        this.super$updateMovement()
 	        let nearbyTarget = this.findTarget(this.unit.x, this.unit.y, this.unit.range(), this.unit.type.targetAir, this.unit.type.targetGround)
 	        let shoot = false
+	        if(this.targets != null){
+	          for(let i in this.targets){
+	            if(this.targets[i] != null && this.unit.inRange(this.targets[i])){
+	              this.unit.aimLook(this.targets[i])
+	              shoot = true
+	            }
+	          }
+	        }
 	        if(this.target !== null && this.unit.inRange(this.target)){
 	          this.unit.aimLook(this.target);
 	          shoot = true;
-	        }else if(nearbyTarget != null){
-	          this.unit.aimLook(nearbyTarget)
-	          shoot = true
 	        }
 	        this.unit.controlWeapons(shoot)
 	      },
-	      findTarget(x, y, range, air, ground){
-					var result = null
-					
-					result = result = Units.closestTarget(this.unit.team, x, y, range, u => u.checkTarget(air, ground), t => ground);
-					if(result != null) return result;
-					
-					return null;
-				}
 	    });
 	    return u;
 	  });
