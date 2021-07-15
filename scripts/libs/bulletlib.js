@@ -300,40 +300,6 @@ function orbitBullet(object){
   return orbit
 }
 
-function allowBulletFire(bullet){
-  //only copied Basic Stats
-  let allow = extend(BasicBulletType, {
-    damage: bullet.damage,
-    speed: bullet.speed,
-    lifetime: bullet.lifetime,
-    hitEffect: Fx.none,
-    despawnEffect: Fx.none,
-    smokeEffect: Fx.none,
-    shootEffect: Fx.none,
-    collides: true,
-    collidesTiles: true,
-    collidesAir: true,
-    collidesGround: true,
-    absorbable: bullet.absorbable,
-		reflectable: bullet.reflectable,
-		hittable: bullet.hittable,
-		status: bullet.status,
-    statusDuration: bullet.statusDuration,
-    init(b){
-      if(!b) return
-      bullet.create(b.owner, b.x, b.y, b.rotation())
-    },
-    update(b){
-      b.time = this.lifetime
-      b.vel.set(0,0)
-    },
-    draw(b){
-      //nothing = invisible
-    }
-  });
-  return allow
-}
-
 //Credits on Meep for letting me use tractor beam
 module.exports = {
 	newEarthBendBullet: earthBend,
@@ -341,5 +307,4 @@ module.exports = {
 	newTractorBeam: tractorBeam,
 	newPointDefBullet: pointDef,
 	newOrbitBullet: orbitBullet,
-	allowBulletFire: allowBulletFire,
 };

@@ -81,22 +81,13 @@ module.exports = {
 	    let u = extend(aiType, {
 	      updateMovement(){
 	        this.super$updateMovement()
-	        let nearbyTarget = this.findTarget(this.unit.x, this.unit.y, this.unit.range(), this.unit.type.targetAir, this.unit.type.targetGround)
 	        let shoot = false
-	        if(this.targets != null){
-	          for(let i in this.targets){
-	            if(this.targets[i] != null && this.unit.inRange(this.targets[i])){
-	              this.unit.aimLook(this.targets[i])
-	              shoot = true
-	            }
-	          }
-	        }
-	        if(this.target !== null && this.unit.inRange(this.target)){
-	          this.unit.aimLook(this.target);
-	          shoot = true;
+	        if(this.target != null && this.unit.inRange(this.target)){
+	          this.unit.aimLook(this.target)
+	          shoot = true
 	        }
 	        this.unit.controlWeapons(shoot)
-	      },
+	      }
 	    });
 	    return u;
 	  });

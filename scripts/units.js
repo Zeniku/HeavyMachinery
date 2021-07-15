@@ -463,7 +463,7 @@ const inductorArtillery = newWeapon({
   rotateSpeed: 3.5,
   ejectEffect: Fx.lightningShoot,
   shootSound: Sounds.laser,
-  bullet: blib.allowBulletFire(inductorOrb),
+  bullet: inductorOrb,
   recoil: 4,
 })
 
@@ -652,6 +652,7 @@ procurator.weapons.add(procuratorWeapon)
 
 const inductor = extend(UnitType, "inductor", {});
 inductor.constructor = () => extend(LegsUnit, {});
+inductor.defaultController = AI.overSeerAI(GroundAI);
 inductor.weapons.add(inductorShotgun, inductorArtillery)
 
 //Melee
