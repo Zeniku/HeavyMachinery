@@ -23,7 +23,7 @@ module.exports = {
 		const meleeAIL = prov(() => {
 			let u = extend(GroundAI, {
 				updateTargeting(){
-					var ret = this.retarget();
+					let ret = this.retarget();
 					if(ret){
 						this.target = this.findTarget(this.unit.x, this.unit.y, 8 * seekRange, this.unit.type.targetAir, this.unit.type.targetGround);
 					}
@@ -64,7 +64,7 @@ module.exports = {
 					}
 				},
 				findTarget(x, y, range, air, ground){
-					var result = null
+					let result = null
 					
 					result = result = Units.closestTarget(this.unit.team, x, y, range, u => u.checkTarget(air, ground), t => ground);
 					if(result != null) return result;

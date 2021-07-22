@@ -38,13 +38,10 @@ module.exports = {
     Draw.color();
 	},
 	fillCircleii(x, y, colorFrom, colorTo, inOut, alpha, radius){
-	    Draw.color(colorFrom, colorTo, inOut);
-	    Draw.alpha(alpha);
-	    Fill.circle(x, y, radius);
-	    Draw.color();
-	},
-	fillCircleWCol(x, y, radius){
-	    Fill.circle(x, y, radius);
+    Draw.color(colorFrom, colorTo, inOut);
+    Draw.alpha(alpha);
+    Fill.circle(x, y, radius);
+    Draw.color();
 	},
 	fillPoly(x, y, color, alpha, sides, size, rot){
 		Draw.color(color);
@@ -62,12 +59,12 @@ module.exports = {
 		Fill.poly(x, y, sides, size, rot);
 	},
 	linePoly(x, y, color, alpha, thickness, sides, size, rot){
-	  	Draw.color(color);
-	  	Draw.alpha(alpha);
-	  	Lines.stroke(thickness);
-	  	Lines.poly(x, y, sides, size, rot);
-	  	Lines.stroke(1);
-	  	Draw.color();
+    Draw.color(color);
+    Draw.alpha(alpha);
+    Lines.stroke(thickness);
+    Lines.poly(x, y, sides, size, rot);
+    Lines.stroke(1);
+    Draw.color();
 	},
 	linePolyii(x, y, colorFrom, colorTo, inOut, alpha, thickness, sides, size, rot){
 	  	Draw.color(colorFrom, colorTo, inOut);

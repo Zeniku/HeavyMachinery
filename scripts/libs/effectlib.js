@@ -3,10 +3,11 @@
 	* Lib by Zeniku
 	*/
 const dlib = require("heavymachinery/libs/drawlib");
+//Ty MeepOfFaith :D
 const fake = new Effect(15, 500, e => {
   let data = e.data;//uselesss but whatever
   let length = data[0];
-  let tileLength = Mathf.round(length / Vars.tilesize);
+  let tileLength = Mathf.round(length / 8);
 
   Lines.stroke(data[1] * e.fout());
   Draw.color(e.color, Color.white, e.fin());

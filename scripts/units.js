@@ -8,12 +8,10 @@ let blib = require(lib + "bulletlib");
 let flib = require(lib + "function");
 let dlib = require(lib + "drawlib");
 
-//if you see flib.pixel thats just me being lazy about being lazy
-
-function newWeapon(object){
+function weapon(object){
 	return extend(Weapon, object);
 };
-//print(newWeapon)
+//print(Weapon)
 
 function meleeBullet(object){
 	let h = extend(ShrapnelBulletType, {
@@ -77,7 +75,7 @@ const orbExplode = new Effect(45, e => {
 
 //print(boom)
 //[Bullets]
-const trahoTractorBeam = blib.newTractorBeam({
+const trahoTractorBeam = blib.TractorBeam({
   colors: [color[4], Color.white],
   length: 142,
   maxRange: 142,
@@ -216,7 +214,7 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   }
 });
 
-const princepsBullet = blib.newOverSeerBullet({
+const princepsBullet = blib.OverSeerBullet({
   damage: 15,
   speed: 3,
   lifetime: 80,
@@ -224,7 +222,7 @@ const princepsBullet = blib.newOverSeerBullet({
   trailLength: 10
 });
 
-const procuratorBullet = blib.newOverSeerBullet({
+const procuratorBullet = blib.OverSeerBullet({
   damage: 35,
   speed: 4,
   lifetime: 120,
@@ -232,7 +230,7 @@ const procuratorBullet = blib.newOverSeerBullet({
   trailLength: 15,
 });
 
-const inductorOrb = blib.newOrbitBullet({
+const inductorOrb = blib.OrbitBullet({
   damage: 30,
   speed: 2,
   lifetime: 60,
@@ -241,7 +239,7 @@ const inductorOrb = blib.newOrbitBullet({
   orbiter: princepsBullet
 })
 
-const inductorBullet = blib.newOverSeerBullet({
+const inductorBullet = blib.OverSeerBullet({
   damage: 35,
   speed: 4,
   lifetime: 140,
@@ -319,10 +317,10 @@ const machaeraBullet = meleeBullet({
 //print(machaeraBullet)
 
 //[UnitWeapons]
-const trahoTractorWeapon = newWeapon({
+const trahoTractorWeapon = weapon({
   name: heav + "trahoWeapon",
   x: 0,
-  y: flib.pixel(-5),
+  y: -5 / 4,
   recoil: 0,
   reload: 30,
   rotate: true,
@@ -332,20 +330,20 @@ const trahoTractorWeapon = newWeapon({
 });
 //print(trahoTractorWeapon)
 
-const trahoSapWeapon = newWeapon({
+const trahoSapWeapon = weapon({
   name: heav + "trahoWeaponII",
-  x: flib.pixel(3),
+  x: 3 / 4,
   y: 0,
-  shootY: flib.pixel(25),
+  shootY: 25 / 4,
   reload: 30,
   rotate: false,
   bullet: trahoSapBullet
 });
 //print(trahoSapWeapon)
 
-const spiculumWeapon = newWeapon({
+const spiculumWeapon = weapon({
   name: heav + "spiculumWeapon",
-  x: flib.pixel(34),
+  x: 34 / 4,
   y: 0,
   reload: 15,
   rotate: false,
@@ -361,26 +359,26 @@ const interitusWeapStat = {
   shootSound: Sounds.shotgun
 }
 //Bad idea dont copy me
-const interitusSpikeWeaponA = newWeapon(interitusWeapStat);
+const interitusSpikeWeaponA = weapon(interitusWeapStat);
 flib.merge(interitusSpikeWeaponA, {
-  x: flib.pixel(49),
-  y: flib.pixel(27)
+  x: 49 / 4,
+  y: 27 / 4
 });
-const interitusSpikeWeaponB = newWeapon(interitusWeapStat);
+const interitusSpikeWeaponB = weapon(interitusWeapStat);
 flib.merge(interitusSpikeWeaponB, {
-  x: flib.pixel(74),
-  y: flib.pixel(-9),
+  x: 74 / 4,
+  y: -9 / 4,
   reload: 35
 });
 
-const interitusArtillery = newWeapon({
+const interitusArtillery = weapon({
   name: heav + "interitusArtillery",
   reload: 60 * 4,
   recoil: 4,
   bullet: interitusCannonBall,
-  y: flib.pixel(-15),
+  y: -15 / 4,
   x: 0,
-  shootY: flib.pixel(58),
+  shootY: 58/ 4,
   mirror: false,
   shake: 7,
   rotate: true,
@@ -389,10 +387,10 @@ const interitusArtillery = newWeapon({
 });
 //print(interitusArtillery)
 
-const eteriusLaserWeapon = newWeapon({
+const eteriusLaserWeapon = weapon({
   name: heav + "eteriusLaser",
   x: 0,
-  y: flib.pixel(-5),
+  y: -5 / 4,
   mirror: false,
   rotate: true,
   rotateSpeed: 1.5,
@@ -408,17 +406,17 @@ const eteriusLaserWeapon = newWeapon({
   chargeSound: Sounds.lasercharge
 })
 
-const eteriusArtillery = newWeapon({
+const eteriusArtillery = weapon({
   name: heav + "eteriusArtillery",
-  x: flib.pixel(74),
-  y: flib.pixel(-76),
+  x: 74 / 4,
+  y: -76 / 4,
   reload: 30,
   shootSound: Sounds.shootSnap,
   recoil: 3,
   bullet: eteriusArtilleryBullet,
 })
 
-const princepsWeapon = newWeapon({
+const princepsWeapon = weapon({
   name: heav + "princepsWeapon",
  	x: 5,
 	y: 0,
@@ -429,10 +427,10 @@ const princepsWeapon = newWeapon({
 	bullet: princepsBullet
 });
 
-const procuratorWeapon = newWeapon({
+const procuratorWeapon = weapon({
   name: heav + "procuratorWeapon",
-  x: flib.pixel(25),
-  y: flib.pixel(3),
+  x: 25 / 4,
+  y: 3 / 4,
   top: false,
   reload: 25,
   ejectEffect: Fx.lightningShoot,
@@ -440,10 +438,10 @@ const procuratorWeapon = newWeapon({
   bullet: procuratorBullet,
 });
 
-const inductorShotgun = newWeapon({
+const inductorShotgun = weapon({
   name: heav + "inductorShotgun",
-  x: flib.pixel(36),
-  y: flib.pixel(1),
+  x: 36 / 4,
+  y: 1 / 4,
   reload: 60,
   top: false,
   ejectEffect: Fx.lightningShoot,
@@ -453,10 +451,10 @@ const inductorShotgun = newWeapon({
   bullet: inductorBullet
 });
 
-const inductorArtillery = newWeapon({
+const inductorArtillery = weapon({
   name: heav + "inductorArtillery",
   x: 0,
-  y: flib.pixel(-21),
+  y: -21 / 4,
   reload: 190,
   mirror: false,
   rotate: true,
@@ -467,7 +465,7 @@ const inductorArtillery = newWeapon({
   recoil: 4,
 })
 
-const pugioneWeapon = newWeapon({
+const pugioneWeapon = weapon({
 	name: heav + "pugioneWeapon",
 	reload: 20,
 	x: 5,
@@ -484,17 +482,16 @@ const pugioneWeapon = newWeapon({
 	rotateSpeed: 60,
 	bullet: pugioneBullet
 });
-//print(pugioneWeapon)
 
-const mucroWeapon = newWeapon({
+const mucroWeapon = weapon({
 	name: heav + "mucroWeapon",
-	x: flib.pixel(24),
+	x: 24 / 4,
 	y: 0,
 	reload: 30,
 	top: false,
 	ejectEffect: Fx.none,
 	shootSound: Sounds.shotgun,
-	shootY: flib.pixel(30),
+	shootY: 30 / 4,
 	recoil: -4, //negative so it looks like it's punching
 	targetAir: false,
 	soundPitchMin: 0.42,
@@ -508,7 +505,7 @@ const mucroWeapon = newWeapon({
 });
 //print(mucroWeapon)
 
-const tragulaWeapon = newWeapon({
+const tragulaWeapon = weapon({
 	name: heav + "tragulaWeapon",
 	x: 8,
 	y: 1,
@@ -516,7 +513,7 @@ const tragulaWeapon = newWeapon({
 	top: false,
 	ejectEffect: Fx.none,
 	shootSound: Sounds.shotgun,
-	shootY: flib.pixel(35),
+	shootY: 35 / 4,
 	recoil: -4, //negative so it looks like it's punching
 	targetAir: false,
 	soundPitchMin: 0.42,
@@ -527,15 +524,15 @@ const tragulaWeapon = newWeapon({
 });
 //print(tragulaWeapon)
 
-const luciusWeapon = newWeapon({
+const luciusWeapon = weapon({
   name: heav + "luciusWeapon",
-  x: flib.pixel(44),
-  y: flib.pixel(1),
+  x: 44 / 4,
+  y: 1 / 4,
   reload: 20,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
-  shootY: flib.pixel(43),
+  shootY: 43 / 4,
   recoil: -4, //negative so it looks like it's punching
   targetAir: false,
   soundPitchMin: 0.42,
@@ -546,15 +543,15 @@ const luciusWeapon = newWeapon({
 });
 //print(luciusWeapon)
 
-const machaeraWeapon = newWeapon({
+const machaeraWeapon = weapon({
   name: heav + "machaeraWeapon",
-  x: flib.pixel(75),
-  y: flib.pixel(-6),
+  x: 75 / 4,
+  y: -6 / 4,
   reload: 35,
   top: false,
   ejectEffect: Fx.none,
   shootSound: Sounds.shotgun,
-  shootY: flib.pixel(62),
+  shootY: 62 / 4,
   recoil: -5,
   targetAir: false,
   soundPitchMin: 0.42,
@@ -569,7 +566,7 @@ const machaeraWeapon = newWeapon({
 });
 //print(machaeraWeapon)
 
-const miscWeapon = newWeapon({
+const miscWeapon = weapon({
 	name: heav + "earthBend",
 	x: 0,
 	y: 0,
@@ -579,17 +576,25 @@ const miscWeapon = newWeapon({
 	ejectEffect: Fx.none,
 	shootEffect: Fx.none,
 	shootSound: Sounds.place,
-	shootY: flib.pixel(35),
+	shootY: 35 / 4,
 	targetAir: false,
 	soundPitchMin: 0.42,
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: blib.newEarthBendBullet(60, pugioneBullet, 6, 22.5, earthDust, 25, 5)
+	bullet: blib.EarthBendBullet({
+	  lifetime: 60,
+	  groundBullet: pugioneBullet,
+	  groundEffect: earthDust,
+	  groundBullets: 6,
+	  groundBulletST: 25,
+	  groundEffectST: 5,
+	  groundBulletSpacing: 22.5
+	})
 });
 //print(miscWeapon)
 
-const miscWeaponII = newWeapon({
+const miscWeaponII = weapon({
 	name: heav + "earthBendII",
 	x: 0,
 	y: 0,
@@ -599,13 +604,21 @@ const miscWeaponII = newWeapon({
 	ejectEffect: Fx.none,
 	shootEffect: Fx.none,
 	shootSound: Sounds.place,
-	shootY: flib.pixel(35),
+	shootY: 35 / 4,
 	targetAir: false,
 	soundPitchMin: 0.42,
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: blib.newEarthBendBullet(60, mucroBullet, 8, 22.5, earthDustII, 20, 5)
+	bullet: blib.EarthBendBullet({
+	  lifetime: 60,
+	  groundBullet: mucroBullet,
+	  groundEffect: earthDustII,
+	  groundBullets: 8,
+	  groundBulletST: 20,
+	  groundEffectST: 5,
+	  groundBulletSpacing: 22.5
+	})
 });
 //print(miscWeaponII)
 
@@ -624,7 +637,12 @@ traho.weapons.add(trahoTractorWeapon, trahoSapWeapon);
 
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
-spiculum.abilities.add(alib.laserMoveAbility(flib.pixel(22), 0, {damage: 23, colors: [color[0], Color.white]}, 0.01, 2, 5, Sounds.minebeam, 8 * 5))
+spiculum.abilities.add(alib.laserMoveAbility(22 / 4, 0, {
+  damage: 23,
+  colors: [color[0],
+  Color.white],
+  length: 8 * 5
+}, 0.01, 2, 5))
 spiculum.weapons.add(spiculumWeapon);
 //print(spiculum)
 
@@ -697,7 +715,10 @@ module.exports = {
 	traho: cunit("traho"),
 	spiculum: cunit("spiculum"),
 	interitus: cunit("interitus"),
+	eterius: cunit("eterius"),
 	princeps: cunit("princeps"),
+	procurator: cunit("procurator"),
+	inductor: cunit("inductor"),
 	pugione: cunit("pugione"),
 	mucro: cunit("mucro"),
 	tragula: cunit("tragula"),

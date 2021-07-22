@@ -1,9 +1,8 @@
 let lib = "heavymachinery/libs/"
 let flib = require(lib +"function");
 let elib = require(lib + "effectlib");
-function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound, laserLength){
+function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed){
   let laserbullet = extend(LaserBulletType, {
-    length: laserLength,
     update(b){
       this.super$update(b);
       b.set(b.owner.x + Angles.trnsx(b.owner.rotation, x, y), b.owner.y + Angles.trnsy(b.owner.rotation, x, y));
@@ -11,12 +10,6 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
     }
   });
   flib.merge(laserbullet, stat)
-  
-  let s = Sounds.none;
-  if(shootSound != null){
-    s = shootSound
-  }
-  let shootSoundH = new SoundLoop(s, 1);//ahyes sound
   
   return extend(Ability, {
     update(unit){
@@ -26,13 +19,8 @@ function laserMoveAbility(x, y, stat, speedStart, minSpeed, maxSpeed, shootSound
       
       if(scl >= speedStart){
         laserbullet.create(unit, unit.team, bx, by, unit.rotation) //create the Bullet by SPEEEEEEEEED
-        if(s != Sounds.none && !Vars.headless){
-          shootSoundH.update(bx, by, true);
-        }
-      }else{
-        shootSoundH.update(bx, by, false)
       }
-      //flib.debug("Abilities", [scl, laserbullet, shootSound, unit, unit.rotation, bx, by, Vars.headless])
+      //flib.debug("Abilities", [scl, laserbullet, unit, unit.rotation, bx, by])
     },
     localized(){
       return "LaserMoveAbility"// haha Fuck you bundles

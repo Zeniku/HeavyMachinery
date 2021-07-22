@@ -22,77 +22,91 @@ function nearbyBullets(x, y, range, func){
     }
   });
 }
-//lets you not spam print and make it readable when null
-function debug(scriptName, array){
-  print("-------------------");
-  if(scriptName !== null){
-    print(scriptName);
-  }
-  array.forEach((item, i) => {
-    if(item !== null){
-      if(item instanceof Array){
-        item.forEach((items) => {
-          print(items)
-        });
-      }else{
-        print(item)
-      };
-    }else{
-        print("Number" + i + "in Array is Null")
-    };
-  });
-  print("-------------------");
-};
-
-function printer(){
-  for(let i of arguments){
-    print(i)
+//I really Have a problem
+function loop(Cap, execute){
+  for(let i = 0; i < Cap; i++){
+    execute(i)
   }
 }
+
+//lets you not spam print and make it readable when null
+function debug(scriptName, array){
+  if(!(array instanceof Array)) return
+  if(scriptName != null){
+    print(scriptName);
+  }
+  for(let i in array.length){
+    if(array[i] != null){
+      if(array[i] instanceof Array){
+        debug(null, array[i])
+      }else{
+        print(array[i])
+      }
+    }else{
+      print("Array Index Number" + i + "is Null")
+    }
+  }
+};
 
 //don't change the order 
 //put this on a "if statement"
 function timer(reload){
-	let clock =+ Time.delta;
+	let clock =+ Time.time;
 	if(clock >= reload){
-	  return true
 		clock = 0;
+		return true
 	}else{
 	  return false
 	}
 };
 
-//Pixel to World Units
-function pixel(p){
-	return (0.25 * p);
-};
 //you could always use Object.assign but h
 //adds, override, copy, merge i guess
-function merge(object, objectII){
-  for(let key in objectII){
-    object[key] = objectII[key]
-  }
+function merge(){
+  let args = arguments
+  for(let i in args){
+    if(typeof(args[i]) != "object") return
+    for(let j in arguments[i]){
+      if(args[0] != args[i]){
+        args[0][j] = args[i][j]
+      }
+    }
+  };
 }
-//basically returns a object so you can stack it on top of another
-//like mergeII({}, mergeII({}, {}));
-function mergeII(object, objectII){
+//merge but it makes a new Object
+function mergeII(){
   let out = {}
-  for(let key in object){
-    out[key] = object[key]
-  }
-  for(let keyII in objectII){
-    out[keyII] = objectII[keyII]
+  let args = arguments
+  for(let i in args){
+    if(typeof(args[i]) != "object") return
+    for(let j in args[i]){
+      out[j] = args[i][j]
+    }
   }
   return out
 }
-
+//Haha code steal go brrrr clone from one of meeps
+function clone(obj){
+  if(obj === null || typeof(obj) !== 'object') return obj;
+  let copy = obj.constructor();
+  for(let key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      copy[key] = obj[key];
+    }
+  };
+  return copy;
+}
+/*
+Credits:
+  MeepOfFaith - for the clone()
+*/
 module.exports = {
 	radiusEnemies: radiusEnemies,
 	eachBullet: eachBullet,
 	nearbyBullets: nearbyBullets,
 	debug: debug,
-	pixel: pixel,
 	merge: merge,
 	mergeII: mergeII,
-	printer: printer
+	loop: loop,
+	clone: clone
 };

@@ -10,12 +10,12 @@ let elib = require(text + "effectlib");
 //this is not a great example if you are just beginning to mod
 
 
-function earthBend(life, bullet, bulletNum, spread, effect, timer, timer2){
+function earthBend(object){
 	//flib.debug("bulletlib.js", [earthDust, life, bullet, bulletNum, spread, timer, timer2]);
-	return extend(BasicBulletType, {
-		lifetime: life,
+	let earthBendB = extend(BasicBulletType, {
+		lifetime: 40,
 		speed: 2.5,
-		damage: bullet.damage * bulletNum, //for some reason estimateDps is making me shit
+		damage: 0,
 		absorbable: false,
 		reflectable: false,
 		hittable: false,
@@ -27,6 +27,11 @@ function earthBend(life, bullet, bulletNum, spread, effect, timer, timer2){
 		despawnEffect: Fx.none,
 		shootEffect: Fx.none,
 		smokeEffect: Fx.none,
+		groundEffectST: 0,
+		groundBulletST: 0,
+		groundBullet: Bullets.standardCopper,
+		groundBullets: 2,
+		groundBulletSpacing: 0,
 		drawLight(b){
 			//nothing
 		},
@@ -34,19 +39,28 @@ function earthBend(life, bullet, bulletNum, spread, effect, timer, timer2){
 			//nothing
 		},
 		update(b){
-			if(b.timer.get(0, timer2)){
-				effect.at(b.x, b.y, b.rotation());
+			if(b.timer.get(0, this.groundEffectST)){
+				this.groundEffect.at(b.x, b.y, b.rotation());
 				Sounds.place.at(b.x, b.y, 0.42, 1);
 			}
-			if(b.timer.get(1, timer)){
-				effect.at(b.x, b.y, b.rotation());
-				for(let i = 0; i < bulletNum; i++){
-					let angle = b.rotation() + (i - (bulletNum / 2)) * spread
-					bullet.create(b, b.x, b.y, angle);
-				};
+			if(b.timer.get(1, this.groundBulletST)){
+				this.groundEffect.at(b.x, b.y, b.rotation());
+				flib.loop(this.groundBullets, i => {
+					let angle = b.rotation() + (i - (this.groundBullets / 2)) * this.groundBulletSpacing
+					this.groundBullet.create(b, b.x, b.y, angle);
+				})
 			};
+		},
+		estimateDps(){
+		  let sum = this.super$estimateDps()
+        if(this.groundBullet != null && this.groundBullet != this){
+          sum += (this.groundBullet.estimateDps() * this.groundBullets / 2) * (this.lifetime / this.groundBulletST)
+        }
+        return sum;
 		}
 	});
+	flib.merge(earthBendB, object)
+	return earthBendB
 };
 //note overriding the bullet type won't work unless you modify the function I think
 //but i figured a way so you can override stuff
@@ -65,15 +79,21 @@ function overSeer(overide){
 	  targetTime: 15,
 	  hitEffect: Fx.hitLancer,
 	  despawnEffect: Fx.hitLancer,
+	  customTrail: false,
+    customTrailST: 0,
+    customTrailEffect: Fx.none,
 	  init(b){
 	    if(!b) return;
 	    b.data = {}
-	    b.data.trail = new Trail(this.trailLength);
+	    if(!this.customTrail){
+	      b.data.trail = new Trail(this.trailLength);
+	    }
 	    b.data.homeCount = 0
 	  },
 	  draw(b){
-	    
-	    b.data.trail.draw(this.trailColor, this.trailWidth);
+	    if(!this.customTrail){
+	      b.data.trail.draw(this.trailColor, this.trailWidth);
+	    }
 	    Draw.color(this.trailColor)
 	    Drawf.tri(b.x, b.y, this.trailWidth * 2, this.trailWidth * 2, b.rotation());
 	  },
@@ -109,7 +129,15 @@ function overSeer(overide){
 			  } 
 			  //flib.printer(tx, ty, ang, b.data.homeCount)
 		  }
-			b.data.trail.update(b.x, b.y);
+		  if(!this.customTrail){
+			  b.data.trail.update(b.x, b.y);
+		  }else {
+		    if(b.timer.get(1, this.customTrailST)) {
+		      if(this.customTrailEffect != Fx.none) {
+		        this.customTrailEffect.at(ox[i], oy[i], b.rotation())
+		      }
+		    }
+		  }
 		}
 	});
 	flib.merge(overseerStat, overide)
@@ -248,42 +276,59 @@ function orbitBullet(object){
   let orbit = extend(BasicBulletType, {
     init(b){
       if(!b) return
-      b.data = []
-      for(let i = 0; i < this.orbiterAmount; i++){
-        //b.data[0] is reserved for angle
-        b.data[i + 1] = new Trail(this.orbiterTrailLength)
+      b.data = {}
+      if(!this.customTrail){
+        flib.loop(this.orbiters, i => {
+          b.data["trail" + i] = new Trail(this.orbiterTrailLength)
+        });
       }
     },
     update(b){
-      let angle = (360 / this.orbiterAmount)
-      b.data[0] = angle
-      if(b.timer.get(0, this.orbiterST)){
-        for(let i = 0; i < this.orbiterAmount; i++){
-          let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
-          let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
-          this.orbiter.create(b.owner, ox, oy, b.rotation())
+      let angle = (360 / this.orbiters)
+      let ox = []
+      let oy = []
+      b.data.ox = ox
+      b.data.oy = oy
+      flib.loop(this.orbiters, i => {
+        ox[i] = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius);
+        oy[i] = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
+        if(!this.customTrail){
+          b.data["trail" + i].update(ox[i], oy[i])
+        }else {
+          if(b.timer.get(1, this.customTrailST)){
+            if(this.customTrailEffect != Fx.none){
+              this.customTrailEffect.at(ox[i], oy[i], b.rotation())
+            }
+          }
         }
-      }
-      //Please suggest something better than this
-      for(let j = 0; j < this.orbiterAmount; j++){
-        let ox = b.x + Angles.trnsx(angle * j + Time.time, this.orbitRadius)
-        let oy = b.y + Angles.trnsy(angle * j + Time.time, this.orbitRadius)
-        b.data[j + 1].update(ox, oy)
+      });
+      if(b.timer.get(0, this.orbiterST)){
+        flib.loop(this.orbiters, i => {
+          this.orbiter.create(b.owner, ox[i], oy[i], b.rotation())
+        });
       }
     },
     draw(b){
-      let angle = b.data[0]
-      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiterAmount * 1.5) * b.fout())
-      for(let i = 0; i < this.orbiterAmount; i++){
-        let ox = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius)
-        let oy = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
-        dlib.fillCircle(ox, oy, this.orbiterColor, 1, this.orbiterRadius * b.fout())
-        b.data[i + 1].draw(this.orbiterColor, this.orbiterTrailWidth)
+      let ox = b.data.ox
+      let oy = b.data.oy
+      dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiters * 1.5) * b.fout())
+      flib.loop(this.orbiters, i => {
+        dlib.fillCircle(ox[i], oy[i], this.orbiterColor, 1, this.orbiterRadius * b.fout())
+        if(!this.customTrail){
+          b.data["trail" + i].draw(this.orbiterColor, this.orbiterTrailWidth * b.fout())
+        }
+      });
+    },
+    estimateDps(){
+      let sum = this.super$estimateDps()
+      if(this.orbiter != null && this.orbiter != this){
+        sum += (this.orbiter.estimateDps() * this.orbiters / 2) * (this.lifetime / this.orbiterST)
       }
+      return sum
     },
     orbiter: Bullets.standardCopper,
     orbiterST: 25,
-    orbiterAmount: 4,
+    orbiters: 4,
     orbiterColor: Pal.lancerLaser,
     orbiterRadius: 4,
     orbiterTrailWidth: 2,
@@ -295,16 +340,101 @@ function orbitBullet(object){
     collidesTiles: false,
     collidesAir: false,
     collidesGround: false,
+    customTrail: false,
+    customTrailST: 0,
+    customTrailEffect: Fx.none
   });
   flib.merge(orbit, object)
   return orbit
 }
+// not to be confused on ER's BulletSpawnBulletType
+function bulletSpawn(){
+  let bulletSpawner = extend(BulletType, {
+    init(b){
+      if(!b) return
+      b.data = {}
+    },
+    update(b){
+      this.super$update(b)
+      this.Ai(b)
+      if(b.data.shoot){
+        if(flib.timer(this.reload)){
+          shoot(b, Angles.angle(b.x, b.y, b.data.shootX, b.data.shootY))
+        }
+      }
+    },
+    shoot(b, a){
+      if(this.shots > 1){
+        flib.loop(this.shots, i => {
+          let shootCone = this.bulletShotShootCone / 2
+          let angle = Mathf.clamp((i - (this.shots / 2)) * this.bulletShotSpacing + Mathf.range(this.bulletShotInaccuracy), -shootCone, shootCone)
+          this.bulletShot.create(b, b.x, b.y, b.rotation() + angle + a)
+        });
+      }else if(this.shots == 1){
+        let shootCone = this.bulletShotShootCone / 2
+        let angle = Mathf.clamp(Mathf.range(this.bulletShotInaccuracy), -shootCone, shootCone)
+        this.bulletShot.create(b, b.x, b.y, b.rotation() + angle + a)
+      }
+    },
+    nearbyEnemies(b, range, air, ground){
+      return Units.closestTarget(b.team, b.x, b.y, range, u => u.checkTarget(air, ground), t => ground)
+    },
+    Ai(b){
+      let range = this.bulletShot.range()
+      let target = this.nearbyEnemies(b, range, this.bulletShot.collidesAir, this.bulletShot.collidesGround)
+      if(Units.invalidateTarget(target, b.team, b.x, b.y)){
+        target = null
+      }
+      let shootX = null
+      let shootY = null
+      let shoot = false
+      if(this.enablePredict){
+        if(target != null){
+          let to = Predict.intersept(b, target, this.bulletShot.speed)
+          shootX = to.x
+          shootY = to.y
+          shoot = target.within(b.x, b.y, range)
+        }
+      }else{
+        if(target != null){
+          shootX = target.x
+          shootY = target.y
+          shoot = target.within(b.x, b.y, range)
+        }
+      }
+      b.data.shoot = shoot
+      b.data.shootX = shootX
+      b.data.shootY = shootY
+    },
+    draw(b){
+      dlib.fillCircleii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 1, this.radius)
+      dlib.linePolyii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 1, 4, 6, this.radius, Time.time * this.rotationalMultiplier)
+    },
+    bulletShot: Bullets.standardCopper,
+    bulletShotSpacing: 4,
+    bulletShotShootCone: 90,
+    bulletShotInaccuracy: 5,
+    shots: 3,
+    colorFrom: Pal.lancerLaser,
+    colorTo: Pal.lancerLaser,
+    radius: 4,
+    rotationalMultiplier: 2,
+    enablePredict: true
+  });
+  flib.merge(bulletSpawner, object)
+  return bulletSpawner
+}
 
-//Credits on Meep for letting me use tractor beam
+/*
+[Credits]:
+  MeepOfFaith - for letting me use tractor beam
+  Sh1penfire - for the Turret.TurretBuild not Turret
+*/
 module.exports = {
-	newEarthBendBullet: earthBend,
-	newOverSeerBullet: overSeer,
-	newTractorBeam: tractorBeam,
-	newPointDefBullet: pointDef,
-	newOrbitBullet: orbitBullet,
+	EarthBendBullet: earthBend,
+	OverSeerBullet: overSeer,
+	TractorBeam: tractorBeam,
+	PointDefBullet: pointDef,
+	OrbitBullet: orbitBullet,
+	BulletSpawner: bulletSpawn,
 };

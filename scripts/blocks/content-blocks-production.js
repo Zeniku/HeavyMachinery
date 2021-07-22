@@ -1,8 +1,19 @@
-const frames = {
-	frameCount: 4,
-	frameSpeed: 5
+function customDrawAnimation(Block, Build, sine, frameStat, customDraw){
+  Block.buildType = () => extend(Build, Block, {
+    draw(){
+      Draw.rect(Block.bottomRegion, this.x, this.y);
+      Draw.rect(
+        sine ?
+        Block.frameRegions[Math.floor(Mathf.absin(this.totalProgress, frameStat.frameSpeed, frameStat.frameCount - 0.001))] :
+        Block.frameRegions[Math.floor(((this.totalProgress / frameStat.frameSpeed) % frameStat.frameCount))],
+        this.x, this.y);
+  
+      Draw.rect(Block.topRegion, this.x, this.y);
+      customDraw()
+    }
+  });
 }
-//<this> refers to the class which is extended by  extend
+
 const lcomp = extend(GenericCrafter, "lonsdaleite-compressor", {
 	load(){//load the sprites
 		this.region = Core.atlas.find(this.name);
@@ -22,17 +33,4 @@ const lcomp = extend(GenericCrafter, "lonsdaleite-compressor", {
 		]
 	}
 });
-lcomp.buildType = () => extend(GenericCrafter.GenericCrafterBuild, lcomp, {
-		draw(){//draws
-			let sine = true;
-			Draw.rect(lcomp.bottomRegion, this.x, this.y);
-			
-			Draw.rect(
-			sine ?
-				lcomp.frameRegions[Math.floor(Mathf.absin(this.totalProgress, frames.frameSpeed, frames.frameCount - 0.001))] :
-				lcomp.frameRegions[Math.floor(((this.totalProgress / frames.frameSpeed) % frames.frameCount))],
-			this.x, this.y);
-			
-			Draw.rect(lcomp.topRegion, this.x, this.y);
-		}
-	});
+customDrawAnimation(lcomp, GenericCrafter.GenericCrafterBuild, true, {frameCount: 4, frameSpeed: 5}, () => {})

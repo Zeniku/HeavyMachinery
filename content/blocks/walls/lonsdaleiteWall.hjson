@@ -1,0 +1,7 @@
+name: "Lonsdaleite Wall"
+description: "Reduces Bullet damage on impact"
+health: 150
+requirements: [
+  lonsdaleite/6
+  phaseFabric/6
+]

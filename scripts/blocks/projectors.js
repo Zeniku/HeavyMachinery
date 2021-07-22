@@ -53,25 +53,23 @@ effect.buildType = () => extend(LiquidBlock.LiquidBuild, effect, {
 	
 		updateTile(){
 		//Basically checks if it's consuming something and check if timer
-			if(this.consValid() && this.timer.get(0, effect.reload)){
-				let wasHealed = false;
-				
-				//Checks if there's a unit in the radius and heals them
-				Units.nearby(this.team, this.x, this.y, effect.range, unit => {
-					//checks if the unit is damaged so it won't do the effect even if it's fully healed
-					if(unit.damaged()){
-						unit.heal(0.5);
-						Fx.heal.at(unit);
-						wasHealed = true;
-					};
-				});
-				//this piece of code here makes it so it only 1 effect is active even with multiple units
-				if(wasHealed){
-					healWave.at(this.x, this.y);
-				};
-			};
-			
 			if(this.consValid()){
+        if(this.timer.get(0, effect.reload)){
+				  let wasHealed = false;
+				  //Checks if there's a unit in the radius and heals them
+				  Units.nearby(this.team, this.x, this.y, effect.range, unit => {
+					//checks if the unit is damaged so it won't do the effect even if it's fully healed
+					  if(unit.damaged()){
+					  	unit.heal(0.5);
+					  	Fx.heal.at(unit);
+					  	wasHealed = true;
+					  };
+				  });
+				  //this piece of code here makes it so it only 1 effect is active even with multiple units
+				  if(wasHealed){
+					  healWave.at(this.x, this.y);
+				  };
+			  }
 				let enemiesBurn = false;
 				//remember using cons() on this function
 				flib.radiusEnemies(this.team, this.x, this.y, effect.range, unitii => {
@@ -89,7 +87,6 @@ effect.buildType = () => extend(LiquidBlock.LiquidBuild, effect, {
 				};
 			};
 		},
-		
 		drawSelect(){
 			Drawf.dashCircle(this.x, this.y, effect.range, Pal.accent);
 		},

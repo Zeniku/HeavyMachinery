@@ -1,0 +1,7 @@
+name: "Lonsdaleite Wall Large"
+description: "Reduces Bullet damage on impact. Occupies 2x2 blocks of space"
+health: 600
+requirements: [
+  lonsdaleite/24
+  phaseFabric/24
+]
