@@ -638,7 +638,7 @@ traho.weapons.add(trahoTractorWeapon, trahoSapWeapon);
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.abilities.add(alib.laserMoveAbility(22 / 4, 0, {
-  damage: 23 / 60,//yes you need to
+  damage: 23,
   colors: [color[0], Color.white],
   length: 8 * 5
 }, 0.01, 2, 5, {}))

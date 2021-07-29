@@ -147,7 +147,7 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
     enableHealing: true,
     enableStatusAura: true,
     healPercent: 0.5,
-    statusEffect: StatusEffect.burning,
+    statusEffect: StatusEffects.burning,
     statusFx: Fx.none,
     healEffect: Fx.none,
     starColor: Pal.pyraFlame,
