@@ -3,5 +3,5 @@ description: "Reduces Bullet damage on impact"
 health: 150
 requirements: [
   lonsdaleite/6
-  phaseFabric/6
+  phase-fabric/6
 ]

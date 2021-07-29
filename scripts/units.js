@@ -4,7 +4,7 @@ let heav = "heavymachinery-"
 
 let AI = require(lib + "ai");
 let alib = require(lib + "abilities");
-let blib = require(lib + "bulletlib");
+let bulletTypes = require(lib + "bulletTypes");
 let flib = require(lib + "function");
 let dlib = require(lib + "drawlib");
 
@@ -75,7 +75,7 @@ const orbExplode = new Effect(45, e => {
 
 //print(boom)
 //[Bullets]
-const trahoTractorBeam = blib.TractorBeam({
+const trahoTractorBeam = bulletTypes.TractorBeam({
   colors: [color[4], Color.white],
   length: 142,
   maxRange: 142,
@@ -214,7 +214,7 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   }
 });
 
-const princepsBullet = blib.OverSeerBullet({
+const princepsBullet = bulletTypes.OverSeerBullet({
   damage: 15,
   speed: 3,
   lifetime: 80,
@@ -222,7 +222,7 @@ const princepsBullet = blib.OverSeerBullet({
   trailLength: 10
 });
 
-const procuratorBullet = blib.OverSeerBullet({
+const procuratorBullet = bulletTypes.OverSeerBullet({
   damage: 35,
   speed: 4,
   lifetime: 120,
@@ -230,7 +230,7 @@ const procuratorBullet = blib.OverSeerBullet({
   trailLength: 15,
 });
 
-const inductorOrb = blib.OrbitBullet({
+const inductorOrb = bulletTypes.OrbitBullet({
   damage: 30,
   speed: 2,
   lifetime: 60,
@@ -239,7 +239,7 @@ const inductorOrb = blib.OrbitBullet({
   orbiter: princepsBullet
 })
 
-const inductorBullet = blib.OverSeerBullet({
+const inductorBullet = bulletTypes.OverSeerBullet({
   damage: 35,
   speed: 4,
   lifetime: 140,
@@ -582,7 +582,7 @@ const miscWeapon = weapon({
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: blib.EarthBendBullet({
+	bullet: bulletTypes.EarthBendBullet({
 	  lifetime: 60,
 	  groundBullet: pugioneBullet,
 	  groundEffect: earthDust,
@@ -610,7 +610,7 @@ const miscWeaponII = weapon({
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: blib.EarthBendBullet({
+	bullet: bulletTypes.EarthBendBullet({
 	  lifetime: 60,
 	  groundBullet: mucroBullet,
 	  groundEffect: earthDustII,
@@ -638,11 +638,10 @@ traho.weapons.add(trahoTractorWeapon, trahoSapWeapon);
 const spiculum = extend(UnitType, "spiculum", {});
 spiculum.constructor = () => extend(UnitEntity, {});
 spiculum.abilities.add(alib.laserMoveAbility(22 / 4, 0, {
-  damage: 23,
-  colors: [color[0],
-  Color.white],
+  damage: 23 / 60,//yes you need to
+  colors: [color[0], Color.white],
   length: 8 * 5
-}, 0.01, 2, 5))
+}, 0.01, 2, 5, {}))
 spiculum.weapons.add(spiculumWeapon);
 //print(spiculum)
 

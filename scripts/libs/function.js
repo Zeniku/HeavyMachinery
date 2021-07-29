@@ -1,5 +1,5 @@
 // Lib Made by Zeniku
-//detects enemies in a radius use cons(method) on cons
+//detects enemies in a radius
 function radiusEnemies(team, x, y, radius, func){
 	Units.nearbyEnemies(team, x - radius, y - radius, radius * 2, radius * 2, u => {
 		if(u.within(x, y, radius)){
@@ -7,18 +7,23 @@ function radiusEnemies(team, x, y, radius, func){
 		};
 	});
 }; 
-//its basically uh access the bullet entity that has the same type
-function eachBullet(bullet, func){
-  Groups.bullet.each(e => {
-      if(e.type !== bullet) return;
-      func(e);
+//detects all unit i guess
+function unitNearby(parent, range, ally, enemies){
+  Units.nearby(parent.team, parent.x, parent.y, range, a => {
+    ally(a)
   });
+  radiusEnemies(parent.team, parent.x, parent.y, range, e => {
+    enemies(e)
+  })
 }
-//nearby bullets?
-function nearbyBullets(x, y, range, func){
-  Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, e => {
-    if(e.within(x, y, range)){
-      func(e)
+
+//detects enemy bullets
+function nearbyBullets(team, x, y, range, func){
+  Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, b => {
+    if(b.within(x, y, range)){
+      if(b.team != team){
+        func(e)
+      }
     }
   });
 }
@@ -31,13 +36,12 @@ function loop(Cap, execute){
 
 //lets you not spam print and make it readable when null
 function debug(scriptName, array){
-  if(!(array instanceof Array)) return
   if(scriptName != null){
     print(scriptName);
   }
   for(let i in array.length){
     if(array[i] != null){
-      if(array[i] instanceof Array){
+      if(typeof(array[i]) == "object"){
         debug(null, array[i])
       }else{
         print(array[i])
@@ -49,19 +53,10 @@ function debug(scriptName, array){
 };
 
 //don't change the order 
-//put this on a "if statement"
-function timer(reload){
-	let clock =+ Time.time;
-	if(clock >= reload){
-		clock = 0;
-		return true
-	}else{
-	  return false
-	}
-};
+//put this on a "if statement
 
 //you could always use Object.assign but h
-//adds, override, copy, merge i guess
+//adds and overrides
 function merge(){
   let args = arguments
   for(let i in args){
@@ -102,7 +97,6 @@ Credits:
 */
 module.exports = {
 	radiusEnemies: radiusEnemies,
-	eachBullet: eachBullet,
 	nearbyBullets: nearbyBullets,
 	debug: debug,
 	merge: merge,

@@ -1,5 +1,4 @@
 // Lib by Zeniku
-// I did it like this because I'm afraid of error
 let text = "heavymachinery/libs/";
 
 let flib = require(text + "function");
@@ -277,23 +276,25 @@ function orbitBullet(object){
     init(b){
       if(!b) return
       b.data = {}
+      b.data.trails = []
       if(!this.customTrail){
         flib.loop(this.orbiters, i => {
-          b.data["trail" + i] = new Trail(this.orbiterTrailLength)
+          b.data.trails[i] = new Trail(this.orbiterTrailLength)
         });
       }
     },
     update(b){
       let angle = (360 / this.orbiters)
+      let data = b.data
       let ox = []
       let oy = []
-      b.data.ox = ox
-      b.data.oy = oy
-      flib.loop(this.orbiters, i => {
+      data.ox = ox
+      data.oy = oy
+      for(let i in data.trails.length){
         ox[i] = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius);
         oy[i] = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
         if(!this.customTrail){
-          b.data["trail" + i].update(ox[i], oy[i])
+          data.trails[i].update(ox[i], oy[i])
         }else {
           if(b.timer.get(1, this.customTrailST)){
             if(this.customTrailEffect != Fx.none){
@@ -301,23 +302,24 @@ function orbitBullet(object){
             }
           }
         }
-      });
+      };
       if(b.timer.get(0, this.orbiterST)){
-        flib.loop(this.orbiters, i => {
+        for(let i in data.trails.length){
           this.orbiter.create(b.owner, ox[i], oy[i], b.rotation())
-        });
+        };
       }
     },
     draw(b){
-      let ox = b.data.ox
-      let oy = b.data.oy
+      let data = b.data
+      let ox = data.ox
+      let oy = data.oy
       dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiters * 1.5) * b.fout())
-      flib.loop(this.orbiters, i => {
+      for(let i in data.trails.length){
         dlib.fillCircle(ox[i], oy[i], this.orbiterColor, 1, this.orbiterRadius * b.fout())
         if(!this.customTrail){
-          b.data["trail" + i].draw(this.orbiterColor, this.orbiterTrailWidth * b.fout())
+          data.trails[i].draw(this.orbiterColor, this.orbiterTrailWidth * b.fout())
         }
-      });
+      };
     },
     estimateDps(){
       let sum = this.super$estimateDps()
@@ -348,6 +350,7 @@ function orbitBullet(object){
   return orbit
 }
 // not to be confused on ER's BulletSpawnBulletType
+// still the same though
 function bulletSpawn(){
   let bulletSpawner = extend(BulletType, {
     init(b){
@@ -358,7 +361,7 @@ function bulletSpawn(){
       this.super$update(b)
       this.Ai(b)
       if(b.data.shoot){
-        if(flib.timer(this.reload)){
+        if(b.timer.get(0, this.reload)){
           shoot(b, Angles.angle(b.x, b.y, b.data.shootX, b.data.shootY))
         }
       }

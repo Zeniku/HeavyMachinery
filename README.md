@@ -9,10 +9,10 @@ A v6 mod for Mindustry
 
 **Adds:**
 
-*Units: 9*
+*Units: 11*
  - melee: 5
  - purpleAir: 3
- - overseer: 1
+ - overseer: 3
 
 *Blocks: 5*
  - turrets: 1
@@ -27,6 +27,7 @@ Go To Wiki by going here<br />
 This Mod is still incomplete
 There is a lot planned on this mod but not out yet so keep watch for new updates<br />
 All things on `Adds` is subject to change
+Unfortunately i am not doing v7 for now even though it very close to v6
 
 Thanks for [Shit Fabric](https://github.com/Duvent-mindustry) For the Awesome Logo!
 
