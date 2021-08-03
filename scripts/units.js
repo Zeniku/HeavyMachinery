@@ -3,7 +3,6 @@ let lib = "heavymachinery/libs/";
 let heav = "heavymachinery-"
 
 let AI = require(lib + "ai");
-let alib = require(lib + "abilities");
 let bulletTypes = require(lib + "bulletTypes");
 let flib = require(lib + "function");
 let dlib = require(lib + "drawlib");
@@ -64,13 +63,13 @@ const laserCharge = new Effect(80, e => {
   dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, (1 - e.finpow()) * (8 * 6), e.rotation, 360)
   dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 7) * (1 - e.finpow()))
   dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 11) * (1 - e.finpow()))
-  dlib.fillCircle(e.x, e.y, color[0], 1, 10 * e.fin())
-  dlib.fillCircle(e.x, e.y, Color.white, 1, 8 * e.fin())
+  dlib.fillCircle(e.x, e.y, color[0], 10 * e.fin())
+  dlib.fillCircle(e.x, e.y, Color.white, 8 * e.fin())
 });
 
 const orbExplode = new Effect(45, e => {
-  dlib.splashLineii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 4), e.rotation, 360)
-  dlib.lineCircleii(e.x, e.y, color[4], color[4], e.fin(), 4 * e.fout(), (8 * 5) * e.finpow())
+  dlib.splashLineii(e.x, e.y, color[4], color[4], e.fin(), 10 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 4), e.rotation, 360)
+  dlib.lineCircleii(e.x, e.y, color[4], color[4], e.fin(), (8 * 3) * e.finpow(), (8 * 5) * e.finpow())
 });
 
 //print(boom)
@@ -86,26 +85,26 @@ const trahoTractorBeam = bulletTypes.TractorBeam({
 //print(trahoTractorBeam)
 
 const trahoSapBullet = extend(SapBulletType, {
-    length: 8 * 15,
-    damage: 20,
-    shootEffect: Fx.shootSmall,
-    hitColor: color[0],
-    color: color[0],
-    despawnEffect: Fx.none,
-    width: 0.5,
-    knockback: 0,
+  length: 8 * 15,
+  damage: 20,
+  shootEffect: Fx.shootSmall,
+  hitColor: color[0],
+  color: color[0],
+  despawnEffect: Fx.none,
+  width: 0.5,
+  knockback: 0,
 });
 //print(trahoSapBullet)
 
 const spiculumSapBullet = extend(SapBulletType, {
-    length: 8 * 10,
-    damage: 37,
-    shootEffect: Fx.shootSmall,
-    hitColor: color[0],
-    color: color[0],
-    despawnEffect: Fx.none,
-    width: 0.5,
-    knockback: 2.5,
+  length: 8 * 10,
+  damage: 37,
+  shootEffect: Fx.shootSmall,
+  hitColor: color[0],
+  color: color[0],
+  despawnEffect: Fx.none,
+  width: 0.5,
+  knockback: 2.5,
 });
 //print(spiculumSapBullet)
 
@@ -190,6 +189,8 @@ const eteriusFrag = extend(MissileBulletType, {
   homingPower: 4,
   frontColor: color[0],
   backColor: color[1],
+  height: 6,
+  width: 46,
   splashDamage: 20,
   splashDamageRadius: 8 * 5,
   lifetime: 15,
@@ -200,8 +201,10 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   damage: 40,
   splashDamage: 20,
   splashDamageRadius: 8 * 6,
-  lifetime: 15,
-  speed: 2.3,
+  lifetime: 30,
+  speed: 4.3,
+  height: 12,
+  width: 10,
   frontColor: color[0],
   backColor: color[1],
   fragBullets: 5,
@@ -209,9 +212,6 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   status: StatusEffects.sapped,
   statusDuration: 60 * 7,
   fragCone: 15,
-  update(b){
-    b.vel.scl(1.1)
-  }
 });
 
 const princepsBullet = bulletTypes.OverSeerBullet({
@@ -635,14 +635,36 @@ traho.weapons.add(trahoTractorWeapon, trahoSapWeapon);
 //print(traho)
 //print(alib.laserMoveAbility)
 
-const spiculum = extend(UnitType, "spiculum", {});
-spiculum.constructor = () => extend(UnitEntity, {});
-spiculum.abilities.add(alib.laserMoveAbility(22 / 4, 0, {
-  damage: 23,
-  colors: [color[0], Color.white],
-  length: 8 * 5
-}, 0.01, 2, 5, {}))
-spiculum.weapons.add(spiculumWeapon);
+const spiculum = extend(UnitType, "spiculum", {
+  laser: extend(ContinuousLaserBulletType, {
+    length: 8 * 5,
+    damage: 23,
+    width: 3,
+    colors: [color[1], color[0], Color.white]
+  }),
+});
+spiculum.constructor = () => extend(UnitEntity, {
+  bullet: null,
+  update(){
+    let scl = Mathf.clamp((this.vel.len() - 2) / (5 - 2));
+    let bx = this.x + Angles.trnsx(this.rotation, 27 / 4);
+    let by = this.y + Angles.trnsy(this.rotation, 27 / 4);
+    if(this.bullet !== null){
+      this.bullet.set(bx, by)
+      this.bullet.rotation(this.rotation)
+      this.bullet.time = 0
+    }
+    if(scl >= 0.36){
+      if(this.bullet === null){
+       this.bullet = spiculum.laser.create(this, bx, by, this.rotation)
+      }
+    }else{
+      this.bullet = null
+    }
+    this.super$update()
+  }
+});
+spiculum.weapons.add(spiculumWeapon)
 //print(spiculum)
 
 const interitus = extend(UnitType, "interitus", {});

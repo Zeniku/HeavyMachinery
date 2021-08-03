@@ -14,5 +14,5 @@ const lonsdaleiteWall = blockTypes.dRWall(Wall, "lonsdaleiteWall", {
 }, Wall.WallBuild, {})
 const lonsdaleiteWallLarge = blockTypes.dRWall(Wall, "lonsdaleiteWallLarge", {
   dRChance: 15,
-  dRPercentage: 30
+  dRPercentage: 45
 }, Wall.WallBuild, {})

@@ -1,6 +1,3 @@
-// This is From Gedeft/substructure
-// Some References are from Sh1penfire/pixelcraft
-// it will be modified by me
 const planetGen = extend(PlanetGenerator, {
     rawHeight(position){
         position = Tmp.v33.set(position).scl(this.scl);

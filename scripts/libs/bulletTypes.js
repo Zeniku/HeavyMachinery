@@ -74,7 +74,7 @@ function overSeer(overide){
 	  speed: 2,
 	  pierce: true,
 	  pierceCap: 5,
-	  homingCap: -1,
+	  homeStop: false,
 	  targetTime: 15,
 	  hitEffect: Fx.hitLancer,
 	  despawnEffect: Fx.hitLancer,
@@ -87,7 +87,7 @@ function overSeer(overide){
 	    if(!this.customTrail){
 	      b.data.trail = new Trail(this.trailLength);
 	    }
-	    b.data.homeCount = 0
+	    b.data.home = true
 	  },
 	  draw(b){
 	    if(!this.customTrail){
@@ -111,21 +111,21 @@ function overSeer(overide){
 			if(tx != null && ty != null){
 			  let ang = Angles.moveToward(b.rotation(), b.angleTo(tx, ty), this.turningPower * Time.delta * 50);
 			  if(b.timer.get(0, this.targetTime)){
-			    if(this.homingCap > -1){
-			      if(this.homingCap > b.data.homeCount){
+			    if(this.homeStop){
+			      if(b.data.home){
 	            b.rotation(ang)
 		          b.vel.setAngle(ang);
 			      }
-			    }else if(this.homingCap <= -1){
+			    }else{
 			      b.rotation(ang)
 			      b.vel.setAngle(ang);
 			    }
 			  }
 			  if(b.within(tx, ty, this.hitSize / 2)){
-			    if(this.homingCap > -1){
-	          b.data.homeCount++
+			    if(this.homeStop){
+	          b.data.home = false
 			    }
-			  } 
+			  }
 			  //flib.printer(tx, ty, ang, b.data.homeCount)
 		  }
 		  if(!this.customTrail){
@@ -228,49 +228,6 @@ function tractorBeam(object){
    return tractor;
 }
 
-function pointDef(object){
-  let beamEffect = Fx.pointBeam
-  let point = extend(BulletType, {
-    range(){
-       return this.length
-    },
-    update(b){
-      let target = Groups.bullet.intersect(b.x - this.range(), b.y - this.range(), this.range() * 2, this.range() * 2).min(t => t.team != b.team && t.type.hittable, t => t.dst2(b));
-      
-      b.data = target
-      b.vel.set(0,0)// overriding speed wont matter anymore
-      
-      if(target != null && target.within(b, this.range()) && target.team != b.team && target.type != null && target.type.hittable){
-        
-        if(target.damage() > this.absorbableDamage){
-          target.damage(target.damage() - this.absorbableDamage);
-        }else{
-          target.remove();
-          beamEffect.at(b.x, b.y, b.rotation, Color.white, new Vec2().set(target));
-        }
-      }
-    },
-    speed: 0.0001,
-    length: 5 * 8,
-    absorbableDamage: 20,
-    absorbable: false,
-    hittable: false,
-    collides: false,
-    collidesAir: false,
-    collidesTiles: false,
-    collidesGround: true,
-    keepVelocity: false,
-    pierce: true,
-    smokeEffect: Fx.none,
-    shootEffect: Fx.none,
-    hitEffect: Fx.none,
-    despawnEffect: Fx.none,
-    lifetime: 1,
-  });
-  flib.merge(point, object)
-  return point
-}
-
 function orbitBullet(object){
   let orbit = extend(BasicBulletType, {
     init(b){
@@ -290,7 +247,7 @@ function orbitBullet(object){
       let oy = []
       data.ox = ox
       data.oy = oy
-      for(let i in data.trails.length){
+      for(let i in data.trails){
         ox[i] = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius);
         oy[i] = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
         if(!this.customTrail){
@@ -314,7 +271,7 @@ function orbitBullet(object){
       let ox = data.ox
       let oy = data.oy
       dlib.fillCircle(b.x, b.y, this.orbiterColor, 1, (this.orbiters * 1.5) * b.fout())
-      for(let i in data.trails.length){
+      for(let i in data.trails){
         dlib.fillCircle(ox[i], oy[i], this.orbiterColor, 1, this.orbiterRadius * b.fout())
         if(!this.customTrail){
           data.trails[i].draw(this.orbiterColor, this.orbiterTrailWidth * b.fout())
@@ -356,27 +313,32 @@ function bulletSpawn(){
     init(b){
       if(!b) return
       b.data = {}
+      b.data.reload = 0
     },
     update(b){
       this.super$update(b)
       this.Ai(b)
-      if(b.data.shoot){
-        if(b.timer.get(0, this.reload)){
-          shoot(b, Angles.angle(b.x, b.y, b.data.shootX, b.data.shootY))
+      let data = b.data
+      if(data.shoot){
+        data.reload = Math.min(data.reload + Time.delta, this.reload)
+        if(data >= this.reload){
+          shoot(b, Angles.angle(b.x, b.y, data.shootX, data.shootY))
         }
       }
     },
     shoot(b, a){
-      if(this.shots > 1){
-        flib.loop(this.shots, i => {
+      let shots = this.shots
+      if(this.shots <= 0) shots = 1
+      if(shots > 1){
+        flib.loop(shots, i => {
           let shootCone = this.bulletShotShootCone / 2
-          let angle = Mathf.clamp((i - (this.shots / 2)) * this.bulletShotSpacing + Mathf.range(this.bulletShotInaccuracy), -shootCone, shootCone)
-          this.bulletShot.create(b, b.x, b.y, b.rotation() + angle + a)
+          let angle = Mathf.clamp((i - (shots / 2)) * this.bulletShotSpacing + Mathf.range(this.bulletShotInaccuracy), -shootCone, shootCone)
+          this.bulletShot.create(b, b.x, b.y, angle + a)
         });
-      }else if(this.shots == 1){
+      }else if(shots == 1){
         let shootCone = this.bulletShotShootCone / 2
         let angle = Mathf.clamp(Mathf.range(this.bulletShotInaccuracy), -shootCone, shootCone)
-        this.bulletShot.create(b, b.x, b.y, b.rotation() + angle + a)
+        this.bulletShot.create(b, b.x, b.y, angle + a)
       }
     },
     nearbyEnemies(b, range, air, ground){
@@ -411,7 +373,7 @@ function bulletSpawn(){
     },
     draw(b){
       dlib.fillCircleii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 1, this.radius)
-      dlib.linePolyii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 1, 4, 6, this.radius, Time.time * this.rotationalMultiplier)
+      dlib.linePolyii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 4, 6, this.radius, Time.time * this.rotationalMultiplier)
     },
     bulletShot: Bullets.standardCopper,
     bulletShotSpacing: 4,
@@ -437,7 +399,6 @@ module.exports = {
 	EarthBendBullet: earthBend,
 	OverSeerBullet: overSeer,
 	TractorBeam: tractorBeam,
-	PointDefBullet: pointDef,
 	OrbitBullet: orbitBullet,
 	BulletSpawner: bulletSpawn,
 };

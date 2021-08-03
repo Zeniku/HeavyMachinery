@@ -1,20 +1,24 @@
-
 function req(){
   let args = arguments
-  let directory = ""
-  if(args[0] != ""){
-	    directory = args[0] + "/"
-	}
-	for(let i in args){
-	  if(args[0] != args[i]){
-	    require("heavymachinery/" + directory + args[i])
-	    print("heavymachinery/" + directory + args[i])
-	  }
-	}
+  for(let i in args){
+    let dir = ""
+    if(args[i][0] != ""){
+      dir = args[i][0] + "/"
+    }
+    for(let j in args[i]){
+      if(args[i][0] != args[i][j]){
+        require("heavymachinery/" + dir + args[i][j])
+        print("heavymachinery/" + dir + args[i][j])
+      }
+    }
+  }
 }
-//Libs
-req("libs", "drawlib", "effectlib", "ai", "function", "bulletTypes", "blockTypes", "abilities", "planetGen");
-//No Directory
-req("", "items", "units");
-//Blocks
-req("blocks", "content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets", "walls");
+
+req(
+  //Libs
+  ["libs", "drawlib", "effectlib", "ai", "function", "bulletTypes", "blockTypes", "planetGen"],
+  //No Directory
+  ["", "items", "units", "planets"],
+  //Blocks
+  ["blocks", "content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets", "walls"]
+)

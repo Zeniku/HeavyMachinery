@@ -40,13 +40,13 @@ module.exports = {
 	//simple effect circle
 	circle(lifetime, colorFrom, colorTo, radius){
 		return new Effect(lifetime, e => {
-		  dlib.fillCircleii(e.x, e.y, colorFrom, colorTo, e.fin(), 1, radius)
+		  dlib.fillCircleii(e.x, e.y, colorFrom, colorTo, e.fin(), radius)
 		});
 	},
 	//circle that becomes smaller
 	circleii(lifetime, colorFrom, colorTo, radius, radiusMultiplier){
 		return new Effect(lifetime, e => {
-			dlib.fillCircleii(e.x, e.y, colorFrom, colorTo, e.fin(), 1, radius + e.fout() * radiusMultiplier);
+			dlib.fillCircleii(e.x, e.y, colorFrom, colorTo, e.fin(), radius + e.fout() * radiusMultiplier);
 		});
 	},
 	//Splash Effect
@@ -74,28 +74,11 @@ module.exports = {
 		    dlib.splashlineii(e.x, e.y, colorFrom, colorTo, e.fin(), thickness, length, e.id, amount, e.finpow() * distance, e.rotation, cone);
 		});
 	},
-	// swill/swirl effect mainly used for charge or black hole Effect
-	swillEffect(lifetime, colorFrom, colorTo, thickness, radius, length, rotationMultiplier, amount){
-		return new Effect(lifetime, e => {
-			Draw.color(colorFrom, colorTo, e.fin());
-				Angles.randLenVectors(e.id, amount, 0, e.rotation, 120, (a, b) => {
-					const ang = Mathf.angle(a, b);
-					let l = length * 0.01
-					Lines.stroke(thickness);
-					Lines.swirl(e.x, e.y, e.fout() * radius, l, ang * e.fout() * rotationMultiplier);
-					Lines.stroke(1);
-				});
-			Draw.color();
-		});
-	},
 	//used for flames
 	flameEffect(lifetime, colorFrom, colorMid, colorTo, radius, amount, distance, cone){
 		return new Effect(lifetime, e => {
-			Draw.color(colorFrom, colorMid, colorTo, e.fin());
-			const hj = new Floatc2({get: function(x, y){
-				Fill.circle(e.x + x, e.y + y, 0.65 + e.fout() * radius);
-			}});  
-			Angles.randLenVectors(e.id, amount, e.finpow() * distance, e.rotation, cone, hj);
+		  Draw.color(colorFrom, colorMid, colorTo, e.fin())
+			bases.splashCircle(e.x, e.y, radius, e.id, amount, distance, e.rotation, cone)
 		});
 	},
   fakeLightning: fake

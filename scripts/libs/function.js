@@ -1,28 +1,19 @@
 // Lib Made by Zeniku
 //detects enemies in a radius
 function radiusEnemies(team, x, y, radius, func){
-	Units.nearbyEnemies(team, x - radius, y - radius, radius * 2, radius * 2, u => {
+	return Units.nearbyEnemies(team, x - radius, y - radius, radius * 2, radius * 2, u => {
 		if(u.within(x, y, radius)){
 			func(u)
-		};
+		};  
 	});
 }; 
-//detects all unit i guess
-function unitNearby(parent, range, ally, enemies){
-  Units.nearby(parent.team, parent.x, parent.y, range, a => {
-    ally(a)
-  });
-  radiusEnemies(parent.team, parent.x, parent.y, range, e => {
-    enemies(e)
-  })
-}
 
 //detects enemy bullets
 function nearbyBullets(team, x, y, range, func){
   Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, b => {
     if(b.within(x, y, range)){
       if(b.team != team){
-        func(e)
+        func(b)
       }
     }
   });
@@ -60,7 +51,7 @@ function debug(scriptName, array){
 function merge(){
   let args = arguments
   for(let i in args){
-    if(typeof(args[i]) != "object") return
+    if(typeof(args[i]) !== "object") return
     for(let j in arguments[i]){
       if(args[0] != args[i]){
         args[0][j] = args[i][j]
@@ -73,7 +64,7 @@ function mergeII(){
   let out = {}
   let args = arguments
   for(let i in args){
-    if(typeof(args[i]) != "object") return
+    if(typeof(args[i]) !== "object") return 
     for(let j in args[i]){
       out[j] = args[i][j]
     }
@@ -103,4 +94,4 @@ module.exports = {
 	mergeII: mergeII,
 	loop: loop,
 	clone: clone
-};
+}

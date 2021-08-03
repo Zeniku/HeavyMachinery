@@ -1,6 +1,6 @@
 type: "flying"
 name: "Spiculum"
-description: "A Flying unit pierces"
+description: "A Flying unit that shoots laser when it moves"
 speed: 3.5
 accel: 1.5
 hitSize: 22
@@ -11,5 +11,5 @@ maxRange: 240
 range: 240
 lowAltitude: true
 research: "traho"
-details: Poke* Poke*
+details: DRILL GO BRRRRRRRR
 armor: 3
