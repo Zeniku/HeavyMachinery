@@ -1,6 +1,4 @@
-// This is From Gedeft/substructure
-// Some References are from Sh1penfire/pixelcraft
-// it will be modified by me
+//let waves = require("heavymachinery/libs/unitWaves")
 const planetGen = extend(PlanetGenerator, {
     rawHeight(position){
         position = Tmp.v33.set(position).scl(this.scl);
@@ -276,7 +274,7 @@ const planetGen = extend(PlanetGenerator, {
         state.rules.waves = this.sector.info.waves = true;
         state.rules.enemyCoreBuildRadius = 480;
 
-        state.rules.spawns = Waves.generate(difficulty, new Rand(), state.rules.attackMode);
+        //state.rules.spawns = waves.waves.generate(difficulty, new Rand(), state.rules.attackMode);
         
         //this.generate(tiles);
     },
@@ -288,21 +286,19 @@ const planetGen = extend(PlanetGenerator, {
     } 
 });
 planetGen.arr = [   
-    [Blocks.deepwater, Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.craters, Blocks.sand, Blocks.sand, Blocks.basalt, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.mud],
-    [Blocks.deepwater, Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.metalFloorDamaged, Blocks.dacite, Blocks.dirt, Blocks.dirt, Blocks.mud, Blocks.dirt, Blocks.mud],
-    [Blocks.deepwater, Blocks.sandWater, Blocks.sand, Blocks.sand, Blocks.metalFloorDamaged, Blocks.metalFloorDamaged, Blocks.dirt, Blocks.basalt, Blocks.basalt, Blocks.basalt, Blocks.mud, Blocks.dirt, Blocks.mud],
-    [Blocks.taintedWater, Blocks.darksandTaintedWater, Blocks.darksand, Blocks.darksand, Blocks.basalt, Blocks.metalFloorDamaged, Blocks.basalt, Blocks.hotrock, Blocks.basalt, Blocks.mud, Blocks.dirt, Blocks.mud, Blocks.mud],
-    [Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.metalFloorDamaged, Blocks.tar, Blocks.dirt, Blocks.basalt, Blocks.basalt, Blocks.mud, Blocks.dirt, Blocks.mud, Blocks.mud],
-    
-    [Blocks.darksandWater, Blocks.craters, Blocks.darksand, Blocks.tar, Blocks.mud, Blocks.mud, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.mud, Blocks.mud, Blocks.mud],
-    [Blocks.taintedWater, Blocks.darksandTaintedWater, Blocks.darksand, Blocks.tar, Blocks.tar, Blocks.mud, Blocks.mud, Blocks.dirt, Blocks.dirt, Blocks.mud, Blocks.mud, Blocks.mud, Blocks.mud],
-    [Blocks.darksandTaintedWater, Blocks.darksandTaintedWater, Blocks.darksand, Blocks.tar, Blocks.metalFloorDamaged, Blocks.tar, Blocks.dacite, Blocks.dirt, Blocks.mud, Blocks.mud, Blocks.mud, Blocks.mud, Blocks.mud],
-    [Blocks.darksandWater, Blocks.darksand, Blocks.dirt, Blocks.mud, Blocks.dacite, Blocks.dirt, Blocks.dirt, Blocks.dirt, Blocks.mud, Blocks.mud, Blocks.mud, Blocks.mud, Blocks.mud],
-
-    [Blocks.darksandWater, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.darksandTaintedWater, Blocks.stone, Blocks.stone],
-    [Blocks.darksandWater, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.darksandTaintedWater, Blocks.stone, Blocks.stone, Blocks.stone],
-    [Blocks.darksandWater, Blocks.darksandWater, Blocks.darksand, Blocks.sand, Blocks.craters, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.darksandTaintedWater, Blocks.stone, Blocks.stone, Blocks.stone],
-    [Blocks.darksandWater, Blocks.sandWater, Blocks.sand, Blocks.craters, Blocks.craters, Blocks.craters, Blocks.sand, Blocks.stone, Blocks.stone, Blocks.stone, Blocks.dirt, Blocks.dacite, Blocks.mud]
+    [Blocks.water, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksandWater, Blocks.stone, Blocks.stone],
+    [Blocks.water, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksandWater, Blocks.stone, Blocks.stone, Blocks.stone],
+    [Blocks.water, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.salt, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.darksandWater, Blocks.stone, Blocks.stone, Blocks.stone],
+    [Blocks.water, Blocks.darksandWater, Blocks.darksand, Blocks.salt, Blocks.salt, Blocks.salt, Blocks.darksand, Blocks.stone, Blocks.stone, Blocks.stone, Blocks.snow, Blocks.iceSnow, Blocks.ice],
+    [Blocks.deepwater, Blocks.water, Blocks.darksandWater, Blocks.darksand, Blocks.salt, Blocks.darksand, Blocks.darksand, Blocks.basalt, Blocks.snow, Blocks.snow, Blocks.snow, Blocks.snow, Blocks.ice],
+    [Blocks.deepwater, Blocks.water, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.shale, Blocks.iceSnow, Blocks.snow, Blocks.snow, Blocks.ice, Blocks.snow, Blocks.ice],
+    [Blocks.deepwater, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.shale, Blocks.shale, Blocks.snow, Blocks.basalt, Blocks.basalt, Blocks.basalt, Blocks.ice, Blocks.snow, Blocks.ice],
+    [Blocks.taintedWater, Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.basalt, Blocks.shale, Blocks.basalt, Blocks.hotrock, Blocks.basalt, Blocks.ice, Blocks.snow, Blocks.ice, Blocks.ice],
+    [Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.darksand, Blocks.shale, Blocks.shale, Blocks.snow, Blocks.basalt, Blocks.basalt, Blocks.ice, Blocks.snow, Blocks.ice, Blocks.ice],
+    [Blocks.darksandWater, Blocks.darksand, Blocks.darksand, Blocks.shale, Blocks.ice, Blocks.ice, Blocks.snow, Blocks.snow, Blocks.snow, Blocks.snow, Blocks.ice, Blocks.ice, Blocks.ice],
+    [Blocks.taintedWater, Blocks.darksandWater, Blocks.darksand, Blocks.shale, Blocks.shale, Blocks.ice, Blocks.ice, Blocks.snow, Blocks.snow, Blocks.ice, Blocks.ice, Blocks.ice, Blocks.ice],
+    [Blocks.darksandWater, Blocks.darksandWater, Blocks.darksand, Blocks.shale, Blocks.shale, Blocks.shale, Blocks.iceSnow, Blocks.snow, Blocks.ice, Blocks.ice, Blocks.ice, Blocks.ice, Blocks.ice],
+    [Blocks.darksandWater, Blocks.darksand, Blocks.snow, Blocks.ice, Blocks.iceSnow, Blocks.snow, Blocks.snow, Blocks.snow, Blocks.ice, Blocks.ice, Blocks.ice, Blocks.ice, Blocks.ice]
 ];
 planetGen.rid = new Packages.arc.util.noise.RidgedPerlin(1, 2);
 planetGen.basegen = new BaseGenerator();

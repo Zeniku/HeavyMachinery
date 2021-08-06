@@ -1,9 +1,10 @@
 let text = "heavymachinery/libs/"
 
-let blib = require(text + "bulletlib");
+let bulletTypes = require(text + "bulletTypes");
+let blockTypes = require(text + "blockTypes")
 let flib = require(text + "function");
 
-const overSeerBullet = blib.newOverSeerBullet({
+const praefectorBullet = bulletTypes.OverSeerBullet({
   damage: 20,
   speed: 3.5,
   lifetime: 60,
@@ -11,20 +12,9 @@ const overSeerBullet = blib.newOverSeerBullet({
   trailWidth: 2.5
 });
 
-const praefector = extend(PowerTurret, "praefector", {
-  shootType: overSeerBullet,
+const praefector = blockTypes.overSeerTurret(PowerTurret, "praefector", {
+  shootType: praefectorBullet,
   buildVisibility: BuildVisibility.shown,
-  range: overSeerBullet.range(),
+  range: praefectorBullet.range(),
   recoilAmount: 2,
-});
-praefector.buildType = () => extend(PowerTurret.PowerTurretBuild, praefector, {
-    targetPosition(pos){
-      if(!this.hasAmmo() || pos == null) return;
-        
-      this.targetPos.set(pos)
-        
-      if(this.targetPos.isZero()){
-        this.targetPos.set(pos);
-      }
-    },
-});
+}, PowerTurret.PowerTurretBuild, {});

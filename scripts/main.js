@@ -1,39 +1,24 @@
-
-function c(directory, file){
-  //dir is for where they at if they are not in a folder then put ""
-	let text = []
-	let dir = ""
-	
-	if(directory !== ""){
-		dir = directory + "/"
-	}else{
-		dir = ""
-	}
-	//get the text you put and puts them onna array with other stuff
-	for(let i in file){
-		text[i] = "heavymachinery/" + dir + file[i]
-	}
-	//returns the array
-	return {
-		text: text
-	}
-}
-
-const libs = c("libs", ["drawlib", "effectlib", "ai", "function", "bulletlib", "abilities", "planetGen"]);
-const noCat = c("", ["items", "units"]);
-const blocks = c("blocks", ["content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets"]);
-
-const heavyMachineryContent = [libs, noCat, blocks];
-
-function req(array){
-  //for of returns val
-  //for in returns index/key
-  for(let i in array){
-    for(let j in array[i].text){
-      require(array[i].text[j])
-      //print(array[i].text[j])
+function req(){
+  let args = arguments
+  for(let i in args){
+    let dir = ""
+    if(args[i][0] != ""){
+      dir = args[i][0] + "/"
+    }
+    for(let j in args[i]){
+      if(args[i][0] != args[i][j]){
+        require("heavymachinery/" + dir + args[i][j])
+        print("heavymachinery/" + dir + args[i][j])
+      }
     }
   }
 }
 
-req(heavyMachineryContent);
+req(
+  //Libs
+  ["libs", "drawlib", "effectlib", "ai", "function", "bulletTypes", "blockTypes", "planetGen"],
+  //No Directory
+  ["", "items", "units", "planets"],
+  //Blocks
+  ["blocks", "content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets", "walls"]
+)

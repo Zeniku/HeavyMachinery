@@ -1,91 +1,97 @@
 // Lib Made by Zeniku
-//detects enemies in a radius use cons(method) on cons
+//detects enemies in a radius
 function radiusEnemies(team, x, y, radius, func){
-	Units.nearbyEnemies(team, x - radius, y - radius, radius * 2, radius * 2, u => {
+	return Units.nearbyEnemies(team, x - radius, y - radius, radius * 2, radius * 2, u => {
 		if(u.within(x, y, radius)){
 			func(u)
-		};
+		};  
 	});
 }; 
-//its basically uh access the bullet entity that has the same type
-function eachBullet(bullet, func){
-  Groups.bullet.each(e => {
-      if(e.type !== bullet) return;
-      func(e);
-  });
-}
-//nearby bullets?
-function nearbyBullets(x, y, range, func){
-  Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, e => {
-    if(e.within(x, y, range)){
-      func(e)
+
+//detects enemy bullets
+function nearbyBullets(team, x, y, range, func){
+  Groups.bullet.intersect(x - range, y - range, range * 2, range * 2, b => {
+    if(b.within(x, y, range)){
+      if(b.team != team){
+        func(b)
+      }
     }
   });
 }
+//I really Have a problem
+function loop(Cap, execute){
+  for(let i = 0; i < Cap; i++){
+    execute(i)
+  }
+}
+
 //lets you not spam print and make it readable when null
 function debug(scriptName, array){
-  print("-------------------");
-  if(scriptName !== null){
+  if(scriptName != null){
     print(scriptName);
   }
-  array.forEach((item, i) => {
-    if(item !== null){
-      if(item instanceof Array){
-        item.forEach((items) => {
-          print(items)
-        });
+  for(let i in array.length){
+    if(array[i] != null){
+      if(typeof(array[i]) == "object"){
+        debug(null, array[i])
       }else{
-        print(item)
-      };
+        print(array[i])
+      }
     }else{
-        print("Number" + i + "in Array is Null")
-    };
-  });
-  print("-------------------");
+      print("Array Index Number" + i + "is Null")
+    }
+  }
 };
 
 //don't change the order 
-//put this on a "if statement"
-function timer(reload){
-	let clock =+ Time.delta;
-	if(clock >= reload){
-	  return true
-		clock = 0;
-	}else{
-	  return false
-	}
-};
+//put this on a "if statement
 
-//Pixel to World Units
-function pixel(p){
-	return (0.25 * p);
-};
 //you could always use Object.assign but h
-//adds, override, copy, merge i guess
-function merge(object, objectII){
-  for(let key in objectII){
-    object[key] = objectII[key]
-  }
+//adds and overrides
+function merge(){
+  let args = arguments
+  for(let i in args){
+    if(typeof(args[i]) !== "object") return
+    for(let j in arguments[i]){
+      if(args[0] != args[i]){
+        args[0][j] = args[i][j]
+      }
+    }
+  };
 }
-//basically returns a object so you can stack it on top of another
-//like mergeII({}, mergeII({}, {}));
-function mergeII(object, objectII){
+//merge but it makes a new Object
+function mergeII(){
   let out = {}
-  for(let key in object){
-    out[key] = object[key]
-  }
-  for(let keyII in objectII){
-    out[keyII] = objectII[keyII]
+  let args = arguments
+  for(let i in args){
+    if(typeof(args[i]) !== "object") return 
+    for(let j in args[i]){
+      out[j] = args[i][j]
+    }
   }
   return out
 }
-
+//Haha code steal go brrrr clone from one of meeps
+function clone(obj){
+  if(obj === null || typeof(obj) !== 'object') return obj;
+  let copy = obj.constructor();
+  for(let key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      copy[key] = obj[key];
+    }
+  };
+  return copy;
+}
+/*
+Credits:
+  MeepOfFaith - for the clone()
+*/
 module.exports = {
 	radiusEnemies: radiusEnemies,
-	eachBullet: eachBullet,
 	nearbyBullets: nearbyBullets,
 	debug: debug,
-	pixel: pixel,
 	merge: merge,
-	mergeII: mergeII
-};
+	mergeII: mergeII,
+	loop: loop,
+	clone: clone
+}
