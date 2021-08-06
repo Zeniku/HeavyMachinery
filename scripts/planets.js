@@ -5,8 +5,10 @@ const caeruleum = extend(Planet, "caeruleum", Planets.sun, 3, 1.25, {
   bloom: true,
   accessible: true,
   hasAtmosphere: true,
-  atmosphereColor: Pal.lancerLaser,
-  atmosphereRadIn: 0.06,
-  atmosphereRadOut: 0.09,
-  localizedName: "Caeruleum"
+  atmosphereColor: Color.valueOf("363f9a"),
+  atmosphereRadIn: 0.02,
+  atmosphereRadOut: 0.3,
+  localizedName: "Caeruleum",
+  startSector: 10
 });
+caeruleum.meshLoader = () => extend(HexMesh, caeruleum, 6, {});
