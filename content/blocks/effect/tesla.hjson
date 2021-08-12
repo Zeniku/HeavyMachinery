@@ -1,5 +1,3 @@
-name: "Tesla"
-description: "Electrocutes Units \nCant be boosted by overdrives"
 size: 3
 health: 1500
 requirements: [

@@ -6,7 +6,7 @@ let heav = "heavymachinery-"
 
 let flib = require(lib + "function");
 let dlib = require(lib + "drawlib");
-let blockTypes = require (lib + "blockTypes")
+let blockTypes = require(lib + "blockTypes");
 
 const lonsdaleiteWall = blockTypes.dRWall(Wall, "lonsdaleiteWall", {
   dRChance: 15,

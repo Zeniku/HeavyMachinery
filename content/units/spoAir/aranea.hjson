@@ -1,7 +1,4 @@
-// boo unscripted
-type: "flying"
-name: "Aranea"
-description: "A Flying unit that explodes when near units"
+type: flying
 speed: 1.5
 hitSize: 8
 health: 180
@@ -12,13 +9,13 @@ circleTarget: true
 weapons: [{
 	reload: 24
 	shootCone: 180
-	ejectEffect: "none"
-	shootSound: "explosion"
+	ejectEffect: none
+	shootSound: explosion
 	bullet: {
-		type: "BombBulletType"
+		type: BombBulletType
 		damage: 0
-		sprite: "clear"
-		hitEffect: "pulverize"
+		sprite: clear
+		hitEffect: pulverize
 		lifetime: 10
 		speed: 1
 		splashDamageRadius: 70
@@ -29,5 +26,4 @@ weapons: [{
 		collidesAir: true
 	}
 }]
-research: "flare"
-details: Boom boom boom boom
+research: flare

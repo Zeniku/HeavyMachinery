@@ -1,6 +1,4 @@
-type: "flying"
-name: "Spiculum"
-description: "A Flying unit that shoots laser when it moves"
+type: flying
 speed: 3.5
 accel: 1.5
 hitSize: 22
@@ -10,6 +8,5 @@ circleTarget: true
 maxRange: 240
 range: 240
 lowAltitude: true
-research: "traho"
-details: DRILL GO BRRRRRRRR
+research: traho
 armor: 3

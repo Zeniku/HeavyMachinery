@@ -3,6 +3,8 @@ let heav = "heavymachinery-"
 let flib = require(text + "function");
 let dlib = require(text + "drawlib");
 let elib = require(text + "effectlib");
+let statList = require(text + "statLists");
+
 //temp is just a thing so i can copy paste
 function temp(type, name, customStat, build, customBuildStat){
   if (customStat == undefined) customStat = {}
@@ -134,7 +136,7 @@ function dRWall(type, name, customStat, build, customBuildStat){
 function statusEffectProjector(type, name, customStat, build, customBuildStat){
   if (customStat == undefined) customStat = {}
   if (customBuildStat == undefined) customBuildStat = {}
-  
+
   customStat = Object.assign({
     breakable: true,
     update: true,
@@ -150,10 +152,13 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
     outputsPower: false,
     buildVisibility: BuildVisibility.shown,
     enableHealing: true,
-    enableStatusAura: true,
+    enableEFxAura: true,
+    enableAFxAura: false,
     healPercent: 0.5,
-    statusEffect: StatusEffects.burning,
-    statusFx: Fx.none,
+    enemiesStatus: StatusEffects.burning,
+    statusFxEnemies: Fx.none,
+    statusFxAlly: Fx.none,
+    allyStatus: StatusEffects.none,
     healEffect: Fx.none,
     starColor: Pal.lightPyraFlame,
 	  icons(){
@@ -178,48 +183,52 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
     updateTile(){
 			if(this.consValid()){
 			  let wasHealed = false
-			  let appliedStatus = false
-			  this.atimer = Math.min(this.atimer + this.edelta(), custom.reload)
+			  let appliedEnemies = false
+			  let appliedAlly = false
 			  this.etimer = Math.min(this.etimer + this.edelta(), custom.reload * 0.25)
+			  this.atimer = Math.min(this.atimer + this.edelta(), custom.reload)
 			  if(this.atimer >= custom.reload){
 			    Units.nearby(this.team, this.x, this.y, custom.range, a => {
-			      if(custom.enableHealing){
-			        if(a.damaged()){
+			      if (custom.enableHealing) {
+			        if (a.damaged()) {
 			          a.heal(custom.healPercent)
 			          Fx.heal.at(a)
 			          wasHealed = true
 			        }
 			      }
-			    });
+			      if (custom.allyStatus != StatusEffects.none) {
+			        if (custom.enableAFxAura) {
+			          if(custom.statusFxAlly != Fx.none){
+			            custom.statusFxAlly.at(a)
+			          }
+			        }
+			        a.apply(custom.allyStatus, 60)
+			        appliedAlly = true
+			      }
+			    })
 			    this.atimer = 0
 			  }
 			  if(this.etimer >= custom.reload * 0.25){
 			    flib.radiusEnemies(this.team, this.x, this.y, custom.range, e => {
-			      e.apply(custom.statusEffect, 60);
+			      e.apply(custom.enemiesStatus, 60);
+			      if(custom.statusFxEnemies != Fx.none){
+			        if(custom.enableEFxAura){
+			          custom.statusFxEnemies.at(e)
+			        }
+			      }
 			      e.damage(custom.damage)
-			      appliedStatus = true;
+			      appliedEnemies = true;
 			    });
 			    this.etimer = 0
 			  }
+			  flib.checkEffect(custom, this, (appliedEnemies), custom.enableEFxAura, custom.statusFxEnemies, 5)
+			  flib.checkEffect(custom, this, (appliedAlly), custom.enableAFxAura, custom.statusFxAlly, 5)
 			  
 				if(wasHealed){
 				  if(custom.healEffect != Fx.none){
 				    custom.healEffect.at(this.x, this.y)
 				  }
 				}
-				if(appliedStatus){
-				  if(custom.enableStatusAura){
-					  for(let i = 0; i < 3; i++){
-					    if(custom.statusFx != Fx.none){
-						    custom.statusFx.at(this.x + Angles.trnsx(Mathf.random(360), Mathf.random(custom.range)), this.y + Angles.trnsy(Mathf.random(360), Mathf.random(custom.range)));
-					    }
-					  };
-				  }else{
-				    if(custom.statusFx != Fx.none){
-				      custom.statusFx.at(this.x, this.y)
-				    }
-				  }
-				};
 			};
 		},
 		drawSelect(){

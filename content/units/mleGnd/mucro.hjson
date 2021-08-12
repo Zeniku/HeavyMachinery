@@ -1,7 +1,5 @@
 //you expected much but h
 type: "mech"
-name: "Mucro",
-description: "A Meele unit punches Multiple times",
 speed: 0.45,
 hitSize: 11.75,
 health: 675,

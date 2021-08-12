@@ -1,15 +1,11 @@
-//you expected much but h
-type: "mech",
-name: "Tragula",
-description: "A Meele Unit punch long spikes",
-speed: 0.4,
-hitSize: 15,
-health: 1175,
-targetAir: false,
-maxRange: 180,
-range: 180,
-rotateShooting: true,
-armor: 9,
-mechFrontSway: 0.55,
-research: "mucro"
-details: FOR THE EMPEROR AAAAAAAAAAAAAAAAAA
+type: mech
+speed: 0.4
+hitSize: 15
+health: 1175
+targetAir: false
+maxRange: 180
+range: 180
+rotateShooting: true
+armor: 9
+mechFrontSway: 0.55
+research: mucro

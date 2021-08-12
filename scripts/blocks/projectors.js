@@ -20,8 +20,6 @@ const healWave = new Effect(22, e => {
 	dlib.lineCircle(e.x, e.y, Pal.heal, e.fout() * 3, 4 + e.finpow() * (8 * 15));
 });
 
-//block
-/*Note: I couldake these things overdrivable but im lazy*/
 const effect = blockTypes.statusEffectProjector(Block, "statusEffectProjector", {
   statusFx: flameAura,
   healEffect: healWave
