@@ -1,0 +1,10 @@
+size: 4
+health: 1440
+reloadTime: 20
+requirements: [
+  "lonsdaleite/150"
+  "titanium/200"
+  "lead/280"
+]
+category: turret
+research: praefector

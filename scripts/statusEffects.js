@@ -24,7 +24,8 @@ function status(name, stats){
 const shielded = status("shielded", {
   setStats(){
     this.super$setStats()
-    this.stats.add(Stat.shieldHealth, statList.shieldListVal(this));
+    this.stats.add(Stat.shieldHealth, Core.bundle.get("yes.yes"));
+    this.stats.add(Stat.shieldHealth, statList.shieldListVal(this))
   },
   update(u, time){
     this.super$update(u, time)
@@ -32,13 +33,14 @@ const shielded = status("shielded", {
       u.shield = Math.min(u.shield + (this.shieldAmount / 60), this.maxShield)
     }
   },
-  shieldAmount: 10,
-  maxShield: 30,
+  shieldAmount: 20,
+  maxShield: 250,
 });
 
 const shieldBreak = status("shieldBreak", {
   setStats(){
     this.super$setStats()
+    this.stats.add(Stat.shieldHealth, Core.bundle.get("yes.yes"));
     this.stats.add(Stat.shieldHealth, statList.shieldListVal(this));
   },
   update(u, time){
@@ -47,5 +49,8 @@ const shieldBreak = status("shieldBreak", {
       u.shield = Math.max(u.shield + (-this.shieldRemoved / 60), 0)
     }
   },
-  shieldRemoved: 10
+  shieldRemoved: 20
 })
+
+shielded.opposite(shieldBreak)
+shieldBreak.opposite(shielded)

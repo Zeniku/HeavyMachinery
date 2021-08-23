@@ -329,11 +329,117 @@ function tesla(type, name, customStat, build, customBuildStat) {
   }
   return custom
 }
+/*function adaptiveTurret(type, name, customStat, build, customBuildStat){
+  if (customStat == undefined) customStat = {}
+  if (customBuildStat == undefined) customBuildStat = {}
+  customStat = Object.assign({}, customStat)
+  let custom = extend(type, name, customStat)
+  
+  customBuildStat = Object.assign({
+    updateTile(){
+      this.super$updateTile()
+      let t = this.target
+      if(t != null){
+        if(t instanceof Unit){
+          let dist = Mathf.dst2(this.x + this.tr.x, this.y + this.tr.y, t.y, t.x)
+          let type = t.type
+          this.bSpeed = type.speed * 1.05
+          this.bDamage = type.health * 0.5 * 0.6
+          this.bLifetime = dist / this.bSpeed * 1.01
+        }
+        if(t instanceof Building){
+          let block = t.block
+          this.bSpeed = 4
+          this.bDamage = block.health * 0.5 * 0.6
+          this.bLifetime = dist / this.bSpeed * 1.01
+        }
+      }else{
+        this.bSpeed = 4
+        this.bDamage = 20
+        this.bLifetime = 60
+      }
+    },
+    bullet(type, angle){
+      let lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(this.x + this.tr.x, this.y + this.tr.y, this.targetPos.x, this.targetPos.y) / type.range(), custom.minRange / type.range(), custom.range / type.range()) : this.bLifetime;
+
+      type.create(this, this.team, this.x + this.tr.x, this.y + this.tr.y, angle, this.bDamage, this.bSpeed + Mathf.range(this.velocityInaccuracy), lifeScl, null);
+    },
+    targetPosition(pos){
+      if(!this.hasAmmo() || pos == null) return;
+        let speed = this.bSpeed;
+        //slow bullets never interselct
+        if(speed < 0.1) speed = 9999999
+        
+        this.targetPos.set(Predict.intercept(this, pos, speed));
+        if(this.targetPos.isZero()){
+          this.targetPos.set(pos);
+        }
+    }
+  }, customBuildStat)
+  if(build != Building){
+    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+  }else{
+    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+  }
+  return custom
+}
+*/
+function fractalTurret(type, name, customStat, build, customBuildStat){
+  if (customStat == undefined) customStat = {}
+  if (customBuildStat == undefined) customBuildStat = {}
+  customStat = Object.assign({
+    shootEffect: Fx.none,
+    smokeEffect: Fx.none
+  }, customStat)
+  let custom = extend(type, name, customStat)
+  
+  customBuildStat = Object.assign({
+    targetPosition(pos){
+      if(!this.hasAmmo() || pos == null) return;
+      
+      this.targetPos.set(pos)
+      if(this.targetPos.isZero()){
+        this.targetPos.set(pos);
+      }
+    },
+    bullet(type, angle){
+      let tp = this.targetPos
+      if(Mathf.dst(this.x + custom.tr.x, this.y + custom.tr.y, tp.x, tp.y) > custom.range){
+        Tmp.v1.set(tp).sub(this.x, this.y).clamp(-custom.range, custom.range).add(this.x, this.y)
+      }else{
+        Tmp.v1.set(tp)
+      }
+      
+      let x = Tmp.v1.x + Angles.trnsx(Mathf.random(360), Mathf.random(custom.range * 0.5))
+      let y = Tmp.v1.y + Angles.trnsy(Mathf.random(360), Mathf.random(custom.range * 0.5))
+      
+      Tmp.v2.set(x, y)
+      
+      let prPos = Predict.intercept(Tmp.v1, tp, type.speed)
+      let ang = Angles.angle(x, y, prPos.x, prPos.y)
+      let lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(x, y, tp.x, tp.y) / type.range(), custom.minRange / type.range(), custom.range / type.range()) : 1;
+      
+      type.create(this, this.team, x, y, ang, 1 + Mathf.range(custom.velocityInaccuracy), lifeScl)
+     
+      print((this.targetPos / 8) + "tP")
+      print(this.targetPos.x / 8)
+      print(this.targetPos.y / 8)
+      print("---------------")
+    }
+  }, customBuildStat)
+  if(build != Building){
+    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+  }else{
+    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+  }
+  return custom
+}
 
 module.exports = {
-  customAnimation: customAnimation,
-  overSeerTurret: overSeerTurret,
-  dRWall: dRWall,
-  statusEffectProjector: statusEffectProjector,
-  tesla: tesla
+  CustomAnimation: customAnimation,
+  OverSeerTurret: overSeerTurret,
+  DRWall: dRWall,
+  StatusEffectProjector: statusEffectProjector,
+  Tesla: tesla,
+  FractalTurret: fractalTurret
 }

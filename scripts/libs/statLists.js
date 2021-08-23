@@ -1,9 +1,6 @@
 const statV = object => extend(StatValue, object)
 const sListVal = status => statV({
   display(table){
-    let h = new StringValue(Core.bundle.get("yes.yes"))
-    h.display(table)
-    table.row()
     table.row()
     this.tab(table, s => {
       s.left().defaults().padRight(3).left();

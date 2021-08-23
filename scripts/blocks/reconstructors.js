@@ -10,10 +10,10 @@ const reconAdd = (recon, planArray) => {
 };
 
 //yeah basically ^^^ but for unit factories
-function plansAdd(fact, planArray){
-	for(let i in planArray){
-    fact.plans.add(new UnitFactory.UnitPlan(planArray[i].type, planArray[i].buildTime, planArray[i].requirements))
-	}
+const plansAdd = (fact, planArray) => {
+	planArray.forEach(e => {
+    fact.plans.add(new UnitFactory.UnitPlan(e.type, e.buildTime, e.requirements))
+	})
 };
 
 plansAdd(Blocks.groundFactory, [

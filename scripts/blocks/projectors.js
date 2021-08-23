@@ -20,13 +20,13 @@ const healWave = new Effect(22, e => {
 	dlib.lineCircle(e.x, e.y, Pal.heal, e.fout() * 3, 4 + e.finpow() * (8 * 15));
 });
 
-const effect = blockTypes.statusEffectProjector(Block, "statusEffectProjector", {
+const effect = blockTypes.StatusEffectProjector(Block, "statusEffectProjector", {
   statusFx: flameAura,
   healEffect: healWave
 }, Building, {})
-effect.consumes.power(500/60.0);
+effect.consumes.power(500/60);
 
-const tesla = blockTypes.tesla(Block, "tesla", {
+const tesla = blockTypes.Tesla(Block, "tesla", {
   hitEffect: spark
 }, Building, {})
-tesla.consumes.power(500/60.0);
+tesla.consumes.power(500/60);
