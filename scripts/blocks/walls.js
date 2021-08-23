@@ -6,13 +6,13 @@ let heav = "heavymachinery-"
 
 let flib = require(lib + "function");
 let dlib = require(lib + "drawlib");
-let blockTypes = require (lib + "blockTypes")
+let blockTypes = require(lib + "blockTypes");
 
-const lonsdaleiteWall = blockTypes.dRWall(Wall, "lonsdaleiteWall", {
+const lonsdaleiteWall = blockTypes.DRWall(Wall, "lonsdaleiteWall", {
   dRChance: 15,
   dRPercentage: 20,
 }, Wall.WallBuild, {})
-const lonsdaleiteWallLarge = blockTypes.dRWall(Wall, "lonsdaleiteWallLarge", {
+const lonsdaleiteWallLarge = blockTypes.DRWall(Wall, "lonsdaleiteWallLarge", {
   dRChance: 15,
   dRPercentage: 45
 }, Wall.WallBuild, {})

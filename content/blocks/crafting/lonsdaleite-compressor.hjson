@@ -1,6 +1,3 @@
-//type: GenericCrafter
-name: Lonsdaleite Compressor
-description: Heats up and coppresses graphite to a much more dense material. 
 size: 3
 hasPower: true
 hasItems: true

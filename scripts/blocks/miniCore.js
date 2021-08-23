@@ -1,10 +1,14 @@
 let text = "heavymachinery-"
 const miniCore = extend(CoreBlock, "miniCore", {
 	buildVisibility: BuildVisibility.shown,
+	load(){
+	  this.super$load()
+	  this.topRegion = Core.atlas.find(this.name + "-team-sharded")
+	},
 	icons(){
 	  return [
-	    Core.atlas.find(text + "miniCore"),
-	    Core.atlas.find(text + "miniCore-team-sharded")
+	    this.region,
+	    this.topRegion
 	  ]
 	},
 	canPlaceOn(){

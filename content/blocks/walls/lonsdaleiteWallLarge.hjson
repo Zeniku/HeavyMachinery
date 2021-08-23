@@ -1,5 +1,3 @@
-name: "Lonsdaleite Wall Large"
-description: "Reduces Bullet damage on impact. Occupies 2x2 blocks of space"
 health: 2080
 size: 2
 requirements: [

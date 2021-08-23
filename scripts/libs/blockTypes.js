@@ -3,6 +3,8 @@ let heav = "heavymachinery-"
 let flib = require(text + "function");
 let dlib = require(text + "drawlib");
 let elib = require(text + "effectlib");
+let statList = require(text + "statLists");
+
 //temp is just a thing so i can copy paste
 function temp(type, name, customStat, build, customBuildStat){
   if (customStat == undefined) customStat = {}
@@ -134,7 +136,7 @@ function dRWall(type, name, customStat, build, customBuildStat){
 function statusEffectProjector(type, name, customStat, build, customBuildStat){
   if (customStat == undefined) customStat = {}
   if (customBuildStat == undefined) customBuildStat = {}
-  
+
   customStat = Object.assign({
     breakable: true,
     update: true,
@@ -150,10 +152,13 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
     outputsPower: false,
     buildVisibility: BuildVisibility.shown,
     enableHealing: true,
-    enableStatusAura: true,
+    enableEFxAura: true,
+    enableAFxAura: false,
     healPercent: 0.5,
-    statusEffect: StatusEffects.burning,
-    statusFx: Fx.none,
+    enemiesStatus: StatusEffects.burning,
+    statusFxEnemies: Fx.none,
+    statusFxAlly: Fx.none,
+    allyStatus: StatusEffects.none,
     healEffect: Fx.none,
     starColor: Pal.lightPyraFlame,
 	  icons(){
@@ -178,48 +183,52 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
     updateTile(){
 			if(this.consValid()){
 			  let wasHealed = false
-			  let appliedStatus = false
-			  this.atimer = Math.min(this.atimer + this.edelta(), custom.reload)
+			  let appliedEnemies = false
+			  let appliedAlly = false
 			  this.etimer = Math.min(this.etimer + this.edelta(), custom.reload * 0.25)
+			  this.atimer = Math.min(this.atimer + this.edelta(), custom.reload)
 			  if(this.atimer >= custom.reload){
 			    Units.nearby(this.team, this.x, this.y, custom.range, a => {
-			      if(custom.enableHealing){
-			        if(a.damaged()){
+			      if (custom.enableHealing) {
+			        if (a.damaged()) {
 			          a.heal(custom.healPercent)
 			          Fx.heal.at(a)
 			          wasHealed = true
 			        }
 			      }
-			    });
+			      if (custom.allyStatus != StatusEffects.none) {
+			        if (custom.enableAFxAura) {
+			          if(custom.statusFxAlly != Fx.none){
+			            custom.statusFxAlly.at(a)
+			          }
+			        }
+			        a.apply(custom.allyStatus, 60)
+			        appliedAlly = true
+			      }
+			    })
 			    this.atimer = 0
 			  }
 			  if(this.etimer >= custom.reload * 0.25){
 			    flib.radiusEnemies(this.team, this.x, this.y, custom.range, e => {
-			      e.apply(custom.statusEffect, 60);
+			      e.apply(custom.enemiesStatus, 60);
+			      if(custom.statusFxEnemies != Fx.none){
+			        if(custom.enableEFxAura){
+			          custom.statusFxEnemies.at(e)
+			        }
+			      }
 			      e.damage(custom.damage)
-			      appliedStatus = true;
+			      appliedEnemies = true;
 			    });
 			    this.etimer = 0
 			  }
+			  flib.checkEffect(custom, this, (appliedEnemies), custom.enableEFxAura, custom.statusFxEnemies, 5)
+			  flib.checkEffect(custom, this, (appliedAlly), custom.enableAFxAura, custom.statusFxAlly, 5)
 			  
 				if(wasHealed){
 				  if(custom.healEffect != Fx.none){
 				    custom.healEffect.at(this.x, this.y)
 				  }
 				}
-				if(appliedStatus){
-				  if(custom.enableStatusAura){
-					  for(let i = 0; i < 3; i++){
-					    if(custom.statusFx != Fx.none){
-						    custom.statusFx.at(this.x + Angles.trnsx(Mathf.random(360), Mathf.random(custom.range)), this.y + Angles.trnsy(Mathf.random(360), Mathf.random(custom.range)));
-					    }
-					  };
-				  }else{
-				    if(custom.statusFx != Fx.none){
-				      custom.statusFx.at(this.x, this.y)
-				    }
-				  }
-				};
 			};
 		},
 		drawSelect(){
@@ -320,11 +329,117 @@ function tesla(type, name, customStat, build, customBuildStat) {
   }
   return custom
 }
+/*function adaptiveTurret(type, name, customStat, build, customBuildStat){
+  if (customStat == undefined) customStat = {}
+  if (customBuildStat == undefined) customBuildStat = {}
+  customStat = Object.assign({}, customStat)
+  let custom = extend(type, name, customStat)
+  
+  customBuildStat = Object.assign({
+    updateTile(){
+      this.super$updateTile()
+      let t = this.target
+      if(t != null){
+        if(t instanceof Unit){
+          let dist = Mathf.dst2(this.x + this.tr.x, this.y + this.tr.y, t.y, t.x)
+          let type = t.type
+          this.bSpeed = type.speed * 1.05
+          this.bDamage = type.health * 0.5 * 0.6
+          this.bLifetime = dist / this.bSpeed * 1.01
+        }
+        if(t instanceof Building){
+          let block = t.block
+          this.bSpeed = 4
+          this.bDamage = block.health * 0.5 * 0.6
+          this.bLifetime = dist / this.bSpeed * 1.01
+        }
+      }else{
+        this.bSpeed = 4
+        this.bDamage = 20
+        this.bLifetime = 60
+      }
+    },
+    bullet(type, angle){
+      let lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(this.x + this.tr.x, this.y + this.tr.y, this.targetPos.x, this.targetPos.y) / type.range(), custom.minRange / type.range(), custom.range / type.range()) : this.bLifetime;
+
+      type.create(this, this.team, this.x + this.tr.x, this.y + this.tr.y, angle, this.bDamage, this.bSpeed + Mathf.range(this.velocityInaccuracy), lifeScl, null);
+    },
+    targetPosition(pos){
+      if(!this.hasAmmo() || pos == null) return;
+        let speed = this.bSpeed;
+        //slow bullets never interselct
+        if(speed < 0.1) speed = 9999999
+        
+        this.targetPos.set(Predict.intercept(this, pos, speed));
+        if(this.targetPos.isZero()){
+          this.targetPos.set(pos);
+        }
+    }
+  }, customBuildStat)
+  if(build != Building){
+    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+  }else{
+    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+  }
+  return custom
+}
+*/
+function fractalTurret(type, name, customStat, build, customBuildStat){
+  if (customStat == undefined) customStat = {}
+  if (customBuildStat == undefined) customBuildStat = {}
+  customStat = Object.assign({
+    shootEffect: Fx.none,
+    smokeEffect: Fx.none
+  }, customStat)
+  let custom = extend(type, name, customStat)
+  
+  customBuildStat = Object.assign({
+    targetPosition(pos){
+      if(!this.hasAmmo() || pos == null) return;
+      
+      this.targetPos.set(pos)
+      if(this.targetPos.isZero()){
+        this.targetPos.set(pos);
+      }
+    },
+    bullet(type, angle){
+      let tp = this.targetPos
+      if(Mathf.dst(this.x + custom.tr.x, this.y + custom.tr.y, tp.x, tp.y) > custom.range){
+        Tmp.v1.set(tp).sub(this.x, this.y).clamp(-custom.range, custom.range).add(this.x, this.y)
+      }else{
+        Tmp.v1.set(tp)
+      }
+      
+      let x = Tmp.v1.x + Angles.trnsx(Mathf.random(360), Mathf.random(custom.range * 0.5))
+      let y = Tmp.v1.y + Angles.trnsy(Mathf.random(360), Mathf.random(custom.range * 0.5))
+      
+      Tmp.v2.set(x, y)
+      
+      let prPos = Predict.intercept(Tmp.v1, tp, type.speed)
+      let ang = Angles.angle(x, y, prPos.x, prPos.y)
+      let lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(x, y, tp.x, tp.y) / type.range(), custom.minRange / type.range(), custom.range / type.range()) : 1;
+      
+      type.create(this, this.team, x, y, ang, 1 + Mathf.range(custom.velocityInaccuracy), lifeScl)
+     
+      print((this.targetPos / 8) + "tP")
+      print(this.targetPos.x / 8)
+      print(this.targetPos.y / 8)
+      print("---------------")
+    }
+  }, customBuildStat)
+  if(build != Building){
+    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+  }else{
+    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+  }
+  return custom
+}
 
 module.exports = {
-  customAnimation: customAnimation,
-  overSeerTurret: overSeerTurret,
-  dRWall: dRWall,
-  statusEffectProjector: statusEffectProjector,
-  tesla: tesla
+  CustomAnimation: customAnimation,
+  OverSeerTurret: overSeerTurret,
+  DRWall: dRWall,
+  StatusEffectProjector: statusEffectProjector,
+  Tesla: tesla,
+  FractalTurret: fractalTurret
 }

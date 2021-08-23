@@ -16,9 +16,11 @@ function req(){
 
 req(
   //Libs
-  ["libs", "drawlib", "effectlib", "ai", "function", "bulletTypes", "blockTypes", "planetGen"],
+  ["libs", "drawlib", "effectlib", "ai", "function", "bulletTypes", "blockTypes", "planetGen", "statLists"],
   //No Directory
-  ["", "items", "units", "planets"],
+  ["", "items", "units", "statusEffects"],
+  //Campaign
+  ["campaign", "planets"],
   //Blocks
   ["blocks", "content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets", "walls"]
 )
