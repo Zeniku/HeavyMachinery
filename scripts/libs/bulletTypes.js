@@ -533,24 +533,26 @@ function swordBullet(object){
       let mix = Tmp.c1.set(this.mixColorFrom).lerp(this.mixColorTo, b.fin());
 
       Draw.mixcol(mix, mix.a);
-
+      
+      dat.trail.draw(this.backColor, this.trailWidth * b.fout())
       Draw.color(this.backColor);
       Draw.rect(dat.spriteBack, b.x, b.y, width, height, b.rotation() + offset);
       Draw.color(this.frontColor);
       Draw.rect(dat.sprite, b.x, b.y, width, height, b.rotation() + offset);
 
       Draw.reset();
-      
-      dat.trail.draw(this.backColor, this.trailWidth * b.fout())
     },
+    pierce: true,
     backColor: Pal.heal,
     frontColor: Color.white,
     hitColor: Pal.heal,
     shootEffect: Fx.none,
+    smokeEffect: Fx.none,
     width: 8 * 3,
     height: 8 * 3,
     sprite: "heavymachinery-swordBullet",
     trailWidth: 10,
+    homingPower: 0.08,
     shrinkX: 0,
     shrinkY: 0,
     trailLength: 15,

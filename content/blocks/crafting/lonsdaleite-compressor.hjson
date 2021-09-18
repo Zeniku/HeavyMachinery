@@ -20,7 +20,7 @@ requirements: [
 	lead/150
 	silicon/250
 	titanium/120
-        graphite/80
+  graphite/80
 ]
 category: crafting
 research: multi-press
