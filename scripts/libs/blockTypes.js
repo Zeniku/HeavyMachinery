@@ -287,7 +287,7 @@ function tesla(type, name, customStat, build, customBuildStat) {
 
   customBuildStat = Object.assign({
     drawSelect() {
-      Drawf.dashCircle(this.x, this.y, custom.range, custom.lightningColor);
+      Drawf.dashCircle(this.x, this.y, custom.rang.e, custom.lightningColor);
     },
     rtimer: 0,
     updateTile(){
@@ -396,10 +396,11 @@ function fractalTurret(type, name, customStat, build, customBuildStat){
   customBuildStat = Object.assign({
     targetPosition(pos){
       if(!this.hasAmmo() || pos == null) return;
+      let tp = this.targetPos
       
-      this.targetPos.set(pos)
-      if(this.targetPos.isZero()){
-        this.targetPos.set(pos);
+      tp.set(pos)
+      if(tp.isZero()){
+        tp.set(pos)
       }
     },
     bullet(type, angle){
@@ -413,18 +414,10 @@ function fractalTurret(type, name, customStat, build, customBuildStat){
       let x = Tmp.v1.x + Angles.trnsx(Mathf.random(360), Mathf.random(custom.range * 0.5))
       let y = Tmp.v1.y + Angles.trnsy(Mathf.random(360), Mathf.random(custom.range * 0.5))
       
-      Tmp.v2.set(x, y)
-      
-      let prPos = Predict.intercept(Tmp.v1, tp, type.speed)
-      let ang = Angles.angle(x, y, prPos.x, prPos.y)
-      let lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(x, y, tp.x, tp.y) / type.range(), custom.minRange / type.range(), custom.range / type.range()) : 1;
+      let ang = Angles.angle(x, y, tp.x, tp.y)
+      let lifeScl = type.scaleVelocity ? Mathf.clamp(Mathf.dst(x, y, tp.x, tp.y) / type.range(), custom.minRange / type.range(), custom.range / type.range()) : 1
       
       type.create(this, this.team, x, y, ang, 1 + Mathf.range(custom.velocityInaccuracy), lifeScl)
-     
-      print((this.targetPos / 8) + "tP")
-      print(this.targetPos.x / 8)
-      print(this.targetPos.y / 8)
-      print("---------------")
     }
   }, customBuildStat)
   if(build != Building){
