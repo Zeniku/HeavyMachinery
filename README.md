@@ -7,29 +7,36 @@
 # HeavyMachinery
 A v6 mod for Mindustry
 
-**Adds:**
+<blockquote>
 
-*Units: 11*
- - melee: 5
- - purpleAir: 3
- - overseer: 3
+### **Adds:**
 
-*Blocks: 5*
- - turrets: 1
- - effects: 3
- - production: 1
+**Units: 11**
+ - Melee: 5
+ - Purple Air: 3
+ - Overseer: 3
 
-### Wiki
-Go To Wiki by going here<br />
-[Wiki](https://github.com/Zeniku/HeavyMachinery-Wiki)
+**Blocks: 5**
+ - Turrets: 1
+ - Effects: 3
+ - Production: 1
 
-### Notes
+</blockquote>
+
+## Notes
 This Mod is still incomplete
 There is a lot planned on this mod but not out yet so keep watch for new updates<br />
 All things on `Adds` is subject to change
 Unfortunately i am not doing v7 for now even though it very close to v6
 
 Thanks for [Shit Fabric](https://github.com/Duvent-mindustry) For the Awesome Logo!
+
+<details>
+  <summary><b>Is there a Wiki?<b></summary>
+  
+Wiki is still incomplete because mod is still not done but you can go by clicking:
+[Wiki](https://github.com/Zeniku/HeavyMachinery-Wiki)
+</details>
 
 # Contribute
 
@@ -43,8 +50,8 @@ Thanks for [Shit Fabric](https://github.com/Duvent-mindustry) For the Awesome Lo
 
 # Maintainers 
 ### Owner
-Github: [Zeniku](https://github.com/Zeniku)<br />
-Discord: `Zeniku/HeavyMachinery#1408`
+- Github: [Zeniku](https://github.com/Zeniku)
+- Discord: `Zeniku/HeavyMachinery#1408`
 
 ### Contributors
 
