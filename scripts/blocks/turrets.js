@@ -21,7 +21,7 @@ const spawnEffect = new Effect(20, e => {
 const praefectorBullet = bulletTypes.OverSeerBullet({
   damage: 20,
   speed: 3.5,
-  lifetime: 60,
+  lifetime: 60 * 4,
   pierceCap: 10,
   trailWidth: 2.5
 });
@@ -47,6 +47,6 @@ const heavenlyS = blockTypes.FractalTurret(PowerTurret, "heavenlyStrike", {
 const praefector = blockTypes.OverSeerTurret(PowerTurret, "praefector", {
   shootType: praefectorBullet,
   buildVisibility: BuildVisibility.shown,
-  range: praefectorBullet.range() * 1.5,
+  range: praefectorBullet.range(),
   recoilAmount: 2,
 }, PowerTurret.PowerTurretBuild, {});

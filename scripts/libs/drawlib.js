@@ -55,7 +55,7 @@ function fillCircle(x, y, color, radius){
   Fill.circle(x, y, radius);
   Draw.color();
 }
-function fillCircleii(x, y, colorFrom, colorTo, inOut, alpha, radius){
+function fillCircleii(x, y, colorFrom, colorTo, inOut, radius){
   Draw.color(colorFrom, colorTo, inOut);
   Fill.circle(x, y, radius);
   Draw.color();
