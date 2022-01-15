@@ -1,12 +1,8 @@
-let text = "heavymachinery-"
-let lib = "heavymachinery/libs/"
-
-let flib = require(lib + "function")
-let statList = require(lib + "statLists")
+let {utils, statLists} = require("heavymachinery/libs/libraries")
+let {defined} = utils
 
 function status(name, stats){
-  if(stats == undefined) stats = {}
-  stats = Object.assign({
+  stats = defined({
     load(){
       this.super$load()
       this.region = Core.atlas.find(this.name)
@@ -25,7 +21,7 @@ const shielded = status("shielded", {
   setStats(){
     this.super$setStats()
     this.stats.add(Stat.shieldHealth, Core.bundle.get("yes.yes"));
-    this.stats.add(Stat.shieldHealth, statList.shieldListVal(this))
+    this.stats.add(Stat.shieldHealth, statLists.shieldListVal(this))
   },
   update(u, time){
     this.super$update(u, time)
@@ -41,7 +37,7 @@ const shieldBreak = status("shieldBreak", {
   setStats(){
     this.super$setStats()
     this.stats.add(Stat.shieldHealth, Core.bundle.get("yes.yes"));
-    this.stats.add(Stat.shieldHealth, statList.shieldListVal(this));
+    this.stats.add(Stat.shieldHealth, statLists.shieldListVal(this));
   },
   update(u, time){
     this.super$update(u, time)

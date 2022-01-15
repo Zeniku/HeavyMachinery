@@ -1,38 +1,29 @@
-let text = "heavymachinery/libs/";
-let heav = "heavymachinery-"
-let flib = require(text + "function");
-let dlib = require(text + "drawlib");
-let elib = require(text + "effectlib");
-let statList = require(text + "statLists");
-
+let {utils, drawlib: dlib, effectlib: elib, statLists} = require("heavymachinery/libs/libraries")
+let {defined, clone, radiusEnemies, checkEffect} = utils
 //temp is just a thing so i can copy paste
 function temp(type, name, customStat, build, customBuildStat){
-  if (customStat == undefined) customStat = {}
-  if (customBuildStat == undefined) customBuildStat = {}
-  customStat = Object.assign({}, customStat)
+  customStat = defined({}, customStat)
   let custom = extend(type, name, customStat)
   
-  customBuildStat = Object.assign({}, customBuildStat)
+  customBuildStat = defined({}, customBuildStat)
   if(build != Building){
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   }else{
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   return custom
 }
 
 function customAnimation(type, name, customStat, build, customBuildStat, frames){
-  if(customStat == undefined) customStat = {}
-  if(customBuildStat == undefined) customBuildStat = {}
-  customStat = Object.assign({
+  customStat = defined({
     load(){ //load the sprites
       this.region = Core.atlas.find(this.name);
       this.bottomRegion = Core.atlas.find(this.name + "-bottom");
       this.frameRegions = [];
     
-      for (let i = 0; i < frames.frameCount; i++) {
+      for (let i = 0; i < frames.frameCount; i++){
         this.frameRegions[i] = Core.atlas.find(this.name + "-frame" + i);
-        }
+      }
       this.topRegion = Core.atlas.find(this.name + "-top");
     },
     icons() { //puts the icons for you to se on the menu
@@ -43,9 +34,9 @@ function customAnimation(type, name, customStat, build, customBuildStat, frames)
     }
   }, customStat);
   
-  let custom = extend(type, name, customStat)
+  let custom = extend(type, name, customStat);
   
-  customBuildStat = Object.assign({
+  customBuildStat = defined({
     draw() {
       Draw.rect(custom.bottomRegion, this.x, this.y);
       Draw.rect(
@@ -59,22 +50,20 @@ function customAnimation(type, name, customStat, build, customBuildStat, frames)
   }, customBuildStat)
   
   if (build != Building) {
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   } else {
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   
   return custom
 }
 
-function overSeerTurret(type, name, customStat, build, customBuildStat){
-  if(customStat == undefined) customStat = {}
-  if(customBuildStat == undefined) customBuildStat = {}
-  
-  customStat = Object.assign({}, customStat)
+function overSeerTurret(type, name, customStat, build, customBuildStat)
+{
+  customStat = defined({}, customStat)
   let custom = extend(type, name, customStat)
   
-  customBuildStat = Object.assign({
+  customBuildStat = defined({
     targetPosition(pos) {
       if(!this.hasAmmo() || pos == null) return;
   
@@ -86,18 +75,16 @@ function overSeerTurret(type, name, customStat, build, customBuildStat){
     },
   }, customBuildStat)
   if (build != Building) {
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   } else {
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   return custom
 }
 
 function dRWall(type, name, customStat, build, customBuildStat){
-  if(customStat == undefined) customStat = {}
-  if(customBuildStat == undefined) customBuildStat = {}
   
-  customStat = Object.assign({
+  customStat = defined({
     dRChance: 15,
     dRPercentage: 50,
     hitColor: Pal.lancerLaser
@@ -109,7 +96,7 @@ function dRWall(type, name, customStat, build, customBuildStat){
     Lines.square(e.x, e.y, ((8 * custom.size) / 2) * e.fin())
   });
   
-  customBuildStat = Object.assign({
+  customBuildStat = defined({
     handleDamage(amount){
       let a = amount
       if(Mathf.chance(custom.dRChance)){
@@ -126,18 +113,16 @@ function dRWall(type, name, customStat, build, customBuildStat){
     }
   }, customBuildStat)
   if (build != Building) {
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   } else {
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   return custom
 }
 
 function statusEffectProjector(type, name, customStat, build, customBuildStat){
-  if (customStat == undefined) customStat = {}
-  if (customBuildStat == undefined) customBuildStat = {}
 
-  customStat = Object.assign({
+  customStat = defined({
     breakable: true,
     update: true,
     targetable: true,
@@ -177,7 +162,7 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
   }, customStat)
   let custom = extend(type, name, customStat)
   
-  customBuildStat = Object.assign({
+  customBuildStat = defined({
     atimer: 0,
     etimer: 0,
     updateTile(){
@@ -209,7 +194,7 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
 			    this.atimer = 0
 			  }
 			  if(this.etimer >= custom.reload * 0.25){
-			    flib.radiusEnemies(this.team, this.x, this.y, custom.range, e => {
+			    radiusEnemies(this.team, this.x, this.y, custom.range, e => {
 			      e.apply(custom.enemiesStatus, 60);
 			      if(custom.statusFxEnemies != Fx.none){
 			        if(custom.enableEFxAura){
@@ -221,8 +206,8 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
 			    });
 			    this.etimer = 0
 			  }
-			  flib.checkEffect(custom, this, (appliedEnemies), custom.enableEFxAura, custom.statusFxEnemies, 5)
-			  flib.checkEffect(custom, this, (appliedAlly), custom.enableAFxAura, custom.statusFxAlly, 5)
+			  utils.checkEffect(custom, this, appliedEnemies, custom.enableEFxAura, custom.statusFxEnemies, 5)
+			  utils.checkEffect(custom, this, appliedAlly, custom.enableAFxAura, custom.statusFxAlly, 5)
 			  
 				if(wasHealed){
 				  if(custom.healEffect != Fx.none){
@@ -245,17 +230,15 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
 		},
   }, customBuildStat)
   if (build != Building) {
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   } else {
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   return custom
 }
 
 function tesla(type, name, customStat, build, customBuildStat) {
-  if (customStat == undefined) customStat = {}
-  if (customBuildStat == undefined) customBuildStat = {}
-  customStat = Object.assign({
+  customStat = defined({
     setStats(){
       this.super$setStats()
       this.stats.add(Stat.range, this.range);
@@ -285,16 +268,16 @@ function tesla(type, name, customStat, build, customBuildStat) {
   }, customStat)
   let custom = extend(type, name, customStat)
 
-  customBuildStat = Object.assign({
+  customBuildStat = defined({
     drawSelect() {
-      Drawf.dashCircle(this.x, this.y, custom.rang.e, custom.lightningColor);
+      Drawf.dashCircle(this.x, this.y, custom.range, custom.lightningColor);
     },
     rtimer: 0,
     updateTile(){
       if(this.consValid()){
         this.rtimer = Math.min(this.rtimer + this.edelta(), custom.reload)
         if(this.rtimer >= custom.reload){
-          flib.radiusEnemies(this.team, this.x, this.y, custom.range, u => {
+          radiusEnemies(this.team, this.x, this.y, custom.range, u => {
             u.apply(StatusEffects.disarmed, 10);
             u.apply(StatusEffects.shocked, 15);
             u.damage(custom.damage)
@@ -323,9 +306,9 @@ function tesla(type, name, customStat, build, customBuildStat) {
     }
   }, customBuildStat)
   if (build != Building) {
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   } else {
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   return custom
 }
@@ -377,23 +360,21 @@ function tesla(type, name, customStat, build, customBuildStat) {
     }
   }, customBuildStat)
   if(build != Building){
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   }else{
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   return custom
 }
 */
 function fractalTurret(type, name, customStat, build, customBuildStat){
-  if (customStat == undefined) customStat = {}
-  if (customBuildStat == undefined) customBuildStat = {}
-  customStat = Object.assign({
+  customStat = defined({
     shootEffect: Fx.none,
     smokeEffect: Fx.none
   }, customStat)
   let custom = extend(type, name, customStat)
   
-  customBuildStat = Object.assign({
+  customBuildStat = defined({
     targetPosition(pos){
       if(!this.hasAmmo() || pos == null) return;
       let tp = this.targetPos
@@ -421,9 +402,9 @@ function fractalTurret(type, name, customStat, build, customBuildStat){
     }
   }, customBuildStat)
   if(build != Building){
-    custom.buildType = () => extend(build, custom, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, custom, clone(customBuildStat))
   }else{
-    custom.buildType = () => extend(build, flib.clone(customBuildStat))
+    custom.buildType = () => extend(build, clone(customBuildStat))
   }
   return custom
 }

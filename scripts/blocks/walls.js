@@ -1,12 +1,7 @@
 //Libs And functions
 //please don't do what i do because im retarded
 
-let lib = "heavymachinery/libs/";
-let heav = "heavymachinery-"
-
-let flib = require(lib + "function");
-let dlib = require(lib + "drawlib");
-let blockTypes = require(lib + "blockTypes");
+let {blockTypes} = require("heavymachinery/libs/libraries");
 
 const lonsdaleiteWall = blockTypes.DRWall(Wall, "lonsdaleiteWall", {
   dRChance: 15,

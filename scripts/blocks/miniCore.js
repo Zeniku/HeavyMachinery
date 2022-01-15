@@ -1,4 +1,3 @@
-let text = "heavymachinery-"
 const miniCore = extend(CoreBlock, "miniCore", {
 	buildVisibility: BuildVisibility.shown,
 	load(){

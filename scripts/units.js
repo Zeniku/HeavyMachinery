@@ -1,19 +1,14 @@
 //Libs And functions
-let lib = "heavymachinery/libs/";
 let heav = "heavymachinery-"
-
-let AI = require(lib + "ai");
-let bulletTypes = require(lib + "bulletTypes");
-let flib = require(lib + "function");
-let dlib = require(lib + "drawlib");
-
+let {ai, bulletTypes, utils, drawlib: dlib} = require("heavymachinery/libs/libraries")
+let {defined} = utils
 function weapon(object){
 	return extend(Weapon, object);
 };
 //print(Weapon)
 
 function meleeBullet(object){
-	let h = extend(ShrapnelBulletType, {
+  object = defined({
   	fromColor: Color.valueOf("404040"),
   	toColor: Color.valueOf("2a2a2a"),
   	hitColor: Color.valueOf("2a2a2a"),
@@ -23,9 +18,8 @@ function meleeBullet(object){
   	hitEffect: Fx.mine,
   	knockback: 0,
   	reflectable: false,
-	});
-  flib.merge(h, object)
-  return h
+	}, object)
+	return extend(ShrapnelBulletType, object);
 };
 //print(meleeBullet)
 
@@ -359,17 +353,15 @@ const interitusWeapStat = {
   shootSound: Sounds.shotgun
 }
 //Bad idea dont copy me
-const interitusSpikeWeaponA = weapon(interitusWeapStat);
-flib.merge(interitusSpikeWeaponA, {
+const interitusSpikeWeaponA = weapon(Object.assign(interitusWeapStat, {
   x: 49 / 4,
   y: 27 / 4
-});
-const interitusSpikeWeaponB = weapon(interitusWeapStat);
-flib.merge(interitusSpikeWeaponB, {
+}));
+const interitusSpikeWeaponB = weapon(Object.assign(interitusWeapStat, {
   x: 74 / 4,
   y: -9 / 4,
   reload: 35
-});
+}));
 
 const interitusArtillery = weapon({
   name: heav + "interitusArtillery",
@@ -621,7 +613,6 @@ const miscWeaponII = weapon({
 	})
 });
 //print(miscWeaponII)
-
 //Units
 //[Air]
 //Purple
@@ -680,55 +671,55 @@ eterius.weapons.add(eteriusLaserWeapon, eteriusArtillery)
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
 princeps.constructor = () => extend(MechUnit, {});
-princeps.defaultController = AI.overSeerAI(GroundAI);
+princeps.defaultController = ai.overSeerAI(GroundAI);
 princeps.weapons.add(princepsWeapon);
 //print(princeps)
 
 const procurator = extend(UnitType, "procurator", {});
 procurator.constructor = () => extend(MechUnit, {});
-procurator.defaultController = AI.overSeerAI(GroundAI);
+procurator.defaultController = ai.overSeerAI(GroundAI);
 procurator.weapons.add(procuratorWeapon)
 
 const inductor = extend(UnitType, "inductor", {});
 inductor.constructor = () => extend(LegsUnit, {});
-inductor.defaultController = AI.overSeerAI(GroundAI);
+inductor.defaultController = ai.overSeerAI(GroundAI);
 inductor.weapons.add(inductorShotgun, inductorArtillery)
 
 //Melee
 const pugione = extend(UnitType, "pugione", {});
 pugione.constructor = () => extend(MechUnit, {});
-pugione.defaultController = AI.meleeAI(2, 10);
+pugione.defaultController = ai.meleeAI(2, 10);
 pugione.weapons.add(pugioneWeapon);
 //print(pugione)
 
 const mucro = extend(UnitType, "mucro", {});
 mucro.constructor = () => extend(MechUnit, {});
-mucro.defaultController = AI.meleeAI(3, 15);
+mucro.defaultController = ai.meleeAI(3, 15);
 mucro.weapons.add(mucroWeapon);
 //print(mucro)
 
 const tragula = extend(UnitType, "tragula", {});
 tragula.constructor = () => extend(MechUnit, {});
-tragula.defaultController = AI.meleeAI(4, 20);
+tragula.defaultController = ai.meleeAI(4, 20);
 tragula.weapons.add(tragulaWeapon);
 //print(tragula)
 
 const lucius = extend(UnitType, "lucius", {});
 lucius.constructor = () => extend(MechUnit, {});
-lucius.defaultController = AI.meleeAI(6, 25);
+lucius.defaultController = ai.meleeAI(6, 25);
 lucius.weapons.add(luciusWeapon, miscWeapon);
 //print(lucius)
 
 const machaera = extend(UnitType, "machaera", {});
 machaera.constructor = () => extend(MechUnit, {});
-machaera.defaultController = AI.meleeAI(8, 30);
+machaera.defaultController = ai.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 //print(machaera)
 
 const cunit = name => Vars.content.getByName(ContentType.unit, heav + name);
 
 //Debugging
-//flib.debug("unit.js", [cunit, aranea, traho, spiculum, interitus, pugione, mucro, tragula, lucius, machaera, princeps]);
+//utils.debug("unit.js", [cunit, aranea, traho, spiculum, interitus, pugione, mucro, tragula, lucius, machaera, princeps]);
 
 //export
 module.exports = {

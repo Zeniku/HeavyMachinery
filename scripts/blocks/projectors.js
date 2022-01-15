@@ -1,11 +1,7 @@
 //if you did not read my lib you will be confused
 //effects
-let text = "heavymachinery/libs/";
 
-let flib = require(text + "function");
-let dlib = require(text + "drawlib");
-let elib = require(text + "effectlib")
-let blockTypes = require(text + "blockTypes")
+let {utils, drawlib: dlib, blockTypes} = require("heavymachinery/libs/libraries")
 
 //Effects
 const flameAura = new Effect(40, e => {
@@ -21,7 +17,7 @@ const healWave = new Effect(22, e => {
 });
 
 const effect = blockTypes.StatusEffectProjector(Block, "statusEffectProjector", {
-  statusFx: flameAura,
+  statusFxEnemies: flameAura,
   healEffect: healWave
 }, Building, {})
 effect.consumes.power(500/60);

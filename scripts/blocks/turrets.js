@@ -1,9 +1,4 @@
-let text = "heavymachinery/libs/"
-
-let bulletTypes = require(text + "bulletTypes");
-let blockTypes = require(text + "blockTypes")
-let flib = require(text + "function");
-let dlib = require(text + "drawlib")
+let {utils, blockTypes, bulletTypes, drawlib: dlib} = require("heavymachinery/libs/libraries")
 
 const critTrail = new Effect(20, e => {
   Draw.color(Pal.heal)
