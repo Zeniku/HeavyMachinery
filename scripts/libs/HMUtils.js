@@ -60,7 +60,7 @@ function checkEffect(block, build, condition, aura, effect, amount){
 	  }
 	};
 }
-
+// function asdf(aa = {}) rhino is h
 function defined(def, object){
   if(object == undefined) object = {}
   if(def == undefined) def = {}
