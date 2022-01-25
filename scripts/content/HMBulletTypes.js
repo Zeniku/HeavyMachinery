@@ -1,9 +1,14 @@
-// Lib by Zeniku
+let lib = "heavymachinery/libs/",
+HMUtils = require(lib + "HMUtils"),
+HMDraw = require(lib + "HMDraw")
 
-let {utils, drawlib: dlib, effectlib: elib} = require("heavymachinery/libs/libraries")
-let {defined} = utils
-//look at the libs first
-//this is not a great example if you are just beginning to mod
+let {defined} = HMUtils
+
+/**
+ * @author Zeniku
+ * If you don't want to be confused read the Libs first
+ * 
+*/
 
 function earthBend(object){
 	object = defined({
@@ -55,8 +60,7 @@ function earthBend(object){
 	}, object)
 	return extend(BasicBulletType, object);
 };
-//note overriding the bullet type won't work unless you modify the function I think
-//but i figured a way so you can override stuff
+
 //Ty Sh1penfire for toggleable 1 time homing
 function overSeer(object){
   object = defined({
@@ -102,7 +106,7 @@ function overSeer(object){
 		    ty = b.owner.targetPos.y
 	    }
 		  //just to double check
-			if(tx != null && ty != null){
+			if(tx && ty){
 			  let ang = Angles.moveToward(b.rotation(), b.angleTo(tx, ty), this.turningPower * Time.delta * 50);
 			  if(b.timer.get(0, this.targetTime)){
 			    if(b.data.home){
@@ -115,7 +119,7 @@ function overSeer(object){
 	          b.data.home = false
 			    }
 			  }
-			  //utils.printer(tx, ty, ang, b.data.homeCount)
+			  //HMUtils.printer(tx, ty, ang, b.data.homeCount)
 		  }
 		  if(!this.customTrail){
 			  b.data.trail.update(b.x, b.y);
@@ -218,8 +222,11 @@ function orbitBullet(object){
   object = defined({
     init(b){
       if(!b) return
-      b.data = {}
-      b.data.trails = []
+      b.data = {
+        trails: [],
+        ox: [],
+        oy: []
+      }
       if(!this.customTrail){
         for(let i = 0; i < this.orbiters; i++){
           b.data.trails[i] = new Trail(this.orbiterTrailLength)
@@ -229,26 +236,22 @@ function orbitBullet(object){
     update(b){
       let angle = (360 / this.orbiters)
       let data = b.data
-      let ox = []
-      let oy = []
-      data.ox = ox
-      data.oy = oy
       for(let i in data.trails){
-        ox[i] = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius);
-        oy[i] = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius)
+        data.ox[i] = b.x + Angles.trnsx(angle * i + Time.time, this.orbitRadius);
+        data.oy[i] = b.y + Angles.trnsy(angle * i + Time.time, this.orbitRadius);
         if(!this.customTrail){
-          data.trails[i].update(ox[i], oy[i])
+          data.trails[i].update(data.ox[i], data.oy[i])
         }else {
           if(b.timer.get(1, this.customTrailST)){
             if(this.customTrailEffect != Fx.none){
-              this.customTrailEffect.at(ox[i], oy[i], b.rotation())
+              this.customTrailEffect.at(data.ox[i], data.oy[i], b.rotation())
             }
           }
         }
       };
       if(b.timer.get(0, this.orbiterST)){
         for(let i in data.trails){
-          this.orbiter.create(b.owner, ox[i], oy[i], b.rotation())
+          this.orbiter.create(b.owner, data.ox[i], data.oy[i], b.rotation())
         };
       }
     },
@@ -256,9 +259,9 @@ function orbitBullet(object){
       let data = b.data
       let ox = data.ox
       let oy = data.oy
-      dlib.fillCircle(b.x, b.y, this.orbiterColor, (this.orbiters * 1.5) * b.fout())
+      HMDraw.fillCircle(b.x, b.y, this.orbiterColor, (this.orbiters * 1.5) * b.fout())
       for(let i in data.trails){
-        dlib.fillCircle(ox[i], oy[i], this.orbiterColor, 1, this.orbiterRadius * b.fout())
+        HMDraw.fillCircle(ox[i], oy[i], this.orbiterColor, 1, this.orbiterRadius * b.fout())
         if(!this.customTrail){
           data.trails[i].draw(this.orbiterColor, this.orbiterTrailWidth * b.fout())
         }
@@ -297,8 +300,9 @@ function bulletSpawn(object){
   object = defined({
     init(b){
       if(!b) return
-      b.data = {}
-      b.data.reload = 0
+      b.data = {
+        reload: 0
+      }
     },
     update(b){
       this.super$update(b)
@@ -343,8 +347,8 @@ function bulletSpawn(object){
       b.data.shootY = shootY
     },
     draw(b){
-      dlib.fillCircleii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 1, this.radius)
-      dlib.linePolyii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 4, 6, this.radius, Time.time * this.rotationalMultiplier)
+      HMDraw.fillCircleii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 1, this.radius)
+      HMDraw.linePolyii(b.x, b.y, this.colorFrom, this.colorTo, b.fin(), 4, 6, this.radius, Time.time * this.rotationalMultiplier)
     },
     bulletShot: Bullets.standardCopper,
     bulletShotSpacing: 4,
@@ -372,7 +376,7 @@ function bulletSpawn(object){
       let data = b.data
       let unit = Units.closestTarget(b.team, x, y, this.hitSize / 2, u => u.checkTarget(this.collidesAir, this.collidesGround), t => this.collidesGround)
       if(unit != null){
-        let units = utils.nearbyEnemies(b.team, unit.x, unit.y, 8 * 15, u => {
+        let units = HMUtils.nearbyEnemies(b.team, unit.x, unit.y, 8 * 15, u => {
           data.enemies++
         })
       }

@@ -53,14 +53,10 @@ function checkEffect(block, build, condition, aura, effect, amount){
   if(condition){
 	  if(aura){
 		  for(let i = 0; i < amount; i++){
-					if(effect != Fx.none){
-					  effect.at(build.x + Angles.trnsx(Mathf.random(360), Mathf.random(block.range)), build.y + Angles.trnsy(Mathf.random(360), Mathf.random(block.range)));
-					}
+			  if(effect != Fx.none && effect) effect.at(build.x + Angles.trnsx(Mathf.random(360), Mathf.random(block.range)), build.y + Angles.trnsy(Mathf.random(360), Mathf.random(block.range)));
 		  };
 		}else{
-			if(effect != Fx.none){
-		    effect.at(build.x, build.y)
-		  }
+			if(effect != Fx.none && effect) effect.at(build.x, build.y)
 	  }
 	};
 }

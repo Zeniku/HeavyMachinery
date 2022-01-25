@@ -11,7 +11,7 @@ let bases = {
   //Why am i making this
   lineCircle(x, y, thickness, radius){
     Lines.stroke(thickness);
-    Lines.circle(x, y, radius);
+    Lines.circle(x, y, radius)
     Lines.stroke(1);
   },
   //no fillCircle because Why like Why

@@ -1,5 +1,8 @@
-let {utils, statLists} = require("heavymachinery/libs/libraries")
-let {defined} = utils
+let lib = "heavymachinery/libs/", 
+HMUtils = require(lib + "HMUtils"),
+statLists = require(lib + "statLists")
+
+let {defined} = HMUtils
 
 function status(name, stats){
   stats = defined({

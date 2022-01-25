@@ -12,11 +12,11 @@ function req(){
 
 req(
   //Libs
-  ["libs", "libraries", "drawlib", "effectlib", "ai", "utils", "bulletTypes", "blockTypes", "planetGen", "statLists"],
-  //No Directory
-  ["", "items", "units", "statusEffects"],
-  //Campaign
-  ["campaign", "planets"],
+  ["libs", "HMUtils", "HMDraw", "HMAi", "planetGen", "statLists"],
+  //Content
+  ["content", "HMEffects", "HMBulletTypes", "HMBlockTypes", "HMItems", "HMUnits", "HmStatusEffects"],
   //Blocks
-  ["blocks", "content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets", "walls"]
+  ["content/blocks", "HMBlocks", "reconstructors"],
+  //Campaign
+  ["campaign", "planets"]
 )

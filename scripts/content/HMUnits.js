@@ -1,10 +1,13 @@
 //Libs And functions
-let heav = "heavymachinery-"
-let {ai, bulletTypes, utils, drawlib: dlib} = require("heavymachinery/libs/libraries")
-let {defined} = utils
-function weapon(object){
-	return extend(Weapon, object);
-};
+let heav = "heavymachinery-",
+lib = "heavymachinery/libs/",
+con = "heavymachinery/content/",
+ai = require(lib + "HMAi"),
+HMBulletTypes = require(con + "HMBulletTypes"),
+HMUtils = require(lib + "HMUtils"),
+HMEffects = require(con + "HMEffects")
+
+let {defined} = HMUtils
 //print(Weapon)
 
 function meleeBullet(object){
@@ -27,48 +30,9 @@ function meleeBullet(object){
 let color = [Pal.sapBullet, Pal.sapBulletBack, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), Pal.lancerLaser]
 //print(color)
 
-//Effect
-const earthDust = new Effect(20, e => {
-	dlib.splashCircleii(e.x, e.y, color[2], color[3], e.fin(), 2.5 * e.fslope(), e.id, 10, e.finpow() * 10, e.rotation, 360);
-});
-earthDust.layer = Layer.debris
-//print(earthDust)
-
-const earthDustII = new Effect(30, e => {
-	dlib.splashCircleii(e.x, e.y, color[2], color[3], e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * 20, e.rotation, 360);
-});
-earthDustII.layer = Layer.debris
-//print(earthDustII)
-
-const boom = new Effect(30, e => {
-  dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (4 * 8) * e.fin())
-  dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 15, e.finpow() * (8 * 5), e.rotation, 360)
-});
-
-const bigBoom = new Effect(30, e => {
-  dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fout(), (6 * 7) * e.finpow())
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 6 * e.fout(), (6 * 11) * e.finpow())
-  dlib.splashLineii(e.x, e.y, color[0], color[2], e.fin(), 4 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 10), e.rotation, 360)
-});
-
-const laserCharge = new Effect(80, e => {
-  dlib.splashCircleii(e.x, e.y, color[0], color[1], e.fin(), 5 * e.fslope(), e.id, 20, (1 - e.finpow()) * (8 * 6), e.rotation, 360)
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 7) * (1 - e.finpow()))
-  dlib.lineCircleii(e.x, e.y, color[0], color[1], e.fin(), 4 * e.fin(), (6 * 11) * (1 - e.finpow()))
-  dlib.fillCircle(e.x, e.y, color[0], 10 * e.fin())
-  dlib.fillCircle(e.x, e.y, Color.white, 8 * e.fin())
-});
-
-const orbExplode = new Effect(45, e => {
-  dlib.splashLineii(e.x, e.y, color[4], color[4], e.fin(), 10 * e.fout(), 6 * e.fout(), e.id, 20, e.finpow() * (8 * 4), e.rotation, 360)
-  dlib.lineCircleii(e.x, e.y, color[4], color[4], e.fin(), (8 * 3) * e.finpow(), (8 * 5) * e.finpow())
-});
-
 //print(boom)
 //[Bullets]
-const trahoTractorBeam = bulletTypes.TractorBeam({
+const trahoTractorBeam = HMBulletTypes.TractorBeam({
   colors: [color[4], Color.white],
   length: 142,
   maxRange: 142,
@@ -119,7 +83,7 @@ const interitusFrag = extend(ArtilleryBulletType, {
   collidesAir: true,
   collides: true,
   collidesTiles: true,
-  despawnEffect: boom,
+  despawnEffect: HMEffects.boom,
   damage: 30,
   splashDamage: 15,
   splashDamageRadius: 3 * 8,
@@ -139,8 +103,8 @@ const interitusCannonBall = extend(ArtilleryBulletType, {
   collidesTiles: true,
   speed: 3.7,
   lifetime: 55,
-  hitEffect: bigBoom,
-  despawnEffect: bigBoom,
+  hitEffect: HMEffects.bigBoom,
+  despawnEffect: HMEffects.bigBoom,
   height: 16,
   width: 16,
   damage: 230,
@@ -161,7 +125,7 @@ const eteriusLaser = extend(LaserBulletType, {
   length: 8 * 40,
   width: 8 * 8,
   lifetime: 65,
-  shootEffect: laserCharge,
+  shootEffect: HMEffects.laserCharge,
   lightningSpacing: 35,
   lightningLength: 5,
   lightningDelay: 1.1,
@@ -208,7 +172,7 @@ const eteriusArtilleryBullet = extend(BasicBulletType, {
   fragCone: 15,
 });
 
-const princepsBullet = bulletTypes.OverSeerBullet({
+const princepsBullet = HMBulletTypes.OverSeerBullet({
   damage: 15,
   speed: 3,
   lifetime: 80,
@@ -216,7 +180,7 @@ const princepsBullet = bulletTypes.OverSeerBullet({
   trailLength: 10
 });
 
-const procuratorBullet = bulletTypes.OverSeerBullet({
+const procuratorBullet = HMBulletTypes.OverSeerBullet({
   damage: 35,
   speed: 4,
   lifetime: 120,
@@ -224,16 +188,16 @@ const procuratorBullet = bulletTypes.OverSeerBullet({
   trailLength: 15,
 });
 
-const inductorOrb = bulletTypes.OrbitBullet({
+const inductorOrb = HMBulletTypes.OrbitBullet({
   damage: 30,
   speed: 2,
   lifetime: 60,
   hitSound: Sounds.plasmaboom,
-  hitEffect: orbExplode,
+  hitEffect: HMEffects.orbExplode,
   orbiter: princepsBullet
 })
 
-const inductorBullet = bulletTypes.OverSeerBullet({
+const inductorBullet = HMBulletTypes.OverSeerBullet({
   damage: 35,
   speed: 4,
   lifetime: 140,
@@ -311,7 +275,7 @@ const machaeraBullet = meleeBullet({
 //print(machaeraBullet)
 
 //[UnitWeapons]
-const trahoTractorWeapon = weapon({
+const trahoTractorWeapon = extend(Weapon, {
   name: heav + "trahoWeapon",
   x: 0,
   y: -5 / 4,
@@ -324,7 +288,7 @@ const trahoTractorWeapon = weapon({
 });
 //print(trahoTractorWeapon)
 
-const trahoSapWeapon = weapon({
+const trahoSapWeapon = extend(Weapon, {
   name: heav + "trahoWeaponII",
   x: 3 / 4,
   y: 0,
@@ -335,7 +299,7 @@ const trahoSapWeapon = weapon({
 });
 //print(trahoSapWeapon)
 
-const spiculumWeapon = weapon({
+const spiculumWeapon = extend(Weapon, {
   name: heav + "spiculumWeapon",
   x: 34 / 4,
   y: 0,
@@ -353,17 +317,17 @@ const interitusWeapStat = {
   shootSound: Sounds.shotgun
 }
 //Bad idea dont copy me
-const interitusSpikeWeaponA = weapon(Object.assign(interitusWeapStat, {
+const interitusSpikeWeaponA = extend(Weapon, defined(interitusWeapStat, {
   x: 49 / 4,
   y: 27 / 4
 }));
-const interitusSpikeWeaponB = weapon(Object.assign(interitusWeapStat, {
+const interitusSpikeWeaponB = extend(Weapon, defined(interitusWeapStat, {
   x: 74 / 4,
   y: -9 / 4,
   reload: 35
 }));
 
-const interitusArtillery = weapon({
+const interitusArtillery = extend(Weapon, {
   name: heav + "interitusArtillery",
   reload: 60 * 4,
   recoil: 4,
@@ -379,14 +343,14 @@ const interitusArtillery = weapon({
 });
 //print(interitusArtillery)
 
-const eteriusLaserWeapon = weapon({
+const eteriusLaserWeapon = extend(Weapon, {
   name: heav + "eteriusLaser",
   x: 0,
   y: -5 / 4,
   mirror: false,
   rotate: true,
   rotateSpeed: 1.5,
-  firstShotDelay: laserCharge.lifetime,
+  firstShotDelay: HMEffects.laserCharge.lifetime,
   recoil: 4,
   bullet: eteriusLaser,
   reload: 60 * 5,
@@ -398,7 +362,7 @@ const eteriusLaserWeapon = weapon({
   chargeSound: Sounds.lasercharge
 })
 
-const eteriusArtillery = weapon({
+const eteriusArtillery = extend(Weapon, {
   name: heav + "eteriusArtillery",
   x: 74 / 4,
   y: -76 / 4,
@@ -408,7 +372,7 @@ const eteriusArtillery = weapon({
   bullet: eteriusArtilleryBullet,
 })
 
-const princepsWeapon = weapon({
+const princepsWeapon = extend(Weapon, {
   name: heav + "princepsWeapon",
  	x: 5,
 	y: 0,
@@ -419,7 +383,7 @@ const princepsWeapon = weapon({
 	bullet: princepsBullet
 });
 
-const procuratorWeapon = weapon({
+const procuratorWeapon = extend(Weapon, {
   name: heav + "procuratorWeapon",
   x: 25 / 4,
   y: 3 / 4,
@@ -430,7 +394,7 @@ const procuratorWeapon = weapon({
   bullet: procuratorBullet,
 });
 
-const inductorShotgun = weapon({
+const inductorShotgun = extend(Weapon, {
   name: heav + "inductorShotgun",
   x: 36 / 4,
   y: 1 / 4,
@@ -443,7 +407,7 @@ const inductorShotgun = weapon({
   bullet: inductorBullet
 });
 
-const inductorArtillery = weapon({
+const inductorArtillery = extend(Weapon, {
   name: heav + "inductorArtillery",
   x: 0,
   y: -21 / 4,
@@ -457,7 +421,7 @@ const inductorArtillery = weapon({
   recoil: 4,
 })
 
-const pugioneWeapon = weapon({
+const pugioneWeapon = extend(Weapon, {
 	name: heav + "pugioneWeapon",
 	reload: 20,
 	x: 5,
@@ -475,7 +439,7 @@ const pugioneWeapon = weapon({
 	bullet: pugioneBullet
 });
 
-const mucroWeapon = weapon({
+const mucroWeapon = extend(Weapon, {
 	name: heav + "mucroWeapon",
 	x: 24 / 4,
 	y: 0,
@@ -497,7 +461,7 @@ const mucroWeapon = weapon({
 });
 //print(mucroWeapon)
 
-const tragulaWeapon = weapon({
+const tragulaWeapon = extend(Weapon, {
 	name: heav + "tragulaWeapon",
 	x: 8,
 	y: 1,
@@ -516,7 +480,7 @@ const tragulaWeapon = weapon({
 });
 //print(tragulaWeapon)
 
-const luciusWeapon = weapon({
+const luciusWeapon = extend(Weapon, {
   name: heav + "luciusWeapon",
   x: 44 / 4,
   y: 1 / 4,
@@ -535,7 +499,7 @@ const luciusWeapon = weapon({
 });
 //print(luciusWeapon)
 
-const machaeraWeapon = weapon({
+const machaeraWeapon = extend(Weapon, {
   name: heav + "machaeraWeapon",
   x: 75 / 4,
   y: -6 / 4,
@@ -558,7 +522,7 @@ const machaeraWeapon = weapon({
 });
 //print(machaeraWeapon)
 
-const miscWeapon = weapon({
+const miscWeapon = extend(Weapon, {
 	name: heav + "earthBend",
 	x: 0,
 	y: 0,
@@ -574,10 +538,10 @@ const miscWeapon = weapon({
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: bulletTypes.EarthBendBullet({
+	bullet: HMBulletTypes.EarthBendBullet({
 	  lifetime: 60,
 	  groundBullet: pugioneBullet,
-	  groundEffect: earthDust,
+	  groundEffect: HMEffects.earthDust,
 	  groundBullets: 6,
 	  groundBulletST: 25,
 	  groundEffectST: 5,
@@ -586,7 +550,7 @@ const miscWeapon = weapon({
 });
 //print(miscWeapon)
 
-const miscWeaponII = weapon({
+const miscWeaponII = extend(Weapon, {
 	name: heav + "earthBendII",
 	x: 0,
 	y: 0,
@@ -602,10 +566,10 @@ const miscWeaponII = weapon({
 	soundPitchMax: 1,
 	rotate: true,
 	rotateSpeed: 60,
-	bullet: bulletTypes.EarthBendBullet({
+	bullet: HMBulletTypes.EarthBendBullet({
 	  lifetime: 60,
 	  groundBullet: mucroBullet,
-	  groundEffect: earthDustII,
+	  groundEffect: HMEffects.earthDustII,
 	  groundBullets: 8,
 	  groundBulletST: 20,
 	  groundEffectST: 5,
@@ -671,55 +635,55 @@ eterius.weapons.add(eteriusLaserWeapon, eteriusArtillery)
 //Overseer
 const princeps = extend(UnitType, "princeps", {});
 princeps.constructor = () => extend(MechUnit, {});
-princeps.defaultController = ai.overSeerAI(GroundAI);
+princeps.defaultController = HMAi.overSeerAI(GroundAI);
 princeps.weapons.add(princepsWeapon);
 //print(princeps)
 
 const procurator = extend(UnitType, "procurator", {});
 procurator.constructor = () => extend(MechUnit, {});
-procurator.defaultController = ai.overSeerAI(GroundAI);
+procurator.defaultController = HMAi.overSeerAI(GroundAI);
 procurator.weapons.add(procuratorWeapon)
 
 const inductor = extend(UnitType, "inductor", {});
 inductor.constructor = () => extend(LegsUnit, {});
-inductor.defaultController = ai.overSeerAI(GroundAI);
+inductor.defaultController = HMAi.overSeerAI(GroundAI);
 inductor.weapons.add(inductorShotgun, inductorArtillery)
 
 //Melee
 const pugione = extend(UnitType, "pugione", {});
 pugione.constructor = () => extend(MechUnit, {});
-pugione.defaultController = ai.meleeAI(2, 10);
+pugione.defaultController = HMAi.meleeAI(2, 10);
 pugione.weapons.add(pugioneWeapon);
 //print(pugione)
 
 const mucro = extend(UnitType, "mucro", {});
 mucro.constructor = () => extend(MechUnit, {});
-mucro.defaultController = ai.meleeAI(3, 15);
+mucro.defaultController = HMAi.meleeAI(3, 15);
 mucro.weapons.add(mucroWeapon);
 //print(mucro)
 
 const tragula = extend(UnitType, "tragula", {});
 tragula.constructor = () => extend(MechUnit, {});
-tragula.defaultController = ai.meleeAI(4, 20);
+tragula.defaultController = HMAi.meleeAI(4, 20);
 tragula.weapons.add(tragulaWeapon);
 //print(tragula)
 
 const lucius = extend(UnitType, "lucius", {});
 lucius.constructor = () => extend(MechUnit, {});
-lucius.defaultController = ai.meleeAI(6, 25);
+lucius.defaultController = HMAi.meleeAI(6, 25);
 lucius.weapons.add(luciusWeapon, miscWeapon);
 //print(lucius)
 
 const machaera = extend(UnitType, "machaera", {});
 machaera.constructor = () => extend(MechUnit, {});
-machaera.defaultController = ai.meleeAI(8, 30);
+machaera.defaultController = HMAi.meleeAI(8, 30);
 machaera.weapons.add(machaeraWeapon, miscWeaponII);
 //print(machaera)
 
 const cunit = name => Vars.content.getByName(ContentType.unit, heav + name);
 
 //Debugging
-//utils.debug("unit.js", [cunit, aranea, traho, spiculum, interitus, pugione, mucro, tragula, lucius, machaera, princeps]);
+//HMUtils.debug("unit.js", [cunit, aranea, traho, spiculum, interitus, pugione, mucro, tragula, lucius, machaera, princeps]);
 
 //export
 module.exports = {

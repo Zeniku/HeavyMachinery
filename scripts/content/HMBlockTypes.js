@@ -1,18 +1,10 @@
-let {utils, drawlib: dlib, effectlib: elib, statLists} = require("heavymachinery/libs/libraries")
-let {defined, clone, radiusEnemies, checkEffect} = utils
-//temp is just a thing so i can copy paste
-function temp(type, name, customStat, build, customBuildStat){
-  customStat = defined({}, customStat)
-  let custom = extend(type, name, customStat)
-  
-  customBuildStat = defined({}, customBuildStat)
-  if(build != Building){
-    custom.buildType = () => extend(build, custom, clone(customBuildStat))
-  }else{
-    custom.buildType = () => extend(build, clone(customBuildStat))
-  }
-  return custom
-}
+let lib = "heavymachinery/libs/",
+con = "heavymachinery/content/",
+HMUtils = require(lib + "HMUtils"),
+HMDraw = require(lib + "HMDraw"),
+HMEffects = require(con + "HMEffects")
+
+let {defined, clone, radiusEnemies, checkEffect} = HMUtils
 
 function customAnimation(type, name, customStat, build, customBuildStat, frames){
   customStat = defined({
@@ -83,7 +75,6 @@ function overSeerTurret(type, name, customStat, build, customBuildStat)
 }
 
 function dRWall(type, name, customStat, build, customBuildStat){
-  
   customStat = defined({
     dRChance: 15,
     dRPercentage: 50,
@@ -182,11 +173,7 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
 			        }
 			      }
 			      if (custom.allyStatus != StatusEffects.none) {
-			        if (custom.enableAFxAura) {
-			          if(custom.statusFxAlly != Fx.none){
-			            custom.statusFxAlly.at(a)
-			          }
-			        }
+			        if (custom.enableAFxAura && custom.statusFxAlly != Fx.none && custom.statusFxAlly) custom.statusFxAlly.at(a)
 			        a.apply(custom.allyStatus, 60)
 			        appliedAlly = true
 			      }
@@ -196,24 +183,16 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
 			  if(this.etimer >= custom.reload * 0.25){
 			    radiusEnemies(this.team, this.x, this.y, custom.range, e => {
 			      e.apply(custom.enemiesStatus, 60);
-			      if(custom.statusFxEnemies != Fx.none){
-			        if(custom.enableEFxAura){
-			          custom.statusFxEnemies.at(e)
-			        }
-			      }
-			      e.damage(custom.damage)
+			      if(custom.statusFxEnemies != Fx.none && custom.enableEFxAura) custom.statusFxEnemies.at(e)
+			      if(!e.isImmune(custom.enimiesStatus)) e.damage(custom.damage)
 			      appliedEnemies = true;
 			    });
 			    this.etimer = 0
 			  }
-			  utils.checkEffect(custom, this, appliedEnemies, custom.enableEFxAura, custom.statusFxEnemies, 5)
-			  utils.checkEffect(custom, this, appliedAlly, custom.enableAFxAura, custom.statusFxAlly, 5)
+			  checkEffect(custom, this, appliedEnemies, custom.enableEFxAura, custom.statusFxEnemies, 5)
+			  checkEffect(custom, this, appliedAlly, custom.enableAFxAura, custom.statusFxAlly, 5)
 			  
-				if(wasHealed){
-				  if(custom.healEffect != Fx.none){
-				    custom.healEffect.at(this.x, this.y)
-				  }
-				}
+				if(wasHealed && custom.healEffect != Fx.none) custom.healEffect.at(this.x, this.y)
 			};
 		},
 		drawSelect(){
@@ -224,8 +203,8 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
 			
 			if(this.consValid()){
 			  Draw.z(Layer.effect - 0.01)
-				dlib.spikeii(this.x, this.y, custom.starColor, 2 * 2.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time);
-				dlib.spikeii(this.x, this.y, Color.white, 2 * 1.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time);
+				HMDraw.spikeii(this.x, this.y, custom.starColor, 2 * 2.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time);
+				HMDraw.spikeii(this.x, this.y, Color.white, 2 * 1.9 + Mathf.absin(Time.time, 5, 1) + Mathf.random(0.1),  2 * Time.time);
 			};
 		},
   }, customBuildStat)
@@ -281,11 +260,9 @@ function tesla(type, name, customStat, build, customBuildStat) {
             u.apply(StatusEffects.disarmed, 10);
             u.apply(StatusEffects.shocked, 15);
             u.damage(custom.damage)
-            if(custom.hitEffect != Fx.none){
-              custom.hitEffect.at(u)
-            }
             let ang = Angles.angle(this.x, this.y, u.x, u.y)
-            elib.fakeLightning.at(this.x, this.y, ang, custom.lightningColor, [Mathf.dst(this.x, this.y, u.x, u.y), 4, this.team])
+            if(custom.hitEffect != Fx.none && custom.hitEffect) custom.hitEffect.at(u)
+            HMEffects.fakeLightning.at(this.x, this.y, ang, custom.lightningColor, [Mathf.dst(this.x, this.y, u.x, u.y), 4, this.team])
           });
           if(Mathf.chance(25)){
             for(let i = 0; i < custom.lightningCount; i++){
@@ -380,9 +357,7 @@ function fractalTurret(type, name, customStat, build, customBuildStat){
       let tp = this.targetPos
       
       tp.set(pos)
-      if(tp.isZero()){
-        tp.set(pos)
-      }
+      if(tp.isZero()) tp.set(pos)
     },
     bullet(type, angle){
       let tp = this.targetPos
