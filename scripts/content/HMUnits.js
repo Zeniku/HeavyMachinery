@@ -2,7 +2,7 @@
 let heav = "heavymachinery-",
 lib = "heavymachinery/libs/",
 con = "heavymachinery/content/",
-ai = require(lib + "HMAi"),
+HMAi = require(lib + "HMAi"),
 HMBulletTypes = require(con + "HMBulletTypes"),
 HMUtils = require(lib + "HMUtils"),
 HMEffects = require(con + "HMEffects")
@@ -514,7 +514,7 @@ const machaeraWeapon = extend(Weapon, {
   soundPitchMax: 1.74,
   rotate: true,
   rotateSpeed: 60,
-  shots: 5,
+  shots: 2,
   bullet: machaeraBullet,
   shotDelay: 5,
 	spacing: 0,

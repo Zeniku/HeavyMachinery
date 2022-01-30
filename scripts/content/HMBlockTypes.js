@@ -184,7 +184,7 @@ function statusEffectProjector(type, name, customStat, build, customBuildStat){
 			    radiusEnemies(this.team, this.x, this.y, custom.range, e => {
 			      e.apply(custom.enemiesStatus, 60);
 			      if(custom.statusFxEnemies != Fx.none && custom.enableEFxAura) custom.statusFxEnemies.at(e)
-			      if(!e.isImmune(custom.enimiesStatus)) e.damage(custom.damage)
+			      if(!e.isImmune(custom.enemiesStatus)) e.damage(custom.damage)
 			      appliedEnemies = true;
 			    });
 			    this.etimer = 0

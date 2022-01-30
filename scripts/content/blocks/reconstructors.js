@@ -1,11 +1,11 @@
 //gets the libs
-const units = require("heavymachinery/units");
-const item = require("heavymachinery/items");
+const HMUnits = require("heavymachinery/content/HMUnits");
+const HMItems = require("heavymachinery/content/HMItems");
 
 //adds unit to specified reconstructor
 const reconAdd = (recon, planArray) => {
 	planArray.forEach(e => {
-	    recon.upgrades.add(e.toArray(UnitType));
+	  recon.upgrades.add(e.toArray(UnitType));
 	});
 };
 
@@ -18,7 +18,7 @@ const plansAdd = (fact, planArray) => {
 
 plansAdd(Blocks.groundFactory, [
   {
-    type: units.pugione,
+    type: HMUnits.pugione,
     buildTime: 25 * 60,
     requirements: ItemStack.with(
       Items.silicon, 100, 
@@ -27,7 +27,7 @@ plansAdd(Blocks.groundFactory, [
     )
   },
   {
-    type: units.princeps,
+    type: HMUnits.princeps,
     buildTime: 20 * 60,
     requirements: ItemStack.with(
       Items.silicon, 80, 
@@ -38,7 +38,7 @@ plansAdd(Blocks.groundFactory, [
 ]);
 plansAdd(Blocks.airFactory, [
   {
-    type: units.aranea,
+    type: HMUnits.aranea,
     buildTime: 15 * 60,
     requirements: ItemStack.with(
       Items.silicon, 25,
@@ -49,49 +49,49 @@ plansAdd(Blocks.airFactory, [
 
 reconAdd(Blocks.additiveReconstructor, [
 	Seq.with(
-		units.pugione, 
-		units.mucro
+		HMUnits.pugione, 
+		HMUnits.mucro
 	),
 	Seq.with(
-		units.aranea,
-		units.traho
+		HMUnits.aranea,
+		HMUnits.traho
 	),
 	Seq.with(
-    units.princeps,
-    units.procurator
+    HMUnits.princeps,
+    HMUnits.procurator
   )
 ]);
 reconAdd(Blocks.multiplicativeReconstructor, [
 	Seq.with(
-		units.mucro,
-		units.tragula
+		HMUnits.mucro,
+		HMUnits.tragula
 	),
 	Seq.with(
-	  units.traho,
-	  units.spiculum
+	  HMUnits.traho,
+	  HMUnits.spiculum
 	),
   Seq.with(
-    units.procurator,
-    units.inductor
+    HMUnits.procurator,
+    HMUnits.inductor
   )
 ]);
 reconAdd(Blocks.exponentialReconstructor, [
   Seq.with(
-    units.tragula,
-    units.lucius
+    HMUnits.tragula,
+    HMUnits.lucius
   ),
   Seq.with(
-    units.spiculum,
-    units.interitus
+    HMUnits.spiculum,
+    HMUnits.interitus
   )
 ]);
 reconAdd(Blocks.tetrativeReconstructor, [
   Seq.with(
-    units.lucius,
-    units.machaera
+    HMUnits.lucius,
+    HMUnits.machaera
   ),
   Seq.with(
-    units.interitus,
-    units.eterius
+    HMUnits.interitus,
+    HMUnits.eterius
   )
 ]);

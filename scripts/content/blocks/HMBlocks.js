@@ -17,7 +17,7 @@ const heavenlySBullet = HMBulletTypes.SwordBullet({
   lifetime: 65,
   pierceCap: 10,
   trailWidth: 4.5,
-  critTrail: critTrail,
+  critTrail: HMEffects.critTrail,
   spawnFx: HMEffects.spawnEffect,
 })
 //Turrets
@@ -50,7 +50,7 @@ const lonsdaleiteWallLarge = HMBlockTypes.DRWall(Wall, "lonsdaleiteWallLarge", {
 
 //Effecs/Misc
 const effect = HMBlockTypes.StatusEffectProjector(Block, "statusEffectProjector", {
-  statusFxEnemies: flameAura,
+  statusFxEnemies: HMEffects.flameAura,
   healEffect: HMEffects.healWave
 }, Building, {})
 effect.consumes.power(500/60);

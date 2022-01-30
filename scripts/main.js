@@ -14,7 +14,7 @@ req(
   //Libs
   ["libs", "HMUtils", "HMDraw", "HMAi", "planetGen", "statLists"],
   //Content
-  ["content", "HMEffects", "HMBulletTypes", "HMBlockTypes", "HMItems", "HMUnits", "HmStatusEffects"],
+  ["content", "HMEffects", "HMBulletTypes", "HMBlockTypes", "HMItems", "HMUnits", "HMStatusEffects"],
   //Blocks
   ["content/blocks", "HMBlocks", "reconstructors"],
   //Campaign

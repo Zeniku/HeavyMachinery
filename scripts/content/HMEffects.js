@@ -1,7 +1,7 @@
 const HMDraw = require("heavymachinery/libs/HMDraw");
 //Ty MeepOfFaith :D go check out his repos at https://github.com/MEEPofFaith
 
-let {splashLineii, splashCircleii, lineCircleii, fillCircle} = HMDraw
+let {splashLineii, splashCircleii, lineCircleii, fillCircle, lineCircle, splashLine} = HMDraw
 
 let color = [Pal.sapBullet, Pal.sapBulletBack, Color.valueOf("b28768ff"), Color.valueOf("8f665bff"), Pal.lancerLaser]
 const fake = new Effect(15, 500, e => {
