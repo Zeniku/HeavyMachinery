@@ -1,4 +1,3 @@
-
 const lonsdaleite = extend(Item, "lonsdaleite", {});
 const ignisium = extend(Item, "ignisium", {});
 

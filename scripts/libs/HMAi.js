@@ -9,13 +9,10 @@ module.exports = {
 		const meleeAIL = prov(() => {
 			let u = extend(GroundAI, {
 				updateTargeting(){
-					let ret = this.retarget();
-					if(ret){
+					if(this.retarget){
 						this.target = this.findTarget(this.unit.x, this.unit.y, 8 * seekRange, this.unit.type.targetAir, this.unit.type.targetGround);
 					}
-					if(this.invalid(this.target)){
-						this.target = null;
-					}
+					if(this.invalid(this.target)) this.target = null;
 				},
 				updateMovement(){
 					let core = this.targetFlag(this.unit.x, this.unit.y, BlockFlag.core, true);

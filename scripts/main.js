@@ -1,26 +1,22 @@
 function req(){
-  let args = arguments
-  for(let i in args){
-    let dir = ""
-    if(args[i][0] != ""){
-      dir = args[i][0] + "/"
-    }
-    for(let j in args[i]){
-      if(args[i][0] != args[i][j]){
-        require("heavymachinery/" + dir + args[i][j])
-        print("heavymachinery/" + dir + args[i][j])
+  for(let i of arguments){
+    const dir = (i[0] != "")? i[0] + "/" : "";
+    i.forEach(e => {
+      if(e != i[0]){
+        print("heavymachinery/" + dir + e)
+        require("heavymachinery/" + dir + e)
       }
-    }
+    })
   }
 }
 
 req(
   //Libs
-  ["libs", "drawlib", "effectlib", "ai", "function", "bulletTypes", "blockTypes", "planetGen", "statLists"],
-  //No Directory
-  ["", "items", "units", "statusEffects"],
-  //Campaign
-  ["campaign", "planets"],
+  ["libs", "HMUtils", "HMDraw", "HMAi", "planetGen", "statLists"],
+  //Content
+  ["content", "HMEffects", "HMBulletTypes", "HMBlockTypes", "HMItems", "HMUnits", "HMStatusEffects"],
   //Blocks
-  ["blocks", "content-blocks-production", "miniCore", "reconstructors", "projectors", "turrets", "walls"]
+  ["content/blocks", "HMBlocks", "reconstructors"],
+  //Campaign
+  ["campaign", "planets"]
 )

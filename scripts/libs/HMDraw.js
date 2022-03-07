@@ -11,7 +11,7 @@ let bases = {
   //Why am i making this
   lineCircle(x, y, thickness, radius){
     Lines.stroke(thickness);
-    Lines.circle(x, y, radius);
+    Lines.circle(x, y, radius)
     Lines.stroke(1);
   },
   //no fillCircle because Why like Why
@@ -65,7 +65,7 @@ function fillPoly(x, y, color, sides, size, rot){
   Fill.poly(x, y, sides, size, rot);
   Draw.color();
 }
-function fillPolyii(x, y, colorFrom, colorTo, inOut, alpha, sides, size, rot){
+function fillPolyii(x, y, colorFrom, colorTo, inOut, sides, size, rot){
   Draw.color(colorFrom, colorTo, inOut);
   Fill.poly(x, y, sides, size, rot);
   Draw.color();
